@@ -1,5 +1,5 @@
 /* Office JavaScript API library */
-/* Version: 16.0.8119.1000 */
+/* Version: 16.0.8307.1000 */
 /*
 	Copyright (c) Microsoft Corporation.  All rights reserved.
 */
@@ -371,6 +371,9 @@ var ScriptLoading;
                         self.flushTelemetryBuffer();
                     };
                     var onLoadCallback = function OSF_OUtil_loadScript$onLoadCallback() {
+                        if (OSF._OfficeAppFactory.getHostInfo().hostType == "onenote" && (typeof OSF.AppTelemetry !== 'undefined') && (typeof OSF.AppTelemetry.enableTelemetry !== 'undefined')) {
+                            OSF.AppTelemetry.enableTelemetry = false;
+                        }
                         logTelemetry(true);
                         loadedScriptEntry.isReady = true;
                         if (loadedScriptEntry.timer != null) {
@@ -458,7 +461,7 @@ var ScriptLoading;
     ScriptLoading.LoadScriptHelper = LoadScriptHelper;
 })(ScriptLoading || (ScriptLoading = {}));
 OSF.ConstantNames = {
-    FileVersion: "16.0.8119.1000",
+    FileVersion: "16.0.8307.1000",
     OfficeJS: "office.js",
     OfficeDebugJS: "office.debug.js",
     DefaultLocale: "en-us",

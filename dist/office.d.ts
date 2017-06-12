@@ -2462,7 +2462,7 @@ declare namespace OfficeExtension {
 
 declare namespace OfficeCore {
     /**
-     * [Api set: Experiment 1.1 (PREVIEW)]
+     * [Api set: Experimentation 1.1 (PREVIEW)]
      */
     class FlightingService extends OfficeExtension.ClientObject {
         getFeature(featureName: string, type: string, defaultValue: number | boolean | string, possibleValues?: Array<number> | Array<string> | Array<boolean> | Array<ScopedValue>): OfficeCore.ABType;
@@ -2479,26 +2479,26 @@ declare namespace OfficeCore {
      *
      * Provides information about the scoped value.
      *
-     * [Api set: Experiment 1.1 (PREVIEW)]
+     * [Api set: Experimentation 1.1 (PREVIEW)]
      */
     interface ScopedValue {
         /**
          *
          * Gets the scope.
          *
-         * [Api set: Experiment 1.1 (PREVIEW)]
+         * [Api set: Experimentation 1.1 (PREVIEW)]
          */
         scope: string;
         /**
          *
          * Gets the value.
          *
-         * [Api set: Experiment 1.1 (PREVIEW)]
+         * [Api set: Experimentation 1.1 (PREVIEW)]
          */
         value: string | number | boolean;
     }
     /**
-     * [Api set: Experiment 1.1 (PREVIEW)]
+     * [Api set: Experimentation 1.1 (PREVIEW)]
      */
     class ABType extends OfficeExtension.ClientObject {
         readonly value: string | number | boolean;
@@ -2511,7 +2511,7 @@ declare namespace OfficeCore {
         };
     }
     /**
-     * [Api set: Experiment 1.1 (PREVIEW)]
+     * [Api set: Experimentation 1.1 (PREVIEW)]
      */
     namespace FeatureType {
         var boolean: string;
@@ -2764,6 +2764,73 @@ declare namespace Excel {
      * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo | Session, objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    var _RedirectV1APIs: boolean;
+    var _V1APIMap: {
+        "GetDataAsync": {
+            call: (ctx: any, callArgs: any) => any;
+            postprocess: (response: any, callArgs: any) => any;
+        };
+        "GetSelectedDataAsync": {
+            call: (ctx: any, callArgs: any) => any;
+            postprocess: (response: any, callArgs: any) => any;
+        };
+        "GoToByIdAsync": {
+            call: (ctx: any, callArgs: any) => any;
+        };
+        "AddColumnsAsync": {
+            call: (ctx: any, callArgs: any) => any;
+        };
+        "AddFromSelectionAsync": {
+            call: (ctx: any, callArgs: any) => any;
+            postprocess: (response: any) => any;
+        };
+        "AddFromNamedItemAsync": {
+            call: (ctx: any, callArgs: any) => any;
+            postprocess: (response: any) => any;
+        };
+        "AddFromPromptAsync": {
+            call: (ctx: any, callArgs: any) => any;
+            postprocess: (response: any) => any;
+        };
+        "AddRowsAsync": {
+            call: (ctx: any, callArgs: any) => any;
+        };
+        "GetByIdAsync": {
+            call: (ctx: any, callArgs: any) => any;
+            postprocess: (response: any) => any;
+        };
+        "ReleaseByIdAsync": {
+            call: (ctx: any, callArgs: any) => any;
+        };
+        "GetAllAsync": {
+            call: (ctx: any) => any;
+            postprocess: (response: any) => any;
+        };
+        "DeleteAllDataValuesAsync": {
+            call: (ctx: any, callArgs: any) => any;
+        };
+        "SetSelectedDataAsync": {
+            preprocess: (callArgs: any) => any;
+            call: (ctx: any, callArgs: any) => any;
+        };
+        "SetDataAsync": {
+            preprocess: (callArgs: any) => any;
+            call: (ctx: any, callArgs: any) => any;
+        };
+        "SetFormatsAsync": {
+            preprocess: (callArgs: any) => any;
+            call: (ctx: any, callArgs: any) => any;
+        };
+        "SetTableOptionsAsync": {
+            call: (ctx: any, callArgs: any) => any;
+        };
+        "ClearFormatsAsync": {
+            call: (ctx: any, callArgs: any) => any;
+        };
+        "GetFilePropertiesAsync": {
+            call: (ctx: any, callArgs: any) => any;
+        };
+    };
     /**
      *
      * Provides information about the binding that raised the SelectionChanged event.
@@ -2927,6 +2994,13 @@ declare namespace Excel {
         readonly functions: Excel.Functions;
         /**
          *
+         * For internal use only.
+         *
+         * [Api set: ExcelApi 1.6 (PREVIEW)]
+         */
+        readonly internalTest: Excel.InternalTest;
+        /**
+         *
          * Represents a collection of workbook scoped named items (named ranges and constants). Read-only.
          *
          * [Api set: ExcelApi 1.1]
@@ -2960,6 +3034,14 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         readonly worksheets: Excel.WorksheetCollection;
+        readonly pivotCaches: Excel.PivotCacheCollection;
+        /**
+         *
+         * Gets the workbook name.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        readonly name: string;
         /**
          *
          * Gets the currently selected range from the workbook.
@@ -2978,7 +3060,9 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.2]
          */
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.SelectionChangedEventArgs>;
-        toJSON(): {};
+        toJSON(): {
+            "name": string;
+        };
     }
     /**
      *
@@ -2994,6 +3078,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         readonly charts: Excel.ChartCollection;
+        /**
+         *
+         * Gets an object that can be used to manipulate frozen panes on the worksheet
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        readonly freezePanes: Excel.WorksheetFreezePanes;
         /**
          *
          * Collection of names scoped to the current worksheet. Read-only.
@@ -3024,6 +3115,22 @@ declare namespace Excel {
         readonly tables: Excel.TableCollection;
         /**
          *
+         * Gets or sets the worksheet's gridlines flag.
+            This flag determines whether gridlines are visible to the user.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        gridlines: boolean;
+        /**
+         *
+         * Gets or sets the worksheet's headings flag.
+            This flag determines whether headings are visible to the user.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        headings: boolean;
+        /**
+         *
          * Returns a value that uniquely identifies the worksheet in a given workbook. The value of the identifier remains the same even when the worksheet is renamed or moved. Read-only.
          *
          * [Api set: ExcelApi 1.1]
@@ -3043,6 +3150,15 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         position: number;
+        /**
+         *
+         * Gets or sets the worksheet tab color.
+            When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
+            When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        tabColor: string;
         /**
          *
          * The Visibility of the worksheet.
@@ -3137,6 +3253,18 @@ declare namespace Excel {
         getRange(address?: string): Excel.Range;
         /**
          *
+         * Gets the range object beginning at a particular row index and column index, and spanning a certain number of rows and columns.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         *
+         * @param startRow Start row (zero-indexed).
+         * @param startColumn Start column (zero-indexed).
+         * @param rowCount Number of rows to include in the range.
+         * @param columnCount Number of columns to include in the range.
+         */
+        getRangeByIndexes(startRow: number, startColumn: number, rowCount: number, columnCount: number): Excel.Range;
+        /**
+         *
          * The used range is the smallest range that encompasses any cells that have a value or formatting assigned to them. If the entire worksheet is blank, this function will return the top left cell (i.e.,: it will *not* throw an error).
          *
          * [Api set: ExcelApi 1.1]
@@ -3158,10 +3286,13 @@ declare namespace Excel {
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Worksheet;
         toJSON(): {
+            "gridlines": boolean;
+            "headings": boolean;
             "id": string;
             "name": string;
             "position": number;
             "protection": WorksheetProtection;
+            "tabColor": string;
             "visibility": string;
         };
     }
@@ -3369,6 +3500,64 @@ declare namespace Excel {
         allowSort?: boolean;
     }
     /**
+     * [Api set: ExcelApi 1.7 (PREVIEW)]
+     */
+    class WorksheetFreezePanes extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Sets the frozen cells in the active worksheet view.
+            The range provided corresponds to cells that will be frozen in the top- and left-most pane.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         *
+         * @param frozenRange A range that represents the cells to be frozen, or null to remove all frozen panes.
+         */
+        freezeAt(frozenRange: Excel.Range | string): void;
+        /**
+         *
+         * Freeze the first column(s) of the worksheet in place.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         *
+         * @param count Optional number of columns to freeze, or zero to unfreeze all columns
+         */
+        freezeColumns(count?: number): void;
+        /**
+         *
+         * Freeze the top row(s) of the worksheet in place.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         *
+         * @param count Optional number of rows to freeze, or zero to unfreeze all rows
+         */
+        freezeRows(count?: number): void;
+        /**
+         *
+         * Gets a range that describes the frozen cells in the active worksheet view.
+            The frozen range is corresponds to cells that are frozen in the top- and left-most pane.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        getLocation(): Excel.Range;
+        /**
+         *
+         * Gets a range that describes the frozen cells in the active worksheet view.
+            The frozen range is corresponds to cells that are frozen in the top- and left-most pane.
+            If there is no frozen pane, returns a null object.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        getLocationOrNullObject(): Excel.Range;
+        /**
+         *
+         * Removes all frozen panes in the worksheet.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        unfreeze(): void;
+        toJSON(): {};
+    }
+    /**
      *
      * Range represents a set of one or more contiguous cells such as a cell, a row, a column, block of cells, etc.
      *
@@ -3475,6 +3664,13 @@ declare namespace Excel {
         readonly hidden: boolean;
         /**
          *
+         * Represents the hyperlink set for the current range.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        hyperlink: Excel.RangeHyperlink;
+        /**
+         *
          * Represents Excel's number format code for the given cell.
          *
          * [Api set: ExcelApi 1.1]
@@ -3522,6 +3718,20 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         values: Array<Array<any>>;
+        /**
+         *
+         * Represents if the current range is an entire column.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        readonly isEntireColumn: boolean;
+        /**
+         *
+         * Represents if the current range is an entire row.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        readonly isEntireRow: boolean;
         /** Sets multiple properties on the object at the same time, based on JSON input. */
         set(properties: Interfaces.RangeUpdateData, options?: {
             /**
@@ -3556,6 +3766,16 @@ declare namespace Excel {
          * @param shift Specifies which way to shift the cells. See Excel.DeleteShiftDirection for details.
          */
         delete(shift: string): void;
+        /**
+         *
+         * Gets a Range object with the same top-left cell as the current Range object, but with the specified numbers of rows and columns.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         *
+         * @param numRows The number of rows of the new range size.
+         * @param numColumns The number of columns of the new range size.
+         */
+        getAbsoluteResizedRange(numRows: number, numColumns: number): Excel.Range;
         /**
          *
          * Gets the smallest range object that encompasses the given ranges. For example, the GetBoundingRect of "B2:C5" and "D10:E15" is "B2:E16".
@@ -3783,6 +4003,9 @@ declare namespace Excel {
             "formulasLocal": any[][];
             "formulasR1C1": any[][];
             "hidden": boolean;
+            "hyperlink": RangeHyperlink;
+            "isEntireColumn": boolean;
+            "isEntireRow": boolean;
             "numberFormat": any[][];
             "rowCount": number;
             "rowHidden": boolean;
@@ -3800,6 +4023,42 @@ declare namespace Excel {
      */
     interface RangeReference {
         address: string;
+    }
+    /**
+     *
+     * Represents the necessary strings to get/set a hyperlink (XHL) object.
+     *
+     * [Api set: ExcelApi 1.7 (PREVIEW)]
+     */
+    interface RangeHyperlink {
+        /**
+         *
+         * Represents the url target for the hyperlink.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        address?: string;
+        /**
+         *
+         * Represents the document reference target for the hyperlink.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        documentReference?: string;
+        /**
+         *
+         * Represents the string displayed when hovering over the hyperlink.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        screenTip?: string;
+        /**
+         *
+         * Represents the string that is displayed in the top left most cell in the range.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        textToDisplay?: string;
     }
     /**
      *
@@ -4136,6 +4395,13 @@ declare namespace Excel {
     class NamedItem extends OfficeExtension.ClientObject {
         /**
          *
+         * Returns an object containing values and types of the named item.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        readonly arrayValues: Excel.NamedItemArrayValues;
+        /**
+         *
          * Returns the worksheet on which the named item is scoped to. Throws an error if the items is scoped to the workbook instead.
          *
          * [Api set: ExcelApi 1.4]
@@ -4155,6 +4421,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.4]
          */
         comment: string;
+        /**
+         *
+         * Returns the formula of the named item.  Formula always starts with a '=' sign.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        readonly formula: any;
         /**
          *
          * The name of the object. Read-only.
@@ -4226,11 +4499,42 @@ declare namespace Excel {
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.NamedItem;
         toJSON(): {
             "comment": string;
+            "formula": any;
             "name": string;
             "scope": string;
             "type": string;
             "value": any;
             "visible": boolean;
+        };
+    }
+    /**
+     *
+     * Represents an object containing values and types of a named item.
+     *
+     * [Api set: ExcelApi 1.7 (PREVIEW)]
+     */
+    class NamedItemArrayValues extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents the types for each item in the named item array
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        readonly types: Array<Array<string>>;
+        /**
+         *
+         * Represents the values of each item in the named item array.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        readonly values: Array<Array<any>>;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.NamedItemArrayValues;
+        toJSON(): {
+            "types": string[][];
+            "values": any[][];
         };
     }
     /**
@@ -4997,6 +5301,15 @@ declare namespace Excel {
         rowHeight: number;
         /**
          *
+         * Gets or sets the text orientation of all the cells within the range.
+            The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+            If the orientation within a range are not uniform, then null will be returned.
+         *
+         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         */
+        textOrientation: number;
+        /**
+         *
          * Represents the vertical alignment for the specified object. See Excel.VerticalAlignment for details.
          *
          * [Api set: ExcelApi 1.1]
@@ -5043,6 +5356,7 @@ declare namespace Excel {
             "horizontalAlignment": string;
             "protection": FormatProtection;
             "rowHeight": number;
+            "textOrientation": number;
             "verticalAlignment": string;
             "wrapText": boolean;
         };
@@ -7143,6 +7457,7 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.3]
          */
         refreshAll(): void;
+        add(name: string, address: Excel.Range, pivotCache: Excel.PivotCache): Excel.PivotTable;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -7163,6 +7478,10 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.3]
          */
         readonly worksheet: Excel.Worksheet;
+        readonly calculatedFields: Excel.CalculatedFieldCollection;
+        readonly dataBodyRange: Excel.Range;
+        readonly dataLabelRange: Excel.Range;
+        readonly pivotFields: Excel.PivotFieldCollection;
         /**
          *
          * Id of the PivotTable.
@@ -7177,6 +7496,53 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.3]
          */
         name: string;
+        allowMultipleFilters: boolean;
+        alternativeText: string;
+        columnGrandTotals: boolean;
+        compactLayoutColumnHeader: string;
+        compactLayoutRowHeader: string;
+        compactRowIndent: number;
+        displayContextTooltips: boolean;
+        displayEmptyColumn: boolean;
+        displayEmptyRow: boolean;
+        displayErrorString: boolean;
+        displayFieldCaptions: boolean;
+        displayNullString: boolean;
+        enableDrilldown: boolean;
+        enableFieldDialog: boolean;
+        enableFieldList: boolean;
+        enableWizard: boolean;
+        errorString: string;
+        fieldListSortAscending: boolean;
+        grandTotalName: string;
+        hasAutoFormat: boolean;
+        readonly hidden: boolean;
+        nullString: string;
+        preserveFormatting: boolean;
+        printDrillIndicators: boolean;
+        printTitles: boolean;
+        readonly refreshDate: Date;
+        readonly refreshName: string;
+        repeatItemsOnEachPrintedPage: boolean;
+        rowGrandTotals: boolean;
+        saveData: boolean;
+        showDrillIndicators: boolean;
+        showPageMultipleItemLabel: boolean;
+        showTableStyleColumnHeaders: boolean;
+        showTableStyleColumnStripes: boolean;
+        showTableStyleLastColumn: boolean;
+        showTableStyleRowHeaders: boolean;
+        showTableStyleRowStripes: boolean;
+        showValuesRow: boolean;
+        smallGrid: boolean;
+        sortUsingCustomLists: boolean;
+        subtotalHiddenPageItems: boolean;
+        summary: string;
+        tag: string;
+        totalsAnnotation: boolean;
+        vacatedStyle: string;
+        value: string;
+        readonly version: string;
         /** Sets multiple properties on the object at the same time, based on JSON input. */
         set(properties: Interfaces.PivotTableUpdateData, options?: {
             /**
@@ -7193,13 +7559,73 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.3]
          */
         refresh(): void;
+        addChart(chartType: string, seriesBy?: string): Excel.Chart;
+        addDataField(field: Excel.PivotField, caption: string, func: string): Excel.PivotField;
+        clearTable(): void;
+        getColumnField(Index: number): Excel.PivotField;
+        getColumnRange(): Excel.Range;
+        getDataField(Index: number): Excel.PivotField;
+        getEntireRange(): Excel.Range;
+        getHiddenField(Index: number): Excel.PivotField;
+        getRowField(Index: number): Excel.PivotField;
+        getRowRange(): Excel.Range;
+        listFormulas(): void;
+        refreshTable(): OfficeExtension.ClientResult<boolean>;
+        update(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotTable;
         toJSON(): {
+            "allowMultipleFilters": boolean;
+            "alternativeText": string;
+            "columnGrandTotals": boolean;
+            "compactLayoutColumnHeader": string;
+            "compactLayoutRowHeader": string;
+            "compactRowIndent": number;
+            "displayContextTooltips": boolean;
+            "displayEmptyColumn": boolean;
+            "displayEmptyRow": boolean;
+            "displayErrorString": boolean;
+            "displayFieldCaptions": boolean;
+            "displayNullString": boolean;
+            "enableDrilldown": boolean;
+            "enableFieldDialog": boolean;
+            "enableFieldList": boolean;
+            "enableWizard": boolean;
+            "errorString": string;
+            "fieldListSortAscending": boolean;
+            "grandTotalName": string;
+            "hasAutoFormat": boolean;
+            "hidden": boolean;
             "id": string;
             "name": string;
+            "nullString": string;
+            "preserveFormatting": boolean;
+            "printDrillIndicators": boolean;
+            "printTitles": boolean;
+            "refreshDate": Date;
+            "refreshName": string;
+            "repeatItemsOnEachPrintedPage": boolean;
+            "rowGrandTotals": boolean;
+            "saveData": boolean;
+            "showDrillIndicators": boolean;
+            "showPageMultipleItemLabel": boolean;
+            "showTableStyleColumnHeaders": boolean;
+            "showTableStyleColumnStripes": boolean;
+            "showTableStyleLastColumn": boolean;
+            "showTableStyleRowHeaders": boolean;
+            "showTableStyleRowStripes": boolean;
+            "showValuesRow": boolean;
+            "smallGrid": boolean;
+            "sortUsingCustomLists": boolean;
+            "subtotalHiddenPageItems": boolean;
+            "summary": string;
+            "tag": string;
+            "totalsAnnotation": boolean;
+            "vacatedStyle": string;
+            "value": string;
+            "version": string;
         };
     }
     /**
@@ -8465,6 +8891,50 @@ declare namespace Excel {
         };
     }
     /**
+     * [Api set: ExcelApi 1.8 (PREVIEW)]
+     */
+    interface InternalTestEventArgs {
+        prop1: number;
+        worksheet: Excel.Worksheet;
+    }
+    /**
+     *
+     * For internal use only.
+     *
+     * [Api set: ExcelApi 1.6 (PREVIEW)]
+     */
+    class InternalTest extends OfficeExtension.ClientObject {
+        /**
+         *
+         * For internal use only.
+         *
+         * [Api set: ExcelApi 1.6 (PREVIEW)]
+         */
+        delay(seconds: number): OfficeExtension.ClientResult<string>;
+        /**
+         *
+         * For internal use only.
+         *
+         * [Api set: ExcelApi 1.8 (PREVIEW)]
+         */
+        triggerMessage(messageCategory: Excel.MessageCategory, messageType: Excel.MessageType, targetId: string, message: any): void;
+        /**
+         *
+         * For internal use only.
+         *
+         * [Api set: ExcelApi 1.8 (PREVIEW)]
+         */
+        triggerTestEvent(prop1: number, worksheet: Excel.Worksheet): void;
+        /**
+         *
+         * For internal use only.
+         *
+         * [Api set: ExcelApi 1.8 (PREVIEW)]
+         */
+        readonly onTestEvent: OfficeExtension.EventHandlers<Excel.InternalTestEventArgs>;
+        toJSON(): {};
+    }
+    /**
      * [Api set: ExcelApi 1.1]
      */
     namespace BindingType {
@@ -9105,6 +9575,21 @@ declare namespace Excel {
         var bottom: string;
         var justify: string;
         var distributed: string;
+    }
+    /**
+     * [Api set: ExcelApi 1.8 (PREVIEW)]
+     */
+    const enum MessageCategory {
+        none = 0,
+        customFunction = 1,
+        event = 65536,
+    }
+    /**
+     * [Api set: ExcelApi 1.8 (PREVIEW)]
+     */
+    const enum MessageType {
+        none = 0,
+        testEvent = 1,
     }
     /**
      *
@@ -12881,6 +13366,289 @@ declare namespace Excel {
         z_Test(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, sigma?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         toJSON(): {};
     }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    interface Subtotals {
+        automatic?: boolean;
+        average?: boolean;
+        count?: boolean;
+        countNumbers?: boolean;
+        max?: boolean;
+        min?: boolean;
+        product?: boolean;
+        standardDeviation?: boolean;
+        standardDeviationP?: boolean;
+        sum?: boolean;
+        variation?: boolean;
+        variationP?: boolean;
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    class CalculatedFieldCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Excel.PivotField>;
+        add(Name: string, Formula: string, UseStandardFormula?: boolean): Excel.PivotField;
+        getCount(): OfficeExtension.ClientResult<number>;
+        getItem(nameOrIndex: any): Excel.PivotField;
+        getItemAt(index: number): Excel.PivotField;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.CalculatedFieldCollection;
+        toJSON(): {};
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    class PivotCache extends OfficeExtension.ClientObject {
+        readonly id: number;
+        readonly index: number;
+        readonly version: string;
+        refresh(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotCache;
+        toJSON(): {
+            "id": number;
+            "index": number;
+            "version": string;
+        };
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    class PivotCacheCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Excel.PivotCache>;
+        add(sourceType: string, address: Excel.Range): Excel.PivotCache;
+        getCount(): OfficeExtension.ClientResult<number>;
+        getItem(index: number): Excel.PivotCache;
+        getItemAt(index: number): Excel.PivotCache;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotCacheCollection;
+        toJSON(): {};
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    class PivotField extends OfficeExtension.ClientObject {
+        currentPage: Excel.PivotItem;
+        readonly hiddenItems: Excel.PivotItemCollection;
+        readonly pivotItems: Excel.PivotItemCollection;
+        readonly visiblePivotItems: Excel.PivotItemCollection;
+        aggregationFunction: string;
+        readonly allItemsVisible: boolean;
+        readonly autoSortField: string;
+        readonly autoSortOrder: string;
+        readonly calculated: boolean;
+        calculation: string;
+        caption: string;
+        readonly dataType: string;
+        drilledDown: boolean;
+        enableMultiplePageItems: boolean;
+        formula: string;
+        name: string;
+        numberFormat: string;
+        orientation: string;
+        position: number;
+        showDetail: boolean;
+        readonly sourceName: string;
+        subtotals: Excel.Subtotals;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.PivotFieldUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: PivotField): void;
+        autoGroup(): void;
+        autoSort(sortOrder: string, Field: string): void;
+        clearAllFilters(): void;
+        getDataRange(): Excel.Range;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotField;
+        toJSON(): {
+            "aggregationFunction": string;
+            "allItemsVisible": boolean;
+            "autoSortField": string;
+            "autoSortOrder": string;
+            "calculated": boolean;
+            "calculation": string;
+            "caption": string;
+            "dataType": string;
+            "drilledDown": boolean;
+            "enableMultiplePageItems": boolean;
+            "formula": string;
+            "name": string;
+            "numberFormat": string;
+            "orientation": string;
+            "position": number;
+            "showDetail": boolean;
+            "sourceName": string;
+            "subtotals": Subtotals;
+        };
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    class PivotFieldCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Excel.PivotField>;
+        getCount(): OfficeExtension.ClientResult<number>;
+        getItem(nameOrIndex: any): Excel.PivotField;
+        getItemAt(index: number): Excel.PivotField;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotFieldCollection;
+        toJSON(): {};
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    class PivotItem extends OfficeExtension.ClientObject {
+        readonly pivotField: Excel.PivotField;
+        readonly calculated: boolean;
+        drilledDown: boolean;
+        name: string;
+        position: number;
+        readonly recordCount: number;
+        showDetail: boolean;
+        readonly sourceName: string;
+        visible: boolean;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.PivotItemUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: PivotItem): void;
+        getDataRange(): Excel.Range;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotItem;
+        toJSON(): {
+            "calculated": boolean;
+            "drilledDown": boolean;
+            "name": string;
+            "position": number;
+            "recordCount": number;
+            "showDetail": boolean;
+            "sourceName": string;
+            "visible": boolean;
+        };
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    class PivotItemCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Excel.PivotItem>;
+        getCount(): OfficeExtension.ClientResult<number>;
+        getItem(nameOrIndex: any): Excel.PivotItem;
+        getItemAt(index: number): Excel.PivotItem;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotItemCollection;
+        toJSON(): {};
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    namespace ConsolidationFunction {
+        var varP: string;
+        var _Var: string;
+        var sum: string;
+        var stDevP: string;
+        var stDev: string;
+        var product: string;
+        var min: string;
+        var max: string;
+        var countNums: string;
+        var count: string;
+        var average: string;
+        var distinctCount: string;
+        var unknown: string;
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    namespace PivotFieldCalculation {
+        var noAdditionalCalculation: string;
+        var differenceFrom: string;
+        var percentOf: string;
+        var percentDifferenceFrom: string;
+        var runningTotal: string;
+        var percentOfRow: string;
+        var percentOfColumn: string;
+        var percentOfTotal: string;
+        var index: string;
+        var percentOfParentRow: string;
+        var percentOfParentColumn: string;
+        var percentOfParent: string;
+        var percentRunningTotal: string;
+        var rankAscending: string;
+        var rankDecending: string;
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    namespace PivotFieldDataType {
+        var text: string;
+        var number: string;
+        var date: string;
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    namespace PivotFieldOrientation {
+        var hidden: string;
+        var rowField: string;
+        var columnField: string;
+        var pageField: string;
+        var dataField: string;
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    namespace PivotTableSourceType {
+        var database: string;
+        var external: string;
+        var consolidation: string;
+        var scenario: string;
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    namespace PivotTableVersion {
+        var pivotTableVersionCurrent: string;
+        var pivotTableVersion2000: string;
+        var pivotTableVersion10: string;
+        var pivotTableVersion11: string;
+        var pivotTableVersion12: string;
+        var pivotTableVersion14: string;
+        var pivotTableVersion15: string;
+    }
+    /**
+     * [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]
+     */
+    namespace SortOrder {
+        var ascending: string;
+        var descending: string;
+    }
     namespace ErrorCodes {
         var accessDenied: string;
         var apiNotFound: string;
@@ -12902,6 +13670,22 @@ declare namespace Excel {
         interface WorksheetUpdateData {
             /**
              *
+             * Gets or sets the worksheet's gridlines flag.
+            This flag determines whether gridlines are visible to the user.
+             *
+             * [Api set: ExcelApi 1.7 (PREVIEW)]
+             */
+            gridlines?: boolean;
+            /**
+             *
+             * Gets or sets the worksheet's headings flag.
+            This flag determines whether headings are visible to the user.
+             *
+             * [Api set: ExcelApi 1.7 (PREVIEW)]
+             */
+            headings?: boolean;
+            /**
+             *
              * The display name of the worksheet.
              *
              * [Api set: ExcelApi 1.1]
@@ -12914,6 +13698,15 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             position?: number;
+            /**
+             *
+             * Gets or sets the worksheet tab color.
+            When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
+            When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
+             *
+             * [Api set: ExcelApi 1.7 (PREVIEW)]
+             */
+            tabColor?: string;
             /**
              *
              * The Visibility of the worksheet.
@@ -12959,6 +13752,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.2]
              */
             formulasR1C1?: Array<Array<any>>;
+            /**
+             *
+             * Represents the hyperlink set for the current range.
+             *
+             * [Api set: ExcelApi 1.7 (PREVIEW)]
+             */
+            hyperlink?: Excel.RangeHyperlink;
             /**
              *
              * Represents Excel's number format code for the given cell.
@@ -13183,6 +13983,15 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.2]
              */
             rowHeight?: number;
+            /**
+             *
+             * Gets or sets the text orientation of all the cells within the range.
+            The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+            If the orientation within a range are not uniform, then null will be returned.
+             *
+             * [Api set: ExcelApi 1.7 (PREVIEW)]
+             */
+            textOrientation?: number;
             /**
              *
              * Represents the vertical alignment for the specified object. See Excel.VerticalAlignment for details.
@@ -13787,6 +14596,49 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.3]
              */
             name?: string;
+            allowMultipleFilters?: boolean;
+            alternativeText?: string;
+            columnGrandTotals?: boolean;
+            compactLayoutColumnHeader?: string;
+            compactLayoutRowHeader?: string;
+            compactRowIndent?: number;
+            displayContextTooltips?: boolean;
+            displayEmptyColumn?: boolean;
+            displayEmptyRow?: boolean;
+            displayErrorString?: boolean;
+            displayFieldCaptions?: boolean;
+            displayNullString?: boolean;
+            enableDrilldown?: boolean;
+            enableFieldDialog?: boolean;
+            enableFieldList?: boolean;
+            enableWizard?: boolean;
+            errorString?: string;
+            fieldListSortAscending?: boolean;
+            grandTotalName?: string;
+            hasAutoFormat?: boolean;
+            nullString?: string;
+            preserveFormatting?: boolean;
+            printDrillIndicators?: boolean;
+            printTitles?: boolean;
+            repeatItemsOnEachPrintedPage?: boolean;
+            rowGrandTotals?: boolean;
+            saveData?: boolean;
+            showDrillIndicators?: boolean;
+            showPageMultipleItemLabel?: boolean;
+            showTableStyleColumnHeaders?: boolean;
+            showTableStyleColumnStripes?: boolean;
+            showTableStyleLastColumn?: boolean;
+            showTableStyleRowHeaders?: boolean;
+            showTableStyleRowStripes?: boolean;
+            showValuesRow?: boolean;
+            smallGrid?: boolean;
+            sortUsingCustomLists?: boolean;
+            subtotalHiddenPageItems?: boolean;
+            summary?: string;
+            tag?: string;
+            totalsAnnotation?: boolean;
+            vacatedStyle?: string;
+            value?: string;
         }
         /** An interface for updating data on the ConditionalFormat object, for use in "conditionalFormat.set({ ... })". */
         interface ConditionalFormatUpdateData {
@@ -14269,6 +15121,29 @@ declare namespace Excel {
              */
             style?: string;
         }
+        /** An interface for updating data on the PivotField object, for use in "pivotField.set({ ... })". */
+        interface PivotFieldUpdateData {
+            aggregationFunction?: string;
+            calculation?: string;
+            caption?: string;
+            drilledDown?: boolean;
+            enableMultiplePageItems?: boolean;
+            formula?: string;
+            name?: string;
+            numberFormat?: string;
+            orientation?: string;
+            position?: number;
+            showDetail?: boolean;
+            subtotals?: Excel.Subtotals;
+        }
+        /** An interface for updating data on the PivotItem object, for use in "pivotItem.set({ ... })". */
+        interface PivotItemUpdateData {
+            drilledDown?: boolean;
+            name?: string;
+            position?: number;
+            showDetail?: boolean;
+            visible?: boolean;
+        }
     }
 }
 
@@ -14292,6 +15167,28 @@ declare namespace Excel {
 declare namespace Word {
     /**
      *
+     * The Application object.
+     *
+     * [Api set: WordApi 1.4 (PREVIEW)]
+     */
+    class Application extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Creates a new document by using a base64 encoded .docx file.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param base64File Optional. The base64 encoded .docx file. The default value is null.
+         */
+        createDocument(base64File?: string): Word.Document;
+        /**
+         * Create a new instance of Word.Application object
+         */
+        static newObject(context: OfficeExtension.ClientRequestContext): Word.Application;
+        toJSON(): {};
+    }
+    /**
+     *
      * Represents the body of a document or a section.
      *
      * [Api set: WordApi 1.1]
@@ -14303,84 +15200,84 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          */
-        contentControls: Word.ContentControlCollection;
+        readonly contentControls: Word.ContentControlCollection;
         /**
          *
          * Gets the text format of the body. Use this to get and set font name, size, color and other properties. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        font: Word.Font;
+        readonly font: Word.Font;
         /**
          *
          * Gets the collection of inlinePicture objects in the body. The collection does not include floating images. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        inlinePictures: Word.InlinePictureCollection;
+        readonly inlinePictures: Word.InlinePictureCollection;
         /**
          *
          * Gets the collection of list objects in the body. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        lists: Word.ListCollection;
+        readonly lists: Word.ListCollection;
         /**
          *
          * Gets the collection of paragraph objects in the body. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        paragraphs: Word.ParagraphCollection;
+        readonly paragraphs: Word.ParagraphCollection;
         /**
          *
          * Gets the parent body of the body. For example, a table cell body's parent body could be a header. Throws if there isn't a parent body. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentBody: Word.Body;
+        readonly parentBody: Word.Body;
         /**
          *
          * Gets the parent body of the body. For example, a table cell body's parent body could be a header. Returns a null object if there isn't a parent body. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentBodyOrNullObject: Word.Body;
+        readonly parentBodyOrNullObject: Word.Body;
         /**
          *
          * Gets the content control that contains the body. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        parentContentControl: Word.ContentControl;
+        readonly parentContentControl: Word.ContentControl;
         /**
          *
          * Gets the content control that contains the body. Returns a null object if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentContentControlOrNullObject: Word.ContentControl;
+        readonly parentContentControlOrNullObject: Word.ContentControl;
         /**
          *
          * Gets the parent section of the body. Throws if there isn't a parent section. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentSection: Word.Section;
+        readonly parentSection: Word.Section;
         /**
          *
          * Gets the parent section of the body. Returns a null object if there isn't a parent section. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentSectionOrNullObject: Word.Section;
+        readonly parentSectionOrNullObject: Word.Section;
         /**
          *
          * Gets the collection of table objects in the body. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        tables: Word.TableCollection;
+        readonly tables: Word.TableCollection;
         /**
          *
          * Gets or sets the style name for the body. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
@@ -14401,14 +15298,14 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          */
-        text: string;
+        readonly text: string;
         /**
          *
          * Gets the type of the body. The type can be 'MainDoc', 'Section', 'Header', 'Footer', or 'TableCell'. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        type: string;
+        readonly type: string;
         /** Sets multiple properties on the object at the same time, based on JSON input. */
         set(properties: Interfaces.BodyUpdateData, options?: {
             /**
@@ -14597,91 +15494,91 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          */
-        contentControls: Word.ContentControlCollection;
+        readonly contentControls: Word.ContentControlCollection;
         /**
          *
          * Gets the text format of the content control. Use this to get and set font name, size, color, and other properties. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        font: Word.Font;
+        readonly font: Word.Font;
         /**
          *
          * Gets the collection of inlinePicture objects in the content control. The collection does not include floating images. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        inlinePictures: Word.InlinePictureCollection;
+        readonly inlinePictures: Word.InlinePictureCollection;
         /**
          *
          * Gets the collection of list objects in the content control. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        lists: Word.ListCollection;
+        readonly lists: Word.ListCollection;
         /**
          *
          * Get the collection of paragraph objects in the content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        paragraphs: Word.ParagraphCollection;
+        readonly paragraphs: Word.ParagraphCollection;
         /**
          *
          * Gets the parent body of the content control. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentBody: Word.Body;
+        readonly parentBody: Word.Body;
         /**
          *
          * Gets the content control that contains the content control. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        parentContentControl: Word.ContentControl;
+        readonly parentContentControl: Word.ContentControl;
         /**
          *
          * Gets the content control that contains the content control. Returns a null object if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentContentControlOrNullObject: Word.ContentControl;
+        readonly parentContentControlOrNullObject: Word.ContentControl;
         /**
          *
          * Gets the table that contains the content control. Throws if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTable: Word.Table;
+        readonly parentTable: Word.Table;
         /**
          *
          * Gets the table cell that contains the content control. Throws if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableCell: Word.TableCell;
+        readonly parentTableCell: Word.TableCell;
         /**
          *
          * Gets the table cell that contains the content control. Returns a null object if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableCellOrNullObject: Word.TableCell;
+        readonly parentTableCellOrNullObject: Word.TableCell;
         /**
          *
          * Gets the table that contains the content control. Returns a null object if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableOrNullObject: Word.Table;
+        readonly parentTableOrNullObject: Word.Table;
         /**
          *
          * Gets the collection of table objects in the content control. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        tables: Word.TableCollection;
+        readonly tables: Word.TableCollection;
         /**
          *
          * Gets or sets the appearance of the content control. The value can be 'boundingBox', 'tags' or 'hidden'.
@@ -14716,7 +15613,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          */
-        id: number;
+        readonly id: number;
         /**
          *
          * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
@@ -14751,7 +15648,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        subtype: string;
+        readonly subtype: string;
         /**
          *
          * Gets or sets a tag to identify a content control.
@@ -14765,7 +15662,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          */
-        text: string;
+        readonly text: string;
         /**
          *
          * Gets or sets the title for a content control.
@@ -14779,7 +15676,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          */
-        type: string;
+        readonly type: string;
         /** Sets multiple properties on the object at the same time, based on JSON input. */
         set(properties: Interfaces.ContentControlUpdateData, options?: {
             /**
@@ -14964,6 +15861,27 @@ declare namespace Word {
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ContentControl;
         /**
+         *
+         * Occurs when data within the content control is changed. To get the new text, load this content control in the handler. To get the old text, do not load it.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        readonly onDataChanged: OfficeExtension.EventHandlers<Word.ObjectEventArgs>;
+        /**
+         *
+         * Occurs when the content control is deleted. Do not load this content control in the handler, otherwise you won't be able to get its original properties.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        readonly onDeleted: OfficeExtension.EventHandlers<Word.ObjectEventArgs>;
+        /**
+         *
+         * Occurs when selection within the content control is changed.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        readonly onSelectionChanged: OfficeExtension.EventHandlers<Word.ObjectEventArgs>;
+        /**
          * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.ContentControl;
@@ -14997,7 +15915,7 @@ declare namespace Word {
      */
     class ContentControlCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        items: Array<Word.ContentControl>;
+        readonly items: Array<Word.ContentControl>;
         /**
          *
          * Gets a content control by its identifier. Throws if there isn't a content control with the identifier in this collection.
@@ -15093,17 +16011,17 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        key: string;
+        readonly key: string;
         /**
          *
-         * Gets the value type of the custom property. Read only.
+         * Gets the value type of the custom property. Possible values are: String, Number, Date, Boolean. Read only.
          *
          * [Api set: WordApi 1.3]
          */
-        type: string;
+        readonly type: string;
         /**
          *
-         * Gets or sets the value of the custom property.
+         * Gets or sets the value of the custom property. Note that even though Word Online and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
          *
          * [Api set: WordApi 1.3]
          */
@@ -15150,7 +16068,7 @@ declare namespace Word {
      */
     class CustomPropertyCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        items: Array<Word.CustomProperty>;
+        readonly items: Array<Word.CustomProperty>;
         /**
          *
          * Creates a new or sets an existing custom property.
@@ -15209,6 +16127,283 @@ declare namespace Word {
     }
     /**
      *
+     * Represents a custom XML part.
+     *
+     * [Api set: WordApi 1.4 (PREVIEW)]
+     */
+    class CustomXmlPart extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Gets the ID of the custom XML part. Read only.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        readonly id: string;
+        /**
+         *
+         * Gets the namespace URI of the custom XML part. Read only.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        readonly namespaceUri: string;
+        /**
+         *
+         * Deletes the custom XML part.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        delete(): void;
+        /**
+         *
+         * Deletes an attribute with the given name from the element identified by xpath.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param xpath Required. Absolute path to the single element in XPath notation.
+         * @param namespaceMappings Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.
+         * @param name Required. Name of the attribute.
+         */
+        deleteAttribute(xpath: string, namespaceMappings: any, name: string): void;
+        /**
+         *
+         * Deletes the element identified by xpath.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param xpath Required. Absolute path to the single element in XPath notation.
+         * @param namespaceMappings Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.
+         */
+        deleteElement(xpath: string, namespaceMappings: any): void;
+        /**
+         *
+         * Gets the full XML content of the custom XML part.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        getXml(): OfficeExtension.ClientResult<string>;
+        /**
+         *
+         * Inserts an attribute with the given name and value to the element identified by xpath.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param xpath Required. Absolute path to the single element in XPath notation.
+         * @param namespaceMappings Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.
+         * @param name Required. Name of the attribute.
+         * @param value Required. Value of the attribute.
+         */
+        insertAttribute(xpath: string, namespaceMappings: any, name: string, value: string): void;
+        /**
+         *
+         * Inserts the given XML under the parent element identified by xpath at child position index.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param xpath Required. Absolute path to the single parent element in XPath notation.
+         * @param xml Required. XML content to be inserted.
+         * @param namespaceMappings Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.
+         * @param index Optional. Zero-based position at which the new XML to be inserted. If omitted, the XML will be appended as the last child of this parent.
+         */
+        insertElement(xpath: string, xml: string, namespaceMappings: any, index?: number): void;
+        /**
+         *
+         * Queries the XML content of the custom XML part.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param xpath Required. An XPath query.
+         * @param namespaceMappings Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.
+         * @returns An array where each item represents an entry matched by the XPath query.
+         */
+        query(xpath: string, namespaceMappings: any): OfficeExtension.ClientResult<Array<string>>;
+        /**
+         *
+         * Sets the full XML content of the custom XML part.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param xml Required. XML content to be set.
+         */
+        setXml(xml: string): void;
+        /**
+         *
+         * Updates the value of an attribute with the given name of the element identified by xpath.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param xpath Required. Absolute path to the single element in XPath notation.
+         * @param namespaceMappings Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.
+         * @param name Required. Name of the attribute.
+         * @param value Required. New value of the attribute.
+         */
+        updateAttribute(xpath: string, namespaceMappings: any, name: string, value: string): void;
+        /**
+         *
+         * Updates the XML of the element identified by xpath.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param xpath Required. Absolute path to the single element in XPath notation.
+         * @param xml Required. New XML content to be stored.
+         * @param namespaceMappings Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.
+         */
+        updateElement(xpath: string, xml: string, namespaceMappings: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Word.CustomXmlPart;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.CustomXmlPart;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.CustomXmlPart;
+        toJSON(): {
+            "id": string;
+            "namespaceUri": string;
+        };
+    }
+    /**
+     *
+     * Contains the collection of [customXmlPart](customXmlPart.md) objects.
+     *
+     * [Api set: WordApi 1.4 (PREVIEW)]
+     */
+    class CustomXmlPartCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Word.CustomXmlPart>;
+        /**
+         *
+         * Adds a new custom XML part to the document.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param xml Required. XML content. Must be a valid XML fragment.
+         */
+        add(xml: string): Word.CustomXmlPart;
+        /**
+         *
+         * Gets a new scoped collection of custom XML parts whose namespaces match the given namespace.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param namespaceUri Required. The namespace URI.
+         */
+        getByNamespace(namespaceUri: string): Word.CustomXmlPartScopedCollection;
+        /**
+         *
+         * Gets the number of items in the collection.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a custom XML part based on its ID. Read only.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param id ID or index of the custom XML part to be retrieved.
+         */
+        getItem(id: string): Word.CustomXmlPart;
+        /**
+         *
+         * Gets a custom XML part based on its ID. Returns a null object if the CustomXmlPart does not exist.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param id Required. ID of the object to be retrieved.
+         */
+        getItemOrNullObject(id: string): Word.CustomXmlPart;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Word.CustomXmlPartCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.CustomXmlPartCollection;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.CustomXmlPartCollection;
+        toJSON(): {};
+    }
+    /**
+     *
+     * Contains the collection of [customXmlPart](customXmlPart.md) objects with a specific namespace.
+     *
+     * [Api set: WordApi 1.4 (PREVIEW)]
+     */
+    class CustomXmlPartScopedCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Word.CustomXmlPart>;
+        /**
+         *
+         * Gets the namespace URI of this custom XML part collection .
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        readonly namespaceUri: string;
+        /**
+         *
+         * Gets the number of items in the collection.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a custom XML part based on its ID. Read only.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param id ID of the custom XML part to be retrieved.
+         */
+        getItem(id: string): Word.CustomXmlPart;
+        /**
+         *
+         * Gets a custom XML part based on its ID. Returns a null object if the CustomXmlPart does not exist in the collection.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param id Required. ID of the object to be retrieved.
+         */
+        getItemOrNullObject(id: string): Word.CustomXmlPart;
+        /**
+         *
+         * If the collection contains exactly one item, this method returns it. Otherwise, this method produces an error.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        getOnlyItem(): Word.CustomXmlPart;
+        /**
+         *
+         * If the collection contains exactly one item, this method returns it. Otherwise, this method returns a null object.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        getOnlyItemOrNullObject(): Word.CustomXmlPart;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Word.CustomXmlPartScopedCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.CustomXmlPartScopedCollection;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.CustomXmlPartScopedCollection;
+        toJSON(): {
+            "namespaceUri": string;
+        };
+    }
+    /**
+     *
      * The Document object is the top level object. A Document object contains one or more sections, content controls, and the body that contains the contents of the document.
      *
      * [Api set: WordApi 1.1]
@@ -15220,35 +16415,49 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          */
-        body: Word.Body;
+        readonly body: Word.Body;
         /**
          *
          * Gets the collection of content control objects in the current document. This includes content controls in the body of the document, headers, footers, textboxes, etc.. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        contentControls: Word.ContentControlCollection;
+        readonly contentControls: Word.ContentControlCollection;
+        /**
+         *
+         * Gets the custom XML parts in the current document. Read-only.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        readonly customXmlParts: Word.CustomXmlPartCollection;
         /**
          *
          * Gets the properties of the current document. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        properties: Word.DocumentProperties;
+        readonly properties: Word.DocumentProperties;
         /**
          *
          * Gets the collection of section objects in the document. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        sections: Word.SectionCollection;
+        readonly sections: Word.SectionCollection;
+        /**
+         *
+         * Gets the add-in's settings in the current document. Read-only.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        readonly settings: Word.SettingCollection;
         /**
          *
          * Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        saved: boolean;
+        readonly saved: boolean;
         /** Sets multiple properties on the object at the same time, based on JSON input. */
         set(properties: Interfaces.DocumentUpdateData, options?: {
             /**
@@ -15260,11 +16469,45 @@ declare namespace Word {
         set(properties: Document): void;
         /**
          *
+         * Deletes a bookmark, if exists, from the document.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param name Required. The bookmark name, which is case-insensitive.
+         */
+        deleteBookmark(name: string): void;
+        /**
+         *
+         * Gets a bookmark's range. Throws if the bookmark does not exist.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param name Required. The bookmark name, which is case-insensitive.
+         */
+        getBookmarkRange(name: string): Word.Range;
+        /**
+         *
+         * Gets a bookmark's range. Returns a null object if the bookmark does not exist.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param name Required. The bookmark name, which is case-insensitive.
+         */
+        getBookmarkRangeOrNullObject(name: string): Word.Range;
+        /**
+         *
          * Gets the current selection of the document. Multiple selections are not supported.
          *
          * [Api set: WordApi 1.1]
          */
         getSelection(): Word.Range;
+        /**
+         *
+         * Open the document.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        open(): void;
         /**
          *
          * Saves the document. This will use the Word default file naming convention if the document has not been saved before.
@@ -15276,6 +16519,13 @@ declare namespace Word {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Document;
+        /**
+         *
+         * Occurs when a content control is added. Run context.sync() in the handler to get the new content control's properties.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        readonly onContentControlAdded: OfficeExtension.EventHandlers<Word.ObjectEventArgs>;
         /**
          * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
@@ -15303,14 +16553,14 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        customProperties: Word.CustomPropertyCollection;
+        readonly customProperties: Word.CustomPropertyCollection;
         /**
          *
          * Gets the application name of the document. Read only.
          *
          * [Api set: WordApi 1.3]
          */
-        applicationName: string;
+        readonly applicationName: string;
         /**
          *
          * Gets or sets the author of the document.
@@ -15345,7 +16595,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        creationDate: Date;
+        readonly creationDate: Date;
         /**
          *
          * Gets or sets the format of the document.
@@ -15366,21 +16616,21 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        lastAuthor: string;
+        readonly lastAuthor: string;
         /**
          *
          * Gets the last print date of the document. Read only.
          *
          * [Api set: WordApi 1.3]
          */
-        lastPrintDate: Date;
+        readonly lastPrintDate: Date;
         /**
          *
          * Gets the last save time of the document. Read only.
          *
          * [Api set: WordApi 1.3]
          */
-        lastSaveTime: Date;
+        readonly lastSaveTime: Date;
         /**
          *
          * Gets or sets the manager of the document.
@@ -15394,14 +16644,14 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        revisionNumber: string;
+        readonly revisionNumber: string;
         /**
          *
          * Gets the security of the document. Read only.
          *
          * [Api set: WordApi 1.3]
          */
-        security: number;
+        readonly security: number;
         /**
          *
          * Gets or sets the subject of the document.
@@ -15415,7 +16665,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        template: string;
+        readonly template: string;
         /**
          *
          * Gets or sets the title of the document.
@@ -15596,49 +16846,49 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.2]
          */
-        paragraph: Word.Paragraph;
+        readonly paragraph: Word.Paragraph;
         /**
          *
          * Gets the content control that contains the inline image. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        parentContentControl: Word.ContentControl;
+        readonly parentContentControl: Word.ContentControl;
         /**
          *
          * Gets the content control that contains the inline image. Returns a null object if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentContentControlOrNullObject: Word.ContentControl;
+        readonly parentContentControlOrNullObject: Word.ContentControl;
         /**
          *
          * Gets the table that contains the inline image. Throws if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTable: Word.Table;
+        readonly parentTable: Word.Table;
         /**
          *
          * Gets the table cell that contains the inline image. Throws if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableCell: Word.TableCell;
+        readonly parentTableCell: Word.TableCell;
         /**
          *
          * Gets the table cell that contains the inline image. Returns a null object if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableCellOrNullObject: Word.TableCell;
+        readonly parentTableCellOrNullObject: Word.TableCell;
         /**
          *
          * Gets the table that contains the inline image. Returns a null object if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableOrNullObject: Word.Table;
+        readonly parentTableOrNullObject: Word.Table;
         /**
          *
          * Gets or sets a string that represents the alternative text associated with the inline image
@@ -15667,6 +16917,13 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         hyperlink: string;
+        /**
+         *
+         * Gets the format of the inline image. Read-only.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        readonly imageFormat: string;
         /**
          *
          * Gets or sets a value that indicates whether the inline image retains its original proportions when you resize it.
@@ -15830,6 +17087,7 @@ declare namespace Word {
             "altTextTitle": string;
             "height": number;
             "hyperlink": string;
+            "imageFormat": string;
             "lockAspectRatio": boolean;
             "width": number;
         };
@@ -15842,7 +17100,7 @@ declare namespace Word {
      */
     class InlinePictureCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        items: Array<Word.InlinePicture>;
+        readonly items: Array<Word.InlinePicture>;
         /**
          *
          * Gets the first inline image in this collection. Throws if this collection is empty.
@@ -15884,28 +17142,37 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        paragraphs: Word.ParagraphCollection;
+        readonly paragraphs: Word.ParagraphCollection;
         /**
          *
          * Gets the list's id.
          *
          * [Api set: WordApi 1.3]
          */
-        id: number;
+        readonly id: number;
         /**
          *
          * Checks whether each of the 9 levels exists in the list. A true value indicates the level exists, which means there is at least one list item at that level. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        levelExistences: Array<boolean>;
+        readonly levelExistences: Array<boolean>;
         /**
          *
          * Gets all 9 level types in the list. Each type can be 'Bullet', 'Number' or 'Picture'. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        levelTypes: Array<string>;
+        readonly levelTypes: Array<string>;
+        /**
+         *
+         * Gets the font of the bullet, number or picture at the specified level in the list.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param level Required. The level in the list.
+         */
+        getLevelFont(level: number): Word.Font;
         /**
          *
          * Gets the paragraphs that occur at the specified level in the list.
@@ -15915,6 +17182,15 @@ declare namespace Word {
          * @param level Required. The level in the list.
          */
         getLevelParagraphs(level: number): Word.ParagraphCollection;
+        /**
+         *
+         * Gets the base64 encoded string representation of the picture at the specified level in the list.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param level Required. The level in the list.
+         */
+        getLevelPicture(level: number): OfficeExtension.ClientResult<string>;
         /**
          *
          * Gets the bullet, number or picture at the specified level as a string.
@@ -15934,6 +17210,16 @@ declare namespace Word {
          * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'.
          */
         insertParagraph(paragraphText: string, insertLocation: string): Word.Paragraph;
+        /**
+         *
+         * Resets the font of the bullet, number or picture at the specified level in the list.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param level Required. The level in the list.
+         * @param resetFontName Optional. Indicates whether to reset the font name. Default is false that indicates the font name is kept unchanged.
+         */
+        resetLevelFont(level: number, resetFontName?: boolean): void;
         /**
          *
          * Sets the alignment of the bullet, number or picture at the specified level in the list.
@@ -15980,6 +17266,16 @@ declare namespace Word {
         setLevelNumbering(level: number, listNumbering: string, formatString?: Array<any>): void;
         /**
          *
+         * Sets the picture at the specified level in the list.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param level Required. The level in the list.
+         * @param base64EncodedImage Optional. The base64 encoded image to be set. If not given, the default picture is set.
+         */
+        setLevelPicture(level: number, base64EncodedImage?: string): void;
+        /**
+         *
          * Sets the starting number at the specified level in the list. Default value is 1.
          *
          * [Api set: WordApi 1.3]
@@ -16014,7 +17310,7 @@ declare namespace Word {
      */
     class ListCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        items: Array<Word.List>;
+        readonly items: Array<Word.List>;
         /**
          *
          * Gets a list by its identifier. Throws if there isn't a list with the identifier in this collection.
@@ -16090,14 +17386,14 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        listString: string;
+        readonly listString: string;
         /**
          *
          * Gets the list item order number in relation to its siblings. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        siblingIndex: number;
+        readonly siblingIndex: number;
         /** Sets multiple properties on the object at the same time, based on JSON input. */
         set(properties: Interfaces.ListItemUpdateData, options?: {
             /**
@@ -16165,98 +17461,98 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          */
-        contentControls: Word.ContentControlCollection;
+        readonly contentControls: Word.ContentControlCollection;
         /**
          *
          * Gets the text format of the paragraph. Use this to get and set font name, size, color, and other properties. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        font: Word.Font;
+        readonly font: Word.Font;
         /**
          *
          * Gets the collection of inlinePicture objects in the paragraph. The collection does not include floating images. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        inlinePictures: Word.InlinePictureCollection;
+        readonly inlinePictures: Word.InlinePictureCollection;
         /**
          *
          * Gets the List to which this paragraph belongs. Throws if the paragraph is not in a list. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        list: Word.List;
+        readonly list: Word.List;
         /**
          *
          * Gets the ListItem for the paragraph. Throws if the paragraph is not part of a list. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        listItem: Word.ListItem;
+        readonly listItem: Word.ListItem;
         /**
          *
          * Gets the ListItem for the paragraph. Returns a null object if the paragraph is not part of a list. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        listItemOrNullObject: Word.ListItem;
+        readonly listItemOrNullObject: Word.ListItem;
         /**
          *
          * Gets the List to which this paragraph belongs. Returns a null object if the paragraph is not in a list. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        listOrNullObject: Word.List;
+        readonly listOrNullObject: Word.List;
         /**
          *
          * Gets the parent body of the paragraph. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentBody: Word.Body;
+        readonly parentBody: Word.Body;
         /**
          *
          * Gets the content control that contains the paragraph. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        parentContentControl: Word.ContentControl;
+        readonly parentContentControl: Word.ContentControl;
         /**
          *
          * Gets the content control that contains the paragraph. Returns a null object if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentContentControlOrNullObject: Word.ContentControl;
+        readonly parentContentControlOrNullObject: Word.ContentControl;
         /**
          *
          * Gets the table that contains the paragraph. Throws if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTable: Word.Table;
+        readonly parentTable: Word.Table;
         /**
          *
          * Gets the table cell that contains the paragraph. Throws if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableCell: Word.TableCell;
+        readonly parentTableCell: Word.TableCell;
         /**
          *
          * Gets the table cell that contains the paragraph. Returns a null object if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableCellOrNullObject: Word.TableCell;
+        readonly parentTableCellOrNullObject: Word.TableCell;
         /**
          *
          * Gets the table that contains the paragraph. Returns a null object if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableOrNullObject: Word.Table;
+        readonly parentTableOrNullObject: Word.Table;
         /**
          *
          * Gets or sets the alignment for a paragraph. The value can be 'left', 'centered', 'right', or 'justified'.
@@ -16277,14 +17573,14 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        isLastParagraph: boolean;
+        readonly isLastParagraph: boolean;
         /**
          *
          * Checks whether the paragraph is a list item. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        isListItem: boolean;
+        readonly isListItem: boolean;
         /**
          *
          * Gets or sets the left indent value, in points, for the paragraph.
@@ -16361,14 +17657,14 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        tableNestingLevel: number;
+        readonly tableNestingLevel: number;
         /**
          *
          * Gets the text of the paragraph. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        text: string;
+        readonly text: string;
         /** Sets multiple properties on the object at the same time, based on JSON input. */
         set(properties: Interfaces.ParagraphUpdateData, options?: {
             /**
@@ -16646,7 +17942,7 @@ declare namespace Word {
      */
     class ParagraphCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        items: Array<Word.Paragraph>;
+        readonly items: Array<Word.Paragraph>;
         /**
          *
          * Gets the first paragraph in this collection. Throws if the collection is empty.
@@ -16702,91 +17998,91 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          */
-        contentControls: Word.ContentControlCollection;
+        readonly contentControls: Word.ContentControlCollection;
         /**
          *
          * Gets the text format of the range. Use this to get and set font name, size, color, and other properties. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        font: Word.Font;
+        readonly font: Word.Font;
         /**
          *
          * Gets the collection of inline picture objects in the range. Read-only.
          *
          * [Api set: WordApi 1.2]
          */
-        inlinePictures: Word.InlinePictureCollection;
+        readonly inlinePictures: Word.InlinePictureCollection;
         /**
          *
          * Gets the collection of list objects in the range. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        lists: Word.ListCollection;
+        readonly lists: Word.ListCollection;
         /**
          *
          * Gets the collection of paragraph objects in the range. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        paragraphs: Word.ParagraphCollection;
+        readonly paragraphs: Word.ParagraphCollection;
         /**
          *
          * Gets the parent body of the range. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentBody: Word.Body;
+        readonly parentBody: Word.Body;
         /**
          *
          * Gets the content control that contains the range. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
-        parentContentControl: Word.ContentControl;
+        readonly parentContentControl: Word.ContentControl;
         /**
          *
          * Gets the content control that contains the range. Returns a null object if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentContentControlOrNullObject: Word.ContentControl;
+        readonly parentContentControlOrNullObject: Word.ContentControl;
         /**
          *
          * Gets the table that contains the range. Throws if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTable: Word.Table;
+        readonly parentTable: Word.Table;
         /**
          *
          * Gets the table cell that contains the range. Throws if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableCell: Word.TableCell;
+        readonly parentTableCell: Word.TableCell;
         /**
          *
          * Gets the table cell that contains the range. Returns a null object if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableCellOrNullObject: Word.TableCell;
+        readonly parentTableCellOrNullObject: Word.TableCell;
         /**
          *
          * Gets the table that contains the range. Returns a null object if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableOrNullObject: Word.Table;
+        readonly parentTableOrNullObject: Word.Table;
         /**
          *
          * Gets the collection of table objects in the range. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        tables: Word.TableCollection;
+        readonly tables: Word.TableCollection;
         /**
          *
          * Gets the first hyperlink in the range, or sets a hyperlink on the range. All hyperlinks in the range are deleted when you set a new hyperlink on the range. Use a '#' to separate the address part from the optional location part.
@@ -16800,7 +18096,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        isEmpty: boolean;
+        readonly isEmpty: boolean;
         /**
          *
          * Gets or sets the style name for the range. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
@@ -16821,7 +18117,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          */
-        text: string;
+        readonly text: string;
         /** Sets multiple properties on the object at the same time, based on JSON input. */
         set(properties: Interfaces.RangeUpdateData, options?: {
             /**
@@ -16872,6 +18168,16 @@ declare namespace Word {
          * @param range Required. Another range.
          */
         expandToOrNullObject(range: Word.Range): Word.Range;
+        /**
+         *
+         * Gets the names all bookmarks in or overlapping the range. A bookmark is hidden if its name starts with the underscore character.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param includeHidden Optional. Indicates whether to include hidden bookmarks. Default is false which indicates that the hidden bookmarks are excluded.
+         * @param includeAdjacent Optional. Indicates whether to include bookmarks that are adjacent to the range. Default is false which indicates that the adjacent bookmarks are excluded.
+         */
+        getBookmarks(includeHidden?: boolean, includeAdjacent?: boolean): OfficeExtension.ClientResult<Array<string>>;
         /**
          *
          * Gets the HTML representation of the range object.
@@ -16932,6 +18238,15 @@ declare namespace Word {
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          */
         getTextRanges(endingMarks: Array<string>, trimSpacing?: boolean): Word.RangeCollection;
+        /**
+         *
+         * Inserts a bookmark on the range. If a bookmark of the same name exists somewhere, it is deleted first.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param name Required. The bookmark name, which is case-insensitive. If the name starts with an underscore character, the bookmark is an hidden one.
+         */
+        insertBookmark(name: string): void;
         /**
          *
          * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
@@ -17107,7 +18422,7 @@ declare namespace Word {
      */
     class RangeCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        items: Array<Word.Range>;
+        readonly items: Array<Word.Range>;
         /**
          *
          * Gets the first range in this collection. Throws if this collection is empty.
@@ -17233,7 +18548,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          */
-        body: Word.Body;
+        readonly body: Word.Body;
         /** Sets multiple properties on the object at the same time, based on JSON input. */
         set(properties: Interfaces.SectionUpdateData, options?: {
             /**
@@ -17299,7 +18614,7 @@ declare namespace Word {
      */
     class SectionCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        items: Array<Word.Section>;
+        readonly items: Array<Word.Section>;
         /**
          *
          * Gets the first section in this collection. Throws if this collection is empty.
@@ -17330,6 +18645,129 @@ declare namespace Word {
     }
     /**
      *
+     * Represents a setting of the add-in.
+     *
+     * [Api set: WordApi 1.4 (PREVIEW)]
+     */
+    class Setting extends OfficeExtension.ClientObject {
+        private static DateJSONPrefix;
+        private static DateJSONSuffix;
+        private static replaceStringDateWithDate(value);
+        static _replaceDateWithStringDate(value: any): any;
+        /**
+         *
+         * Gets the key of the setting. Read only.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        readonly key: string;
+        /**
+         *
+         * Gets or sets the value of the setting.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        value: any;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.SettingUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Setting): void;
+        /**
+         *
+         * Deletes the setting.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        delete(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Word.Setting;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.Setting;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.Setting;
+        toJSON(): {
+            "key": string;
+            "value": any;
+        };
+    }
+    /**
+     *
+     * Contains the collection of [setting](setting.md) objects.
+     *
+     * [Api set: WordApi 1.4 (PREVIEW)]
+     */
+    class SettingCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Word.Setting>;
+        /**
+         *
+         * Creates a new setting or sets an existing setting.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param key Required. The setting's key, which is case-sensitive.
+         * @param value Required. The setting's value.
+         */
+        add(key: string, value: any): Word.Setting;
+        /**
+         *
+         * Deletes all settings in this add-in.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        deleteAll(): void;
+        /**
+         *
+         * Gets the count of settings.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a setting object by its key, which is case-sensitive. Throws if the setting does not exist.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param key The key that identifies the setting object.
+         */
+        getItem(key: string): Word.Setting;
+        /**
+         *
+         * Gets a setting object by its key, which is case-sensitive. Returns a null object if the setting does not exist.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param key Required. The key that identifies the setting object.
+         */
+        getItemOrNullObject(key: string): Word.Setting;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Word.SettingCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.SettingCollection;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.SettingCollection;
+        toJSON(): {};
+    }
+    /**
+     *
      * Represents a table in a Word document.
      *
      * [Api set: WordApi 1.3]
@@ -17341,70 +18779,70 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        font: Word.Font;
+        readonly font: Word.Font;
         /**
          *
          * Gets the parent body of the table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentBody: Word.Body;
+        readonly parentBody: Word.Body;
         /**
          *
          * Gets the content control that contains the table. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentContentControl: Word.ContentControl;
+        readonly parentContentControl: Word.ContentControl;
         /**
          *
          * Gets the content control that contains the table. Returns a null object if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentContentControlOrNullObject: Word.ContentControl;
+        readonly parentContentControlOrNullObject: Word.ContentControl;
         /**
          *
          * Gets the table that contains this table. Throws if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTable: Word.Table;
+        readonly parentTable: Word.Table;
         /**
          *
          * Gets the table cell that contains this table. Throws if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableCell: Word.TableCell;
+        readonly parentTableCell: Word.TableCell;
         /**
          *
          * Gets the table cell that contains this table. Returns a null object if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableCellOrNullObject: Word.TableCell;
+        readonly parentTableCellOrNullObject: Word.TableCell;
         /**
          *
          * Gets the table that contains this table. Returns a null object if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTableOrNullObject: Word.Table;
+        readonly parentTableOrNullObject: Word.Table;
         /**
          *
          * Gets all of the table rows. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        rows: Word.TableRowCollection;
+        readonly rows: Word.TableRowCollection;
         /**
          *
          * Gets the child tables nested one level deeper. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        tables: Word.TableCollection;
+        readonly tables: Word.TableCollection;
         /**
          *
          * Gets or sets the alignment of the table against the page column. The value can be 'left', 'centered' or 'right'.
@@ -17432,21 +18870,21 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        isUniform: boolean;
+        readonly isUniform: boolean;
         /**
          *
          * Gets the nesting level of the table. Top-level tables have level 1. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        nestingLevel: number;
+        readonly nestingLevel: number;
         /**
          *
          * Gets the number of rows in the table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        rowCount: number;
+        readonly rowCount: number;
         /**
          *
          * Gets and sets the shading color.
@@ -17723,6 +19161,18 @@ declare namespace Word {
         insertTable(rowCount: number, columnCount: number, insertLocation: string, values?: Array<Array<string>>): Word.Table;
         /**
          *
+         * Merges the cells bounded inclusively by a first and last cell.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param topRow Required. The row of the first cell
+         * @param firstCell Required. The index of the first cell in its row
+         * @param bottomRow Required. The row of the last cell
+         * @param lastCell Required. The index of the last cell in its row
+         */
+        mergeCells(topRow: number, firstCell: number, bottomRow: number, lastCell: number): Word.TableCell;
+        /**
+         *
          * Performs a search with the specified searchOptions on the scope of the table object. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.3]
@@ -17799,7 +19249,7 @@ declare namespace Word {
      */
     class TableCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        items: Array<Word.Table>;
+        readonly items: Array<Word.Table>;
         /**
          *
          * Gets the first table in this collection. Throws if this collection is empty.
@@ -17841,28 +19291,28 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        cells: Word.TableCellCollection;
+        readonly cells: Word.TableCellCollection;
         /**
          *
          * Gets the font. Use this to get and set font name, size, color, and other properties. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        font: Word.Font;
+        readonly font: Word.Font;
         /**
          *
          * Gets parent table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTable: Word.Table;
+        readonly parentTable: Word.Table;
         /**
          *
          * Gets the number of cells in the row. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        cellCount: number;
+        readonly cellCount: number;
         /**
          *
          * Gets and sets the horizontal alignment of every cell in the row. The value can be 'left', 'centered', 'right', or 'justified'.
@@ -17876,7 +19326,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        isHeader: boolean;
+        readonly isHeader: boolean;
         /**
          *
          * Gets and sets the preferred height of the row in points.
@@ -17890,7 +19340,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        rowIndex: number;
+        readonly rowIndex: number;
         /**
          *
          * Gets and sets the shading color.
@@ -17969,6 +19419,13 @@ declare namespace Word {
         getNextOrNullObject(): Word.TableRow;
         /**
          *
+         * Inserts a content control on the row.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        insertContentControl(): Word.ContentControl;
+        /**
+         *
          * Inserts rows using this row as a template. If values are specified, inserts the values into the new rows.
          *
          * [Api set: WordApi 1.3]
@@ -17978,6 +19435,13 @@ declare namespace Word {
          * @param values Optional. Strings to insert in the new rows, specified as a 2D array. The number of cells in each row must not exceed the number of cells in the existing row.
          */
         insertRows(insertLocation: string, rowCount: number, values?: Array<Array<string>>): Word.TableRowCollection;
+        /**
+         *
+         * Merges the row into one cell.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        merge(): Word.TableCell;
         /**
          *
          * Performs a search with the specified searchOptions on the scope of the row. The search results are a collection of range objects.
@@ -18047,7 +19511,7 @@ declare namespace Word {
      */
     class TableRowCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        items: Array<Word.TableRow>;
+        readonly items: Array<Word.TableRow>;
         /**
          *
          * Gets the first row in this collection. Throws if this collection is empty.
@@ -18089,28 +19553,28 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        body: Word.Body;
+        readonly body: Word.Body;
         /**
          *
          * Gets the parent row of the cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentRow: Word.TableRow;
+        readonly parentRow: Word.TableRow;
         /**
          *
          * Gets the parent table of the cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        parentTable: Word.Table;
+        readonly parentTable: Word.Table;
         /**
          *
          * Gets the index of the cell in its row. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
-        cellIndex: number;
+        readonly cellIndex: number;
         /**
          *
          * Gets and sets the width of the cell's column in points. This is applicable to uniform tables.
@@ -18131,7 +19595,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        rowIndex: number;
+        readonly rowIndex: number;
         /**
          *
          * Gets or sets the shading color of the cell. Color is specified in "#RRGGBB" format or by using the color name.
@@ -18159,7 +19623,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          */
-        width: number;
+        readonly width: number;
         /** Sets multiple properties on the object at the same time, based on JSON input. */
         set(properties: Interfaces.TableCellUpdateData, options?: {
             /**
@@ -18248,6 +19712,16 @@ declare namespace Word {
          */
         setCellPadding(cellPaddingLocation: string, cellPadding: number): void;
         /**
+         *
+         * Splits the cell into the specified number of rows and columns.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         *
+         * @param rowCount Required. The number of rows to split into. Must be a divisor of the number of underlying rows.
+         * @param columnCount Required. The number of columns to split into.
+         */
+        split(rowCount: number, columnCount: number): void;
+        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableCell;
@@ -18279,7 +19753,7 @@ declare namespace Word {
      */
     class TableCellCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        items: Array<Word.TableCell>;
+        readonly items: Array<Word.TableCell>;
         /**
          *
          * Gets the first table cell in this collection. Throws if this collection is empty.
@@ -18362,6 +19836,28 @@ declare namespace Word {
             "type": string;
             "width": number;
         };
+    }
+    /**
+     *
+     * Provides information about the content control that raised an event.
+     *
+     * [Api set: WordApi 1.4 (PREVIEW)]
+     */
+    interface ObjectEventArgs {
+        /**
+         *
+         * The object that raised the event. Load this object to get its properties.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        object: any;
+        /**
+         *
+         * The event type.
+         *
+         * [Api set: WordApi 1.4 (PREVIEW)]
+         */
+        type: number;
     }
     /**
      *
@@ -19015,7 +20511,7 @@ declare namespace Word {
         interface CustomPropertyUpdateData {
             /**
              *
-             * Gets or sets the value of the custom property.
+             * Gets or sets the value of the custom property. Note that even though Word Online and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -19440,6 +20936,16 @@ declare namespace Word {
             */
             body?: Word.Interfaces.BodyUpdateData;
         }
+        /** An interface for updating data on the Setting object, for use in "setting.set({ ... })". */
+        interface SettingUpdateData {
+            /**
+             *
+             * Gets or sets the value of the setting.
+             *
+             * [Api set: WordApi 1.4 (PREVIEW)]
+             */
+            value?: any;
+        }
         /** An interface for updating data on the Table object, for use in "table.set({ ... })". */
         interface TableUpdateData {
             /**
@@ -19668,9 +21174,10 @@ declare module Word {
     /**
      * The RequestContext object facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the request context is required to get access to the Word object model from the add-in.
      */
-    class RequestContext extends OfficeExtension.ClientRequestContext {
+    class RequestContext extends OfficeCore.RequestContext {
         constructor(url?: string);
-        document: Document;
+        readonly document: Document;
+        readonly application: Application;
     }
     /**
      * Executes a batch script that performs actions on the Word object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.

@@ -1,4 +1,4 @@
-/* Version: 16.0.8119.1000 */
+/* Version: 16.0.8307.1000 */
 /*
 	Copyright (c) Microsoft Corporation.  All rights reserved.
 */
@@ -2914,7 +2914,7 @@ Office._processContents(Office, Office._items);
 document.addEventListener("DOMContentLoaded", function () {
     Office.initialize();
 });
- 
+
 
 
 var __extends = this.__extends || function (d, b) {
@@ -2973,7 +2973,7 @@ var OfficeExtension;
 		};
 		ClientRequestContext.prototype.sync = function (passThroughValue) {
 			/// <summary>
-			/// Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when the synchronization is complete.
+			/// Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code.ï¿½This method returns a promise, which is resolved when the synchronization is complete.
 			/// </summary>
 			/// <param name="passThroughValue" optional="true" />
 			return new OfficeExtension.Promise();
@@ -3159,7 +3159,6 @@ var OfficeExtension;
 			return new EventHandlerResult(null, null, handler);
 		};
 		EventHandlers.prototype.remove = function (handler) { };
-		EventHandlers.prototype.removeAll = function () { };
 		EventHandlers.prototype.__proto__ = null;
 		return EventHandlers;
 	}());
@@ -3175,157 +3174,155 @@ var OfficeExtension;
 })(OfficeExtension || (OfficeExtension = {__proto__: null}));
 
 OfficeExtension.__proto__ = null;
- 
 
-ï»¿
-var Excel;
-(function (Excel) {
-	var _V1Api = (function(_super) {
-		__extends(_V1Api, _super);
-		function _V1Api() {
-			/// <summary> [Api set: ExcelApi 1.3] </summary>
-			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
+
+
+var OfficeCore;
+(function (OfficeCore) {
+	var ABType = (function(_super) {
+		__extends(ABType, _super);
+		function ABType() {
+			/// <summary> [Api set: Experimentation 1.1 (PREVIEW)] </summary>
+			/// <field name="context" type="OfficeCore.RequestContext">The request context associated with this object.</field>
 			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="value" > [Api set: Experimentation 1.1 (PREVIEW)]</field>
 		}
 
-		_V1Api.prototype.load = function(option) {
+		ABType.prototype.load = function(option) {
 			/// <summary>
 			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
 			/// </summary>
 			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
-			/// <returns type="Excel._V1Api"/>
-		}
-		_V1Api.prototype.bindingAddColumns = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingAddFromNamedItem = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingAddFromPrompt = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingAddFromSelection = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingAddRows = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingClearFormats = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingDeleteAllDataValues = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingGetAll = function() {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingGetById = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingGetData = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingReleaseById = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingSetData = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingSetFormats = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.bindingSetTableOptions = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.getFilePropertiesAsync = function() {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.getSelectedData = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.gotoById = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
-		}
-		_V1Api.prototype.setSelectedData = function(input) {
-			/// <returns type="OfficeExtension.ClientResult&lt;any&gt;"></returns>
-			var result = new OfficeExtension.ClientResult();
-			result.__proto__ = null;
-			result.value = {};
-			return result;
+			/// <returns type="OfficeCore.ABType"/>
 		}
 
-		return _V1Api;
+		return ABType;
 	})(OfficeExtension.ClientObject);
-	Excel._V1Api = _V1Api;
-})(Excel || (Excel = {__proto__: null}));
+	OfficeCore.ABType = ABType;
+})(OfficeCore || (OfficeCore = {__proto__: null}));
+
+var OfficeCore;
+(function (OfficeCore) {
+	/// <summary> [Api set: Experimentation 1.1 (PREVIEW)] </summary>
+	var FeatureType = {
+		__proto__: null,
+		"boolean": "boolean",
+		"integer": "integer",
+		"string": "string",
+	}
+	OfficeCore.FeatureType = FeatureType;
+})(OfficeCore || (OfficeCore = {__proto__: null}));
+
+var OfficeCore;
+(function (OfficeCore) {
+	var FlightingService = (function(_super) {
+		__extends(FlightingService, _super);
+		function FlightingService() {
+			/// <summary> [Api set: Experimentation 1.1 (PREVIEW)] </summary>
+			/// <field name="context" type="OfficeCore.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+		}
+
+		FlightingService.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="OfficeCore.FlightingService"/>
+		}
+		FlightingService.prototype.getFeature = function(featureName, type, defaultValue, possibleValues) {
+			/// <returns type="OfficeCore.ABType"></returns>
+		}
+		FlightingService.prototype.getFeatureGate = function(featureName, scope) {
+			/// <returns type="OfficeCore.ABType"></returns>
+		}
+		FlightingService.prototype.resetOverride = function(featureName) {
+			/// <returns ></returns>
+		}
+		FlightingService.prototype.setOverride = function(featureName, type, value) {
+			/// <returns ></returns>
+		}
+
+		return FlightingService;
+	})(OfficeExtension.ClientObject);
+	OfficeCore.FlightingService = FlightingService;
+})(OfficeCore || (OfficeCore = {__proto__: null}));
+
+var OfficeCore;
+(function (OfficeCore) {
+	var Interfaces;
+	(function (Interfaces) {
+		var ScopedValue = (function() {
+			function ScopedValue() {
+				/// <summary> Provides information about the scoped value. [Api set: Experimentation 1.1 (PREVIEW)] </summary>
+				/// <field name="scope" type="String">Gets the scope. [Api set: Experimentation 1.1 (PREVIEW)]</field>
+				/// <field name="value" >Gets the value. [Api set: Experimentation 1.1 (PREVIEW)]</field>
+			}
+			return ScopedValue;
+		})();
+		Interfaces.ScopedValue.__proto__ = null;
+		Interfaces.ScopedValue = ScopedValue;
+	})(Interfaces = OfficeCore.Interfaces || (OfficeCore.Interfaces = { __proto__: null}));
+})(OfficeCore || (OfficeCore = {__proto__: null}));
+var OfficeCore;
+(function (OfficeCore) {
+	var RequestContext = (function (_super) {
+		__extends(RequestContext, _super);
+		function RequestContext() {
+			/// <summary>
+			/// The RequestContext object facilitates requests to the OfficeCore application. Since the Office add-in and the OfficeCore application run in two different processes, the request context is required to get access to the OfficeCore object model from the add-in.
+			/// </summary>
+			/// <field name="workbook" type="OfficeCore.Workbook">Root object for interacting with the document</field>
+			_super.call(this, null);
+		}
+		return RequestContext;
+	})(OfficeExtension.ClientRequestContext);
+	OfficeCore.RequestContext = RequestContext;
+
+	OfficeCore.run = function (batch) {
+		/// <signature>
+		/// <summary>
+		/// Executes a batch script that performs actions on the OfficeCore object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+		/// </summary>
+		/// <param name="batch" type="function(context) { ... }">
+		/// A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()").
+		/// <br />
+		/// The context parameter facilitates requests to the OfficeCore application. Since the Office add-in and the OfficeCore application run in two different processes, the RequestContext is required to get access to the OfficeCore object model from the add-in.
+		/// </param>
+		/// </signature>
+		/// <signature>
+		/// <summary>
+		/// Executes a batch script that performs actions on the OfficeCore object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+		/// </summary>
+		/// <param name="object" type="OfficeExtension.ClientObject">
+		/// A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+		/// </param>
+		/// <param name="batch" type="function(context) { ... }">
+		/// A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()").
+		/// <br />
+		/// The context parameter facilitates requests to the OfficeCore application. Since the Office add-in and the OfficeCore application run in two different processes, the RequestContext is required to get access to the OfficeCore object model from the add-in.
+		/// </param>
+		/// </signature>
+		/// <signature>
+		/// <summary>
+		/// Executes a batch script that performs actions on the OfficeCore object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+		/// </summary>
+		/// <param name="objects" type="Array&lt;OfficeExtension.ClientObject&gt;">
+		/// An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
+		/// </param>
+		/// <param name="batch" type="function(context) { ... }">
+		/// A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()").
+		/// <br />
+		/// The context parameter facilitates requests to the OfficeCore application. Since the Office add-in and the OfficeCore application run in two different processes, the RequestContext is required to get access to the OfficeCore object model from the add-in.
+		/// </param>
+		/// </signature>
+		arguments[arguments.length - 1](new OfficeCore.RequestContext());
+		return new OfficeExtension.Promise();
+	}
+})(OfficeCore || (OfficeCore = {__proto__: null}));
+OfficeCore.__proto__ = null;
+
+
 
 var Excel;
 (function (Excel) {
@@ -3425,9 +3422,6 @@ var Excel;
 			remove: function (handler) {
 				/// <param name="handler" type="function(eventArgs: Excel.Interfaces.BindingDataChangedEventArgs)">Handler for the event.</param>
 				return;
-			},
-			removeAll: function () {
-				return;
 			}
 		};
 		Binding.prototype.onSelectionChanged = {
@@ -3441,9 +3435,6 @@ var Excel;
 			},
 			remove: function (handler) {
 				/// <param name="handler" type="function(eventArgs: Excel.Interfaces.BindingSelectionChangedEventArgs)">Handler for the event.</param>
-				return;
-			},
-			removeAll: function () {
 				return;
 			}
 		};
@@ -3628,6 +3619,46 @@ var Excel;
 		"thick": "thick",
 	}
 	Excel.BorderWeight = BorderWeight;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	var CalculatedFieldCollection = (function(_super) {
+		__extends(CalculatedFieldCollection, _super);
+		function CalculatedFieldCollection() {
+			/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="items" type="Array" elementType="Excel.PivotField">Gets the loaded child items in this collection.</field>
+		}
+
+		CalculatedFieldCollection.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Excel.CalculatedFieldCollection"/>
+		}
+		CalculatedFieldCollection.prototype.add = function(Name, Formula, UseStandardFormula) {
+			/// <returns type="Excel.PivotField"></returns>
+		}
+		CalculatedFieldCollection.prototype.getCount = function() {
+			/// <returns type="OfficeExtension.ClientResult&lt;number&gt;"></returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = 0;
+			return result;
+		}
+		CalculatedFieldCollection.prototype.getItem = function(nameOrIndex) {
+			/// <returns type="Excel.PivotField"></returns>
+		}
+		CalculatedFieldCollection.prototype.getItemAt = function(index) {
+			/// <returns type="Excel.PivotField"></returns>
+		}
+
+		return CalculatedFieldCollection;
+	})(OfficeExtension.ClientObject);
+	Excel.CalculatedFieldCollection = CalculatedFieldCollection;
 })(Excel || (Excel = {__proto__: null}));
 
 var Excel;
@@ -5800,6 +5831,28 @@ var Excel;
 		Interfaces.ConditionalTopBottomRule.__proto__ = null;
 		Interfaces.ConditionalTopBottomRule = ConditionalTopBottomRule;
 	})(Interfaces = Excel.Interfaces || (Excel.Interfaces = { __proto__: null}));
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+	var ConsolidationFunction = {
+		__proto__: null,
+		"varP": "varP",
+		"_Var": "_Var",
+		"sum": "sum",
+		"stDevP": "stDevP",
+		"stDev": "stDev",
+		"product": "product",
+		"min": "min",
+		"max": "max",
+		"countNums": "countNums",
+		"count": "count",
+		"average": "average",
+		"distinctCount": "distinctCount",
+		"unknown": "unknown",
+	}
+	Excel.ConsolidationFunction = ConsolidationFunction;
 })(Excel || (Excel = {__proto__: null}));
 
 var Excel;
@@ -9537,13 +9590,38 @@ var Excel;
 
 var Excel;
 (function (Excel) {
+	/// <summary> [Api set: ExcelApi 1.8 (PREVIEW)] </summary>
+	var MessageCategory = {
+		__proto__: null,
+		"none": 0,
+		"customFunction": 1,
+		"event": 65536,
+	}
+	Excel.MessageCategory = MessageCategory;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	/// <summary> [Api set: ExcelApi 1.8 (PREVIEW)] </summary>
+	var MessageType = {
+		__proto__: null,
+		"none": 0,
+		"testEvent": 1,
+	}
+	Excel.MessageType = MessageType;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
 	var NamedItem = (function(_super) {
 		__extends(NamedItem, _super);
 		function NamedItem() {
 			/// <summary> Represents a defined name for a range of cells or value. Names can be primitive named objects (as seen in the type below), range object, reference to a range. This object can be used to obtain range object associated with names. [Api set: ExcelApi 1.1] </summary>
 			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
 			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="arrayValues" type="Excel.NamedItemArrayValues">Returns an object containing values and types of the named item. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
 			/// <field name="comment" type="String">Represents the comment associated with this name. [Api set: ExcelApi 1.4]</field>
+			/// <field name="formula" >Returns the formula of the named item.  Formula always starts with a &apos;=&apos; sign. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
 			/// <field name="name" type="String">The name of the object. Read-only. [Api set: ExcelApi 1.1]</field>
 			/// <field name="scope" type="String">Indicates whether the name is scoped to the workbook or to a specific worksheet. Read-only. [Api set: ExcelApi 1.4]</field>
 			/// <field name="type" type="String">Indicates the type of the value returned by the name&apos;s formula. See Excel.NamedItemType for details. Read-only. [Api set: ExcelApi 1.1]</field>
@@ -9597,6 +9675,31 @@ var Excel;
 		return NamedItem;
 	})(OfficeExtension.ClientObject);
 	Excel.NamedItem = NamedItem;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	var NamedItemArrayValues = (function(_super) {
+		__extends(NamedItemArrayValues, _super);
+		function NamedItemArrayValues() {
+			/// <summary> Represents an object containing values and types of a named item. [Api set: ExcelApi 1.7 (PREVIEW)] </summary>
+			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="types" type="Array" elementType="Array">Represents the types for each item in the named item array [Api set: ExcelApi 1.7 (PREVIEW)]</field>
+			/// <field name="values" type="Array" elementType="Array">Represents the values of each item in the named item array. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
+		}
+
+		NamedItemArrayValues.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Excel.NamedItemArrayValues"/>
+		}
+
+		return NamedItemArrayValues;
+	})(OfficeExtension.ClientObject);
+	Excel.NamedItemArrayValues = NamedItemArrayValues;
 })(Excel || (Excel = {__proto__: null}));
 
 var Excel;
@@ -9693,6 +9796,321 @@ var Excel;
 
 var Excel;
 (function (Excel) {
+	var PivotCache = (function(_super) {
+		__extends(PivotCache, _super);
+		function PivotCache() {
+			/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="id" type="Number"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="index" type="Number"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="version" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+		}
+
+		PivotCache.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Excel.PivotCache"/>
+		}
+		PivotCache.prototype.refresh = function() {
+			/// <returns ></returns>
+		}
+
+		return PivotCache;
+	})(OfficeExtension.ClientObject);
+	Excel.PivotCache = PivotCache;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	var PivotCacheCollection = (function(_super) {
+		__extends(PivotCacheCollection, _super);
+		function PivotCacheCollection() {
+			/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="items" type="Array" elementType="Excel.PivotCache">Gets the loaded child items in this collection.</field>
+		}
+
+		PivotCacheCollection.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Excel.PivotCacheCollection"/>
+		}
+		PivotCacheCollection.prototype.add = function(sourceType, address) {
+			/// <returns type="Excel.PivotCache"></returns>
+		}
+		PivotCacheCollection.prototype.getCount = function() {
+			/// <returns type="OfficeExtension.ClientResult&lt;number&gt;"></returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = 0;
+			return result;
+		}
+		PivotCacheCollection.prototype.getItem = function(index) {
+			/// <returns type="Excel.PivotCache"></returns>
+		}
+		PivotCacheCollection.prototype.getItemAt = function(index) {
+			/// <returns type="Excel.PivotCache"></returns>
+		}
+
+		return PivotCacheCollection;
+	})(OfficeExtension.ClientObject);
+	Excel.PivotCacheCollection = PivotCacheCollection;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	var PivotField = (function(_super) {
+		__extends(PivotField, _super);
+		function PivotField() {
+			/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="aggregationFunction" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="allItemsVisible" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="autoSortField" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="autoSortOrder" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="calculated" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="calculation" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="caption" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="currentPage" type="Excel.PivotItem"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="dataType" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="drilledDown" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="enableMultiplePageItems" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="formula" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="hiddenItems" type="Excel.PivotItemCollection"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="name" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="numberFormat" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="orientation" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="pivotItems" type="Excel.PivotItemCollection"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="position" type="Number"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="showDetail" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="sourceName" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="subtotals" type="Excel.Interfaces.Subtotals"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="visiblePivotItems" type="Excel.PivotItemCollection"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+		}
+
+		PivotField.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Excel.PivotField"/>
+		}
+
+		PivotField.prototype.set = function() {
+			/// <signature>
+			/// <summary>Sets multiple properties on the object at the same time, based on JSON input.</summary>
+			/// <param name="properties" type="Excel.Interfaces.PivotFieldUpdateData">Properties described by the Excel.Interfaces.PivotFieldUpdateData interface.</param>
+			/// <param name="options" type="string">Options of the form { throwOnReadOnly?: boolean }
+			/// <br />
+			/// * throwOnReadOnly: Throw an error if the passed-in property list includes read-only properties (default = true).
+			/// </param>
+			/// </signature>
+			/// <signature>
+			/// <summary>Sets multiple properties on the object at the same time, based on an existing loaded object.</summary>
+			/// <param name="properties" type="PivotField">An existing PivotField object, with properties that have already been loaded and synced.</param>
+			/// </signature>
+		}
+		PivotField.prototype.autoGroup = function() {
+			/// <returns ></returns>
+		}
+		PivotField.prototype.autoSort = function(sortOrder, Field) {
+			/// <returns ></returns>
+		}
+		PivotField.prototype.clearAllFilters = function() {
+			/// <returns ></returns>
+		}
+		PivotField.prototype.getDataRange = function() {
+			/// <returns type="Excel.Range"></returns>
+		}
+
+		return PivotField;
+	})(OfficeExtension.ClientObject);
+	Excel.PivotField = PivotField;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+	var PivotFieldCalculation = {
+		__proto__: null,
+		"noAdditionalCalculation": "noAdditionalCalculation",
+		"differenceFrom": "differenceFrom",
+		"percentOf": "percentOf",
+		"percentDifferenceFrom": "percentDifferenceFrom",
+		"runningTotal": "runningTotal",
+		"percentOfRow": "percentOfRow",
+		"percentOfColumn": "percentOfColumn",
+		"percentOfTotal": "percentOfTotal",
+		"index": "index",
+		"percentOfParentRow": "percentOfParentRow",
+		"percentOfParentColumn": "percentOfParentColumn",
+		"percentOfParent": "percentOfParent",
+		"percentRunningTotal": "percentRunningTotal",
+		"rankAscending": "rankAscending",
+		"rankDecending": "rankDecending",
+	}
+	Excel.PivotFieldCalculation = PivotFieldCalculation;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	var PivotFieldCollection = (function(_super) {
+		__extends(PivotFieldCollection, _super);
+		function PivotFieldCollection() {
+			/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="items" type="Array" elementType="Excel.PivotField">Gets the loaded child items in this collection.</field>
+		}
+
+		PivotFieldCollection.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Excel.PivotFieldCollection"/>
+		}
+		PivotFieldCollection.prototype.getCount = function() {
+			/// <returns type="OfficeExtension.ClientResult&lt;number&gt;"></returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = 0;
+			return result;
+		}
+		PivotFieldCollection.prototype.getItem = function(nameOrIndex) {
+			/// <returns type="Excel.PivotField"></returns>
+		}
+		PivotFieldCollection.prototype.getItemAt = function(index) {
+			/// <returns type="Excel.PivotField"></returns>
+		}
+
+		return PivotFieldCollection;
+	})(OfficeExtension.ClientObject);
+	Excel.PivotFieldCollection = PivotFieldCollection;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+	var PivotFieldDataType = {
+		__proto__: null,
+		"text": "text",
+		"number": "number",
+		"date": "date",
+	}
+	Excel.PivotFieldDataType = PivotFieldDataType;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+	var PivotFieldOrientation = {
+		__proto__: null,
+		"hidden": "hidden",
+		"rowField": "rowField",
+		"columnField": "columnField",
+		"pageField": "pageField",
+		"dataField": "dataField",
+	}
+	Excel.PivotFieldOrientation = PivotFieldOrientation;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	var PivotItem = (function(_super) {
+		__extends(PivotItem, _super);
+		function PivotItem() {
+			/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="calculated" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="drilledDown" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="name" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="pivotField" type="Excel.PivotField"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="position" type="Number"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="recordCount" type="Number"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="showDetail" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="sourceName" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="visible" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+		}
+
+		PivotItem.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Excel.PivotItem"/>
+		}
+
+		PivotItem.prototype.set = function() {
+			/// <signature>
+			/// <summary>Sets multiple properties on the object at the same time, based on JSON input.</summary>
+			/// <param name="properties" type="Excel.Interfaces.PivotItemUpdateData">Properties described by the Excel.Interfaces.PivotItemUpdateData interface.</param>
+			/// <param name="options" type="string">Options of the form { throwOnReadOnly?: boolean }
+			/// <br />
+			/// * throwOnReadOnly: Throw an error if the passed-in property list includes read-only properties (default = true).
+			/// </param>
+			/// </signature>
+			/// <signature>
+			/// <summary>Sets multiple properties on the object at the same time, based on an existing loaded object.</summary>
+			/// <param name="properties" type="PivotItem">An existing PivotItem object, with properties that have already been loaded and synced.</param>
+			/// </signature>
+		}
+		PivotItem.prototype.getDataRange = function() {
+			/// <returns type="Excel.Range"></returns>
+		}
+
+		return PivotItem;
+	})(OfficeExtension.ClientObject);
+	Excel.PivotItem = PivotItem;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	var PivotItemCollection = (function(_super) {
+		__extends(PivotItemCollection, _super);
+		function PivotItemCollection() {
+			/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="items" type="Array" elementType="Excel.PivotItem">Gets the loaded child items in this collection.</field>
+		}
+
+		PivotItemCollection.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Excel.PivotItemCollection"/>
+		}
+		PivotItemCollection.prototype.getCount = function() {
+			/// <returns type="OfficeExtension.ClientResult&lt;number&gt;"></returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = 0;
+			return result;
+		}
+		PivotItemCollection.prototype.getItem = function(nameOrIndex) {
+			/// <returns type="Excel.PivotItem"></returns>
+		}
+		PivotItemCollection.prototype.getItemAt = function(index) {
+			/// <returns type="Excel.PivotItem"></returns>
+		}
+
+		return PivotItemCollection;
+	})(OfficeExtension.ClientObject);
+	Excel.PivotItemCollection = PivotItemCollection;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
 	var PivotTable = (function(_super) {
 		__extends(PivotTable, _super);
 		function PivotTable() {
@@ -9702,6 +10120,57 @@ var Excel;
 			/// <field name="id" type="String">Id of the PivotTable. [Api set: ExcelApi 1.5]</field>
 			/// <field name="name" type="String">Name of the PivotTable. [Api set: ExcelApi 1.3]</field>
 			/// <field name="worksheet" type="Excel.Worksheet">The worksheet containing the current PivotTable. Read-only. [Api set: ExcelApi 1.3]</field>
+			/// <field name="allowMultipleFilters" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="alternativeText" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="calculatedFields" type="Excel.CalculatedFieldCollection"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="columnGrandTotals" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="compactLayoutColumnHeader" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="compactLayoutRowHeader" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="compactRowIndent" type="Number"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="dataBodyRange" type="Excel.Range"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="dataLabelRange" type="Excel.Range"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="displayContextTooltips" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="displayEmptyColumn" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="displayEmptyRow" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="displayErrorString" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="displayFieldCaptions" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="displayNullString" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="enableDrilldown" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="enableFieldDialog" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="enableFieldList" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="enableWizard" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="errorString" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="fieldListSortAscending" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="grandTotalName" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="hasAutoFormat" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="hidden" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="nullString" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="pivotFields" type="Excel.PivotFieldCollection"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="preserveFormatting" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="printDrillIndicators" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="printTitles" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="refreshDate" type="Date"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="refreshName" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="repeatItemsOnEachPrintedPage" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="rowGrandTotals" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="saveData" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="showDrillIndicators" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="showPageMultipleItemLabel" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="showTableStyleColumnHeaders" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="showTableStyleColumnStripes" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="showTableStyleLastColumn" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="showTableStyleRowHeaders" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="showTableStyleRowStripes" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="showValuesRow" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="smallGrid" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="sortUsingCustomLists" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="subtotalHiddenPageItems" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="summary" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="tag" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="totalsAnnotation" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="vacatedStyle" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="value" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			/// <field name="version" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
 		}
 
 		PivotTable.prototype.load = function(option) {
@@ -9730,6 +10199,49 @@ var Excel;
 			/// <summary>
 			/// Refreshes the PivotTable. [Api set: ExcelApi 1.3]
 			/// </summary>
+			/// <returns ></returns>
+		}
+		PivotTable.prototype.addChart = function(chartType, seriesBy) {
+			/// <returns type="Excel.Chart"></returns>
+		}
+		PivotTable.prototype.addDataField = function(field, caption, func) {
+			/// <returns type="Excel.PivotField"></returns>
+		}
+		PivotTable.prototype.clearTable = function() {
+			/// <returns ></returns>
+		}
+		PivotTable.prototype.getColumnField = function(Index) {
+			/// <returns type="Excel.PivotField"></returns>
+		}
+		PivotTable.prototype.getColumnRange = function() {
+			/// <returns type="Excel.Range"></returns>
+		}
+		PivotTable.prototype.getDataField = function(Index) {
+			/// <returns type="Excel.PivotField"></returns>
+		}
+		PivotTable.prototype.getEntireRange = function() {
+			/// <returns type="Excel.Range"></returns>
+		}
+		PivotTable.prototype.getHiddenField = function(Index) {
+			/// <returns type="Excel.PivotField"></returns>
+		}
+		PivotTable.prototype.getRowField = function(Index) {
+			/// <returns type="Excel.PivotField"></returns>
+		}
+		PivotTable.prototype.getRowRange = function() {
+			/// <returns type="Excel.Range"></returns>
+		}
+		PivotTable.prototype.listFormulas = function() {
+			/// <returns ></returns>
+		}
+		PivotTable.prototype.refreshTable = function() {
+			/// <returns type="OfficeExtension.ClientResult&lt;boolean&gt;"></returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = false;
+			return result;
+		}
+		PivotTable.prototype.update = function() {
 			/// <returns ></returns>
 		}
 
@@ -9786,10 +10298,42 @@ var Excel;
 			/// </summary>
 			/// <returns ></returns>
 		}
+		PivotTableCollection.prototype.add = function(name, address, pivotCache) {
+			/// <returns type="Excel.PivotTable"></returns>
+		}
 
 		return PivotTableCollection;
 	})(OfficeExtension.ClientObject);
 	Excel.PivotTableCollection = PivotTableCollection;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+	var PivotTableSourceType = {
+		__proto__: null,
+		"database": "database",
+		"external": "external",
+		"consolidation": "consolidation",
+		"scenario": "scenario",
+	}
+	Excel.PivotTableSourceType = PivotTableSourceType;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+	var PivotTableVersion = {
+		__proto__: null,
+		"pivotTableVersionCurrent": "pivotTableVersionCurrent",
+		"pivotTableVersion2000": "pivotTableVersion2000",
+		"pivotTableVersion10": "pivotTableVersion10",
+		"pivotTableVersion11": "pivotTableVersion11",
+		"pivotTableVersion12": "pivotTableVersion12",
+		"pivotTableVersion14": "pivotTableVersion14",
+		"pivotTableVersion15": "pivotTableVersion15",
+	}
+	Excel.PivotTableVersion = PivotTableVersion;
 })(Excel || (Excel = {__proto__: null}));
 
 var Excel;
@@ -9852,6 +10396,7 @@ var Excel;
 			/// <field name="formulasLocal" type="Array" elementType="Array">Represents the formula in A1-style notation, in the user&apos;s language and number-formatting locale.  For example, the English &quot;=SUM(A1, 1.5)&quot; formula would become &quot;=SUMME(A1; 1,5)&quot; in German. [Api set: ExcelApi 1.1]</field>
 			/// <field name="formulasR1C1" type="Array" elementType="Array">Represents the formula in R1C1-style notation. [Api set: ExcelApi 1.2]</field>
 			/// <field name="hidden" type="Boolean">Represents if all cells of the current range are hidden. [Api set: ExcelApi 1.2]</field>
+			/// <field name="hyperlink" type="Excel.Interfaces.RangeHyperlink">Represents the hyperlink set for the current range. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
 			/// <field name="numberFormat" type="Array" elementType="Array">Represents Excel&apos;s number format code for the given cell. [Api set: ExcelApi 1.1]</field>
 			/// <field name="rowCount" type="Number">Returns the total number of rows in the range. Read-only. [Api set: ExcelApi 1.1]</field>
 			/// <field name="rowHidden" type="Boolean">Represents if all rows of the current range are hidden. [Api set: ExcelApi 1.2]</field>
@@ -9861,6 +10406,8 @@ var Excel;
 			/// <field name="valueTypes" type="Array" elementType="Array">Represents the type of data of each cell. Read-only. [Api set: ExcelApi 1.1]</field>
 			/// <field name="values" type="Array" elementType="Array">Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string. [Api set: ExcelApi 1.1]</field>
 			/// <field name="worksheet" type="Excel.Worksheet">The worksheet containing the current range. Read-only. [Api set: ExcelApi 1.1]</field>
+			/// <field name="isEntireColumn" type="Boolean">Represents if the current range is an entire column. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
+			/// <field name="isEntireRow" type="Boolean">Represents if the current range is an entire row. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
 		}
 
 		Range.prototype.load = function(option) {
@@ -9904,6 +10451,14 @@ var Excel;
 			/// </summary>
 			/// <param name="shift" type="String">Specifies which way to shift the cells. See Excel.DeleteShiftDirection for details.</param>
 			/// <returns ></returns>
+		}
+		Range.prototype.getAbsoluteResizedRange = function(numRows, numColumns) {
+			/// <summary>
+			/// Gets a Range object with the same top-left cell as the current Range object, but with the specified numbers of rows and columns. [Api set: ExcelApi 1.7 (PREVIEW)]
+			/// </summary>
+			/// <param name="numRows" type="Number">The number of rows of the new range size.</param>
+			/// <param name="numColumns" type="Number">The number of columns of the new range size.</param>
+			/// <returns type="Excel.Range"></returns>
 		}
 		Range.prototype.getBoundingRect = function(anotherRange) {
 			/// <summary>
@@ -10273,6 +10828,7 @@ var Excel;
 			/// <field name="horizontalAlignment" type="String">Represents the horizontal alignment for the specified object. See Excel.HorizontalAlignment for details. [Api set: ExcelApi 1.1]</field>
 			/// <field name="protection" type="Excel.FormatProtection">Returns the format protection object for a range. [Api set: ExcelApi 1.2]</field>
 			/// <field name="rowHeight" type="Number">Gets or sets the height of all rows in the range. If the row heights are not uniform null will be returned. [Api set: ExcelApi 1.2]</field>
+			/// <field name="textOrientation" type="Number">Gets or sets the text orientation of all the cells within the range.              The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.              If the orientation within a range are not uniform, then null will be returned. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
 			/// <field name="verticalAlignment" type="String">Represents the vertical alignment for the specified object. See Excel.VerticalAlignment for details. [Api set: ExcelApi 1.1]</field>
 			/// <field name="wrapText" type="Boolean">Indicates if Excel wraps the text in the object. A null value indicates that the entire range doesn&apos;t have uniform wrap setting [Api set: ExcelApi 1.1]</field>
 		}
@@ -10315,6 +10871,25 @@ var Excel;
 		return RangeFormat;
 	})(OfficeExtension.ClientObject);
 	Excel.RangeFormat = RangeFormat;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	var Interfaces;
+	(function (Interfaces) {
+		var RangeHyperlink = (function() {
+			function RangeHyperlink() {
+				/// <summary> Represents the necessary strings to get/set a hyperlink (XHL) object. [Api set: ExcelApi 1.7 (PREVIEW)] </summary>
+				/// <field name="address" type="String">Represents the url target for the hyperlink. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
+				/// <field name="documentReference" type="String">Represents the document reference target for the hyperlink. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
+				/// <field name="screenTip" type="String">Represents the string displayed when hovering over the hyperlink. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
+				/// <field name="textToDisplay" type="String">Represents the string that is displayed in the top left most cell in the range. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
+			}
+			return RangeHyperlink;
+		})();
+		Interfaces.RangeHyperlink.__proto__ = null;
+		Interfaces.RangeHyperlink = RangeHyperlink;
+	})(Interfaces = Excel.Interfaces || (Excel.Interfaces = { __proto__: null}));
 })(Excel || (Excel = {__proto__: null}));
 
 var Excel;
@@ -10619,9 +11194,6 @@ var Excel;
 			remove: function (handler) {
 				/// <param name="handler" type="function(eventArgs: Excel.Interfaces.SettingsChangedEventArgs)">Handler for the event.</param>
 				return;
-			},
-			removeAll: function () {
-				return;
 			}
 		};
 
@@ -10716,6 +11288,17 @@ var Excel;
 
 var Excel;
 (function (Excel) {
+	/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+	var SortOrder = {
+		__proto__: null,
+		"ascending": "ascending",
+		"descending": "descending",
+	}
+	Excel.SortOrder = SortOrder;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
 	/// <summary> [Api set: ExcelApi 1.2] </summary>
 	var SortOrientation = {
 		__proto__: null,
@@ -10723,6 +11306,33 @@ var Excel;
 		"columns": "columns",
 	}
 	Excel.SortOrientation = SortOrientation;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	var Interfaces;
+	(function (Interfaces) {
+		var Subtotals = (function() {
+			function Subtotals() {
+				/// <summary> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)] </summary>
+				/// <field name="automatic" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+				/// <field name="average" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+				/// <field name="count" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+				/// <field name="countNumbers" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+				/// <field name="max" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+				/// <field name="min" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+				/// <field name="product" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+				/// <field name="standardDeviation" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+				/// <field name="standardDeviationP" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+				/// <field name="sum" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+				/// <field name="variation" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+				/// <field name="variationP" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
+			}
+			return Subtotals;
+		})();
+		Interfaces.Subtotals.__proto__ = null;
+		Interfaces.Subtotals = Subtotals;
+	})(Interfaces = Excel.Interfaces || (Excel.Interfaces = { __proto__: null}));
 })(Excel || (Excel = {__proto__: null}));
 
 var Excel;
@@ -11307,11 +11917,13 @@ var Excel;
 			/// <field name="bindings" type="Excel.BindingCollection">Represents a collection of bindings that are part of the workbook. Read-only. [Api set: ExcelApi 1.1]</field>
 			/// <field name="customXmlParts" type="Excel.CustomXmlPartCollection">Represents the collection of custom XML parts contained by this workbook. Read-only. [Api set: ExcelApi 1.5]</field>
 			/// <field name="functions" type="Excel.Functions">Represents Excel application instance that contains this workbook. Read-only. [Api set: ExcelApi 1.2]</field>
+			/// <field name="name" type="String">Gets the workbook name. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
 			/// <field name="names" type="Excel.NamedItemCollection">Represents a collection of workbook scoped named items (named ranges and constants). Read-only. [Api set: ExcelApi 1.1]</field>
 			/// <field name="pivotTables" type="Excel.PivotTableCollection">Represents a collection of PivotTables associated with the workbook. Read-only. [Api set: ExcelApi 1.3]</field>
 			/// <field name="settings" type="Excel.SettingCollection">Represents a collection of Settings associated with the workbook. Read-only. [Api set: ExcelApi 1.4]</field>
 			/// <field name="tables" type="Excel.TableCollection">Represents a collection of tables associated with the workbook. Read-only. [Api set: ExcelApi 1.1]</field>
 			/// <field name="worksheets" type="Excel.WorksheetCollection">Represents a collection of worksheets associated with the workbook. Read-only. [Api set: ExcelApi 1.1]</field>
+			/// <field name="pivotCaches" type="Excel.PivotCacheCollection"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>
 			/// <field name="onSelectionChanged" type="OfficeExtension.EventHandlers">Occurs when the selection in the document is changed. [Api set: ExcelApi 1.2]</field>
 		}
 
@@ -11340,9 +11952,6 @@ var Excel;
 			remove: function (handler) {
 				/// <param name="handler" type="function(eventArgs: Excel.Interfaces.SelectionChangedEventArgs)">Handler for the event.</param>
 				return;
-			},
-			removeAll: function () {
-				return;
 			}
 		};
 
@@ -11360,12 +11969,16 @@ var Excel;
 			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
 			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
 			/// <field name="charts" type="Excel.ChartCollection">Returns collection of charts that are part of the worksheet. Read-only. [Api set: ExcelApi 1.1]</field>
+			/// <field name="freezePanes" type="Excel.WorksheetFreezePanes">Gets an object that can be used to manipulate frozen panes on the worksheet [Api set: ExcelApi 1.7 (PREVIEW)]</field>
+			/// <field name="gridlines" type="Boolean">Gets or sets the worksheet&apos;s gridlines flag.              This flag determines whether gridlines are visible to the user. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
+			/// <field name="headings" type="Boolean">Gets or sets the worksheet&apos;s headings flag.              This flag determines whether headings are visible to the user. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
 			/// <field name="id" type="String">Returns a value that uniquely identifies the worksheet in a given workbook. The value of the identifier remains the same even when the worksheet is renamed or moved. Read-only. [Api set: ExcelApi 1.1]</field>
 			/// <field name="name" type="String">The display name of the worksheet. [Api set: ExcelApi 1.1]</field>
 			/// <field name="names" type="Excel.NamedItemCollection">Collection of names scoped to the current worksheet. Read-only. [Api set: ExcelApi 1.4]</field>
 			/// <field name="pivotTables" type="Excel.PivotTableCollection">Collection of PivotTables that are part of the worksheet. Read-only. [Api set: ExcelApi 1.3]</field>
 			/// <field name="position" type="Number">The zero-based position of the worksheet within the workbook. [Api set: ExcelApi 1.1]</field>
 			/// <field name="protection" type="Excel.WorksheetProtection">Returns sheet protection object for a worksheet. [Api set: ExcelApi 1.2]</field>
+			/// <field name="tabColor" type="String">Gets or sets the worksheet tab color.              When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form &quot;#123456&quot;              When setting the color, use an empty-string to set an &quot;auto&quot; color, or a real color otherwise. [Api set: ExcelApi 1.7 (PREVIEW)]</field>
 			/// <field name="tables" type="Excel.TableCollection">Collection of tables that are part of the worksheet. Read-only. [Api set: ExcelApi 1.1]</field>
 			/// <field name="visibility" type="String">The Visibility of the worksheet. [Api set: ExcelApi 1.1 for reading visibility; 1.2 for setting it.]</field>
 		}
@@ -11451,6 +12064,16 @@ var Excel;
 			/// Gets the range object specified by the address or name. [Api set: ExcelApi 1.1]
 			/// </summary>
 			/// <param name="address" type="String" optional="true">The address or the name of the range. If not specified, the entire worksheet range is returned.</param>
+			/// <returns type="Excel.Range"></returns>
+		}
+		Worksheet.prototype.getRangeByIndexes = function(startRow, startColumn, rowCount, columnCount) {
+			/// <summary>
+			/// Gets the range object beginning at a particular row index and column index, and spanning a certain number of rows and columns. [Api set: ExcelApi 1.7 (PREVIEW)]
+			/// </summary>
+			/// <param name="startRow" type="Number">Start row (zero-indexed).</param>
+			/// <param name="startColumn" type="Number">Start column (zero-indexed).</param>
+			/// <param name="rowCount" type="Number">Number of rows to include in the range.</param>
+			/// <param name="columnCount" type="Number">Number of columns to include in the range.</param>
 			/// <returns type="Excel.Range"></returns>
 		}
 		Worksheet.prototype.getUsedRange = function(valuesOnly) {
@@ -11548,6 +12171,68 @@ var Excel;
 
 var Excel;
 (function (Excel) {
+	var WorksheetFreezePanes = (function(_super) {
+		__extends(WorksheetFreezePanes, _super);
+		function WorksheetFreezePanes() {
+			/// <summary> [Api set: ExcelApi 1.7 (PREVIEW)] </summary>
+			/// <field name="context" type="Excel.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+		}
+
+		WorksheetFreezePanes.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Excel.WorksheetFreezePanes"/>
+		}
+		WorksheetFreezePanes.prototype.freezeAt = function(frozenRange) {
+			/// <summary>
+			/// Sets the frozen cells in the active worksheet view.              The range provided corresponds to cells that will be frozen in the top- and left-most pane. [Api set: ExcelApi 1.7 (PREVIEW)]
+			/// </summary>
+			/// <param name="frozenRange" >A range that represents the cells to be frozen, or null to remove all frozen panes.</param>
+			/// <returns ></returns>
+		}
+		WorksheetFreezePanes.prototype.freezeColumns = function(count) {
+			/// <summary>
+			/// Freeze the first column(s) of the worksheet in place. [Api set: ExcelApi 1.7 (PREVIEW)]
+			/// </summary>
+			/// <param name="count" type="Number" optional="true">Optional number of columns to freeze, or zero to unfreeze all columns</param>
+			/// <returns ></returns>
+		}
+		WorksheetFreezePanes.prototype.freezeRows = function(count) {
+			/// <summary>
+			/// Freeze the top row(s) of the worksheet in place. [Api set: ExcelApi 1.7 (PREVIEW)]
+			/// </summary>
+			/// <param name="count" type="Number" optional="true">Optional number of rows to freeze, or zero to unfreeze all rows</param>
+			/// <returns ></returns>
+		}
+		WorksheetFreezePanes.prototype.getLocation = function() {
+			/// <summary>
+			/// Gets a range that describes the frozen cells in the active worksheet view.              The frozen range is corresponds to cells that are frozen in the top- and left-most pane. [Api set: ExcelApi 1.7 (PREVIEW)]
+			/// </summary>
+			/// <returns type="Excel.Range"></returns>
+		}
+		WorksheetFreezePanes.prototype.getLocationOrNullObject = function() {
+			/// <summary>
+			/// Gets a range that describes the frozen cells in the active worksheet view.              The frozen range is corresponds to cells that are frozen in the top- and left-most pane.              If there is no frozen pane, returns a null object. [Api set: ExcelApi 1.7 (PREVIEW)]
+			/// </summary>
+			/// <returns type="Excel.Range"></returns>
+		}
+		WorksheetFreezePanes.prototype.unfreeze = function() {
+			/// <summary>
+			/// Removes all frozen panes in the worksheet. [Api set: ExcelApi 1.7 (PREVIEW)]
+			/// </summary>
+			/// <returns ></returns>
+		}
+
+		return WorksheetFreezePanes;
+	})(OfficeExtension.ClientObject);
+	Excel.WorksheetFreezePanes = WorksheetFreezePanes;
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
 	var WorksheetProtection = (function(_super) {
 		__extends(WorksheetProtection, _super);
 		function WorksheetProtection() {
@@ -11617,8 +12302,11 @@ var Excel;
 		var WorksheetUpdateData = (function() {
 			function WorksheetUpdateData() {
 				/// <summary>An interface for updating data on the Worksheet object, for use in "worksheet.set({ ... })".</summary>
+				/// <field name="gridlines" type="Boolean">Gets or sets the worksheet&apos;s gridlines flag.              This flag determines whether gridlines are visible to the user. [Api set: ExcelApi 1.7 (PREVIEW)]</field>;
+				/// <field name="headings" type="Boolean">Gets or sets the worksheet&apos;s headings flag.              This flag determines whether headings are visible to the user. [Api set: ExcelApi 1.7 (PREVIEW)]</field>;
 				/// <field name="name" type="String">The display name of the worksheet. [Api set: ExcelApi 1.1]</field>;
 				/// <field name="position" type="Number">The zero-based position of the worksheet within the workbook. [Api set: ExcelApi 1.1]</field>;
+				/// <field name="tabColor" type="String">Gets or sets the worksheet tab color.              When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form &quot;#123456&quot;              When setting the color, use an empty-string to set an &quot;auto&quot; color, or a real color otherwise. [Api set: ExcelApi 1.7 (PREVIEW)]</field>;
 				/// <field name="visibility" type="String">The Visibility of the worksheet. [Api set: ExcelApi 1.1 for reading visibility; 1.2 for setting it.]</field>;
 			}
 			return WorksheetUpdateData;
@@ -11640,6 +12328,7 @@ var Excel;
 				/// <field name="formulas" type="Array" elementType="Array">Represents the formula in A1-style notation. [Api set: ExcelApi 1.1]</field>;
 				/// <field name="formulasLocal" type="Array" elementType="Array">Represents the formula in A1-style notation, in the user&apos;s language and number-formatting locale.  For example, the English &quot;=SUM(A1, 1.5)&quot; formula would become &quot;=SUMME(A1; 1,5)&quot; in German. [Api set: ExcelApi 1.1]</field>;
 				/// <field name="formulasR1C1" type="Array" elementType="Array">Represents the formula in R1C1-style notation. [Api set: ExcelApi 1.2]</field>;
+				/// <field name="hyperlink" type="Excel.Interfaces.RangeHyperlink">Represents the hyperlink set for the current range. [Api set: ExcelApi 1.7 (PREVIEW)]</field>;
 				/// <field name="numberFormat" type="Array" elementType="Array">Represents Excel&apos;s number format code for the given cell. [Api set: ExcelApi 1.1]</field>;
 				/// <field name="rowHidden" type="Boolean">Represents if all rows of the current range are hidden. [Api set: ExcelApi 1.2]</field>;
 				/// <field name="values" type="Array" elementType="Array">Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string. [Api set: ExcelApi 1.1]</field>;
@@ -11774,6 +12463,7 @@ var Excel;
 				/// <field name="columnWidth" type="Number">Gets or sets the width of all colums within the range. If the column widths are not uniform, null will be returned. [Api set: ExcelApi 1.2]</field>;
 				/// <field name="horizontalAlignment" type="String">Represents the horizontal alignment for the specified object. See Excel.HorizontalAlignment for details. [Api set: ExcelApi 1.1]</field>;
 				/// <field name="rowHeight" type="Number">Gets or sets the height of all rows in the range. If the row heights are not uniform null will be returned. [Api set: ExcelApi 1.2]</field>;
+				/// <field name="textOrientation" type="Number">Gets or sets the text orientation of all the cells within the range.              The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.              If the orientation within a range are not uniform, then null will be returned. [Api set: ExcelApi 1.7 (PREVIEW)]</field>;
 				/// <field name="verticalAlignment" type="String">Represents the vertical alignment for the specified object. See Excel.VerticalAlignment for details. [Api set: ExcelApi 1.1]</field>;
 				/// <field name="wrapText" type="Boolean">Indicates if Excel wraps the text in the object. A null value indicates that the entire range doesn&apos;t have uniform wrap setting [Api set: ExcelApi 1.1]</field>;
 			}
@@ -12210,6 +12900,49 @@ var Excel;
 			function PivotTableUpdateData() {
 				/// <summary>An interface for updating data on the PivotTable object, for use in "pivotTable.set({ ... })".</summary>
 				/// <field name="name" type="String">Name of the PivotTable. [Api set: ExcelApi 1.3]</field>;
+				/// <field name="allowMultipleFilters" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="alternativeText" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="columnGrandTotals" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="compactLayoutColumnHeader" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="compactLayoutRowHeader" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="compactRowIndent" type="Number"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="displayContextTooltips" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="displayEmptyColumn" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="displayEmptyRow" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="displayErrorString" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="displayFieldCaptions" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="displayNullString" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="enableDrilldown" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="enableFieldDialog" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="enableFieldList" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="enableWizard" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="errorString" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="fieldListSortAscending" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="grandTotalName" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="hasAutoFormat" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="nullString" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="preserveFormatting" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="printDrillIndicators" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="printTitles" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="repeatItemsOnEachPrintedPage" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="rowGrandTotals" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="saveData" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="showDrillIndicators" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="showPageMultipleItemLabel" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="showTableStyleColumnHeaders" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="showTableStyleColumnStripes" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="showTableStyleLastColumn" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="showTableStyleRowHeaders" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="showTableStyleRowStripes" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="showValuesRow" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="smallGrid" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="sortUsingCustomLists" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="subtotalHiddenPageItems" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="summary" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="tag" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="totalsAnnotation" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="vacatedStyle" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="value" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
 			}
 			return PivotTableUpdateData;
 		})();
@@ -12517,6 +13250,53 @@ var Excel;
 		Interfaces.ConditionalRangeBorderUpdateData = ConditionalRangeBorderUpdateData;
 	})(Interfaces = Excel.Interfaces || (Excel.Interfaces = { __proto__: null}));
 })(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	var Interfaces;
+	(function (Interfaces) {
+		var PivotFieldUpdateData = (function() {
+			function PivotFieldUpdateData() {
+				/// <summary>An interface for updating data on the PivotField object, for use in "pivotField.set({ ... })".</summary>
+				/// <field name="aggregationFunction" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="calculation" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="caption" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="drilledDown" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="enableMultiplePageItems" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="formula" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="name" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="numberFormat" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="orientation" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="position" type="Number"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="showDetail" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="subtotals" type="Excel.Interfaces.Subtotals"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+			}
+			return PivotFieldUpdateData;
+		})();
+		Interfaces.PivotFieldUpdateData.__proto__ = null;
+		Interfaces.PivotFieldUpdateData = PivotFieldUpdateData;
+	})(Interfaces = Excel.Interfaces || (Excel.Interfaces = { __proto__: null}));
+})(Excel || (Excel = {__proto__: null}));
+
+var Excel;
+(function (Excel) {
+	var Interfaces;
+	(function (Interfaces) {
+		var PivotItemUpdateData = (function() {
+			function PivotItemUpdateData() {
+				/// <summary>An interface for updating data on the PivotItem object, for use in "pivotItem.set({ ... })".</summary>
+				/// <field name="drilledDown" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="name" type="String"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="position" type="Number"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="showDetail" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+				/// <field name="visible" type="Boolean"> [Api set: ExcelApi.Pivot 1.1 (PREVIEW)]</field>;
+			}
+			return PivotItemUpdateData;
+		})();
+		Interfaces.PivotItemUpdateData.__proto__ = null;
+		Interfaces.PivotItemUpdateData = PivotItemUpdateData;
+	})(Interfaces = Excel.Interfaces || (Excel.Interfaces = { __proto__: null}));
+})(Excel || (Excel = {__proto__: null}));
 var Excel;
 (function (Excel) {
 	var RequestContext = (function (_super) {
@@ -12575,7 +13355,7 @@ var Excel;
 })(Excel || (Excel = {__proto__: null}));
 Excel.__proto__ = null;
 
- 
+
 
 var Word;
 (function (Word) {
@@ -12590,6 +13370,36 @@ var Word;
 		"justified": "justified",
 	}
 	Word.Alignment = Alignment;
+})(Word || (Word = {__proto__: null}));
+
+var Word;
+(function (Word) {
+	var Application = (function(_super) {
+		__extends(Application, _super);
+		function Application() {
+			/// <summary> The Application object. [Api set: WordApi 1.4 (PREVIEW)] </summary>
+			/// <field name="context" type="Word.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+		}
+
+		Application.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Word.Application"/>
+		}
+		Application.prototype.createDocument = function(base64File) {
+			/// <summary>
+			/// Creates a new document by using a base64 encoded .docx file. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="base64File" type="String" optional="true">Optional. The base64 encoded .docx file. The default value is null.</param>
+			/// <returns type="Word.Document"></returns>
+		}
+
+		return Application;
+	})(OfficeExtension.ClientObject);
+	Word.Application = Application;
 })(Word || (Word = {__proto__: null}));
 
 var Word;
@@ -12909,6 +13719,9 @@ var Word;
 			/// <field name="text" type="String">Gets the text of the content control. Read-only. [Api set: WordApi 1.1]</field>
 			/// <field name="title" type="String">Gets or sets the title for a content control. [Api set: WordApi 1.1]</field>
 			/// <field name="type" type="String">Gets the content control type. Only rich text content controls are supported currently. Read-only. [Api set: WordApi 1.1]</field>
+			/// <field name="onDataChanged" type="OfficeExtension.EventHandlers">Occurs when data within the content control is changed. To get the new text, load this content control in the handler. To get the old text, do not load it. [Api set: WordApi 1.4 (PREVIEW)]</field>
+			/// <field name="onDeleted" type="OfficeExtension.EventHandlers">Occurs when the content control is deleted. Do not load this content control in the handler, otherwise you won&apos;t be able to get its original properties. [Api set: WordApi 1.4 (PREVIEW)]</field>
+			/// <field name="onSelectionChanged" type="OfficeExtension.EventHandlers">Occurs when selection within the content control is changed. [Api set: WordApi 1.4 (PREVIEW)]</field>
 		}
 
 		ContentControl.prototype.load = function(option) {
@@ -13072,6 +13885,48 @@ var Word;
 			/// <param name="trimSpacing" type="Boolean" optional="true">Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.</param>
 			/// <returns type="Word.RangeCollection"></returns>
 		}
+		ContentControl.prototype.onDataChanged = {
+			__proto__: null,
+			add: function (handler) {
+				/// <param name="handler" type="function(eventArgs: Word.Interfaces.ObjectEventArgs)">Handler for the event. EventArgs: Provides information about the content control that raised an event. </param>
+				/// <returns type="OfficeExtension.EventHandlerResult"></returns>
+				var eventInfo = new Word.Interfaces.ObjectEventArgs();
+				eventInfo.__proto__ = null;
+				handler(eventInfo);
+			},
+			remove: function (handler) {
+				/// <param name="handler" type="function(eventArgs: Word.Interfaces.ObjectEventArgs)">Handler for the event.</param>
+				return;
+			}
+		};
+		ContentControl.prototype.onDeleted = {
+			__proto__: null,
+			add: function (handler) {
+				/// <param name="handler" type="function(eventArgs: Word.Interfaces.ObjectEventArgs)">Handler for the event. EventArgs: Provides information about the content control that raised an event. </param>
+				/// <returns type="OfficeExtension.EventHandlerResult"></returns>
+				var eventInfo = new Word.Interfaces.ObjectEventArgs();
+				eventInfo.__proto__ = null;
+				handler(eventInfo);
+			},
+			remove: function (handler) {
+				/// <param name="handler" type="function(eventArgs: Word.Interfaces.ObjectEventArgs)">Handler for the event.</param>
+				return;
+			}
+		};
+		ContentControl.prototype.onSelectionChanged = {
+			__proto__: null,
+			add: function (handler) {
+				/// <param name="handler" type="function(eventArgs: Word.Interfaces.ObjectEventArgs)">Handler for the event. EventArgs: Provides information about the content control that raised an event. </param>
+				/// <returns type="OfficeExtension.EventHandlerResult"></returns>
+				var eventInfo = new Word.Interfaces.ObjectEventArgs();
+				eventInfo.__proto__ = null;
+				handler(eventInfo);
+			},
+			remove: function (handler) {
+				/// <param name="handler" type="function(eventArgs: Word.Interfaces.ObjectEventArgs)">Handler for the event.</param>
+				return;
+			}
+		};
 
 		ContentControl.prototype.track = function() {
 			/// <summary>
@@ -13231,8 +14086,8 @@ var Word;
 			/// <field name="context" type="Word.RequestContext">The request context associated with this object.</field>
 			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
 			/// <field name="key" type="String">Gets the key of the custom property. Read only. [Api set: WordApi 1.3]</field>
-			/// <field name="type" type="String">Gets the value type of the custom property. Read only. [Api set: WordApi 1.3]</field>
-			/// <field name="value" >Gets or sets the value of the custom property. [Api set: WordApi 1.3]</field>
+			/// <field name="type" type="String">Gets the value type of the custom property. Possible values are: String, Number, Date, Boolean. Read only. [Api set: WordApi 1.3]</field>
+			/// <field name="value" >Gets or sets the value of the custom property. Note that even though Word Online and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair). [Api set: WordApi 1.3]</field>
 		}
 
 		CustomProperty.prototype.load = function(option) {
@@ -13361,6 +14216,287 @@ var Word;
 
 var Word;
 (function (Word) {
+	var CustomXmlPart = (function(_super) {
+		__extends(CustomXmlPart, _super);
+		function CustomXmlPart() {
+			/// <summary> Represents a custom XML part. [Api set: WordApi 1.4 (PREVIEW)] </summary>
+			/// <field name="context" type="Word.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="id" type="String">Gets the ID of the custom XML part. Read only. [Api set: WordApi 1.4 (PREVIEW)]</field>
+			/// <field name="namespaceUri" type="String">Gets the namespace URI of the custom XML part. Read only. [Api set: WordApi 1.4 (PREVIEW)]</field>
+		}
+
+		CustomXmlPart.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Word.CustomXmlPart"/>
+		}
+		CustomXmlPart.prototype.delete = function() {
+			/// <summary>
+			/// Deletes the custom XML part. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns ></returns>
+		}
+		CustomXmlPart.prototype.deleteAttribute = function(xpath, namespaceMappings, name) {
+			/// <summary>
+			/// Deletes an attribute with the given name from the element identified by xpath. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="xpath" type="String">Required. Absolute path to the single element in XPath notation.</param>
+			/// <param name="namespaceMappings" >Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.</param>
+			/// <param name="name" type="String">Required. Name of the attribute.</param>
+			/// <returns ></returns>
+		}
+		CustomXmlPart.prototype.deleteElement = function(xpath, namespaceMappings) {
+			/// <summary>
+			/// Deletes the element identified by xpath. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="xpath" type="String">Required. Absolute path to the single element in XPath notation.</param>
+			/// <param name="namespaceMappings" >Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.</param>
+			/// <returns ></returns>
+		}
+		CustomXmlPart.prototype.getXml = function() {
+			/// <summary>
+			/// Gets the full XML content of the custom XML part. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns type="OfficeExtension.ClientResult&lt;string&gt;"></returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = '';
+			return result;
+		}
+		CustomXmlPart.prototype.insertAttribute = function(xpath, namespaceMappings, name, value) {
+			/// <summary>
+			/// Inserts an attribute with the given name and value to the element identified by xpath. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="xpath" type="String">Required. Absolute path to the single element in XPath notation.</param>
+			/// <param name="namespaceMappings" >Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.</param>
+			/// <param name="name" type="String">Required. Name of the attribute.</param>
+			/// <param name="value" type="String">Required. Value of the attribute.</param>
+			/// <returns ></returns>
+		}
+		CustomXmlPart.prototype.insertElement = function(xpath, xml, namespaceMappings, index) {
+			/// <summary>
+			/// Inserts the given XML under the parent element identified by xpath at child position index. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="xpath" type="String">Required. Absolute path to the single parent element in XPath notation.</param>
+			/// <param name="xml" type="String">Required. XML content to be inserted.</param>
+			/// <param name="namespaceMappings" >Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.</param>
+			/// <param name="index" type="Number" optional="true">Optional. Zero-based position at which the new XML to be inserted. If omitted, the XML will be appended as the last child of this parent.</param>
+			/// <returns ></returns>
+		}
+		CustomXmlPart.prototype.query = function(xpath, namespaceMappings) {
+			/// <summary>
+			/// Queries the XML content of the custom XML part. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="xpath" type="String">Required. An XPath query.</param>
+			/// <param name="namespaceMappings" >Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.</param>
+			/// <returns type="OfficeExtension.ClientResult&lt;Array<string>&gt;">An array where each item represents an entry matched by the XPath query.</returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = [];
+			return result;
+		}
+		CustomXmlPart.prototype.setXml = function(xml) {
+			/// <summary>
+			/// Sets the full XML content of the custom XML part. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="xml" type="String">Required. XML content to be set.</param>
+			/// <returns ></returns>
+		}
+		CustomXmlPart.prototype.updateAttribute = function(xpath, namespaceMappings, name, value) {
+			/// <summary>
+			/// Updates the value of an attribute with the given name of the element identified by xpath. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="xpath" type="String">Required. Absolute path to the single element in XPath notation.</param>
+			/// <param name="namespaceMappings" >Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.</param>
+			/// <param name="name" type="String">Required. Name of the attribute.</param>
+			/// <param name="value" type="String">Required. New value of the attribute.</param>
+			/// <returns ></returns>
+		}
+		CustomXmlPart.prototype.updateElement = function(xpath, xml, namespaceMappings) {
+			/// <summary>
+			/// Updates the XML of the element identified by xpath. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="xpath" type="String">Required. Absolute path to the single element in XPath notation.</param>
+			/// <param name="xml" type="String">Required. New XML content to be stored.</param>
+			/// <param name="namespaceMappings" >Required. An object whose properties represent namespace aliases and the values are the actual namespace URIs.</param>
+			/// <returns ></returns>
+		}
+
+		CustomXmlPart.prototype.track = function() {
+			/// <summary>
+			/// Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+			/// </summary>
+			/// <returns type="Word.CustomXmlPart"/>
+		}
+
+		CustomXmlPart.prototype.untrack = function() {
+			/// <summary>
+			/// Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+			/// </summary>
+			/// <returns type="Word.CustomXmlPart"/>
+		}
+
+		return CustomXmlPart;
+	})(OfficeExtension.ClientObject);
+	Word.CustomXmlPart = CustomXmlPart;
+})(Word || (Word = {__proto__: null}));
+
+var Word;
+(function (Word) {
+	var CustomXmlPartCollection = (function(_super) {
+		__extends(CustomXmlPartCollection, _super);
+		function CustomXmlPartCollection() {
+			/// <summary> Contains the collection of [customXmlPart](customXmlPart.md) objects. [Api set: WordApi 1.4 (PREVIEW)] </summary>
+			/// <field name="context" type="Word.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="items" type="Array" elementType="Word.CustomXmlPart">Gets the loaded child items in this collection.</field>
+		}
+
+		CustomXmlPartCollection.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Word.CustomXmlPartCollection"/>
+		}
+		CustomXmlPartCollection.prototype.add = function(xml) {
+			/// <summary>
+			/// Adds a new custom XML part to the document. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="xml" type="String">Required. XML content. Must be a valid XML fragment.</param>
+			/// <returns type="Word.CustomXmlPart"></returns>
+		}
+		CustomXmlPartCollection.prototype.getByNamespace = function(namespaceUri) {
+			/// <summary>
+			/// Gets a new scoped collection of custom XML parts whose namespaces match the given namespace. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="namespaceUri" type="String">Required. The namespace URI.</param>
+			/// <returns type="Word.CustomXmlPartScopedCollection"></returns>
+		}
+		CustomXmlPartCollection.prototype.getCount = function() {
+			/// <summary>
+			/// Gets the number of items in the collection. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns type="OfficeExtension.ClientResult&lt;number&gt;"></returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = 0;
+			return result;
+		}
+		CustomXmlPartCollection.prototype.getItem = function(id) {
+			/// <summary>
+			/// Gets a custom XML part based on its ID. Read only. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="id" type="String">ID or index of the custom XML part to be retrieved.</param>
+			/// <returns type="Word.CustomXmlPart"></returns>
+		}
+		CustomXmlPartCollection.prototype.getItemOrNullObject = function(id) {
+			/// <summary>
+			/// Gets a custom XML part based on its ID. Returns a null object if the CustomXmlPart does not exist. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="id" type="String">Required. ID of the object to be retrieved.</param>
+			/// <returns type="Word.CustomXmlPart"></returns>
+		}
+
+		CustomXmlPartCollection.prototype.track = function() {
+			/// <summary>
+			/// Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+			/// </summary>
+			/// <returns type="Word.CustomXmlPartCollection"/>
+		}
+
+		CustomXmlPartCollection.prototype.untrack = function() {
+			/// <summary>
+			/// Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+			/// </summary>
+			/// <returns type="Word.CustomXmlPartCollection"/>
+		}
+
+		return CustomXmlPartCollection;
+	})(OfficeExtension.ClientObject);
+	Word.CustomXmlPartCollection = CustomXmlPartCollection;
+})(Word || (Word = {__proto__: null}));
+
+var Word;
+(function (Word) {
+	var CustomXmlPartScopedCollection = (function(_super) {
+		__extends(CustomXmlPartScopedCollection, _super);
+		function CustomXmlPartScopedCollection() {
+			/// <summary> Contains the collection of [customXmlPart](customXmlPart.md) objects with a specific namespace. [Api set: WordApi 1.4 (PREVIEW)] </summary>
+			/// <field name="context" type="Word.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="namespaceUri" type="String">Gets the namespace URI of this custom XML part collection . [Api set: WordApi 1.4 (PREVIEW)]</field>
+			/// <field name="items" type="Array" elementType="Word.CustomXmlPart">Gets the loaded child items in this collection.</field>
+		}
+
+		CustomXmlPartScopedCollection.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Word.CustomXmlPartScopedCollection"/>
+		}
+		CustomXmlPartScopedCollection.prototype.getCount = function() {
+			/// <summary>
+			/// Gets the number of items in the collection. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns type="OfficeExtension.ClientResult&lt;number&gt;"></returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = 0;
+			return result;
+		}
+		CustomXmlPartScopedCollection.prototype.getItem = function(id) {
+			/// <summary>
+			/// Gets a custom XML part based on its ID. Read only. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="id" type="String">ID of the custom XML part to be retrieved.</param>
+			/// <returns type="Word.CustomXmlPart"></returns>
+		}
+		CustomXmlPartScopedCollection.prototype.getItemOrNullObject = function(id) {
+			/// <summary>
+			/// Gets a custom XML part based on its ID. Returns a null object if the CustomXmlPart does not exist in the collection. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="id" type="String">Required. ID of the object to be retrieved.</param>
+			/// <returns type="Word.CustomXmlPart"></returns>
+		}
+		CustomXmlPartScopedCollection.prototype.getOnlyItem = function() {
+			/// <summary>
+			/// If the collection contains exactly one item, this method returns it. Otherwise, this method produces an error. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns type="Word.CustomXmlPart"></returns>
+		}
+		CustomXmlPartScopedCollection.prototype.getOnlyItemOrNullObject = function() {
+			/// <summary>
+			/// If the collection contains exactly one item, this method returns it. Otherwise, this method returns a null object. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns type="Word.CustomXmlPart"></returns>
+		}
+
+		CustomXmlPartScopedCollection.prototype.track = function() {
+			/// <summary>
+			/// Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+			/// </summary>
+			/// <returns type="Word.CustomXmlPartScopedCollection"/>
+		}
+
+		CustomXmlPartScopedCollection.prototype.untrack = function() {
+			/// <summary>
+			/// Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+			/// </summary>
+			/// <returns type="Word.CustomXmlPartScopedCollection"/>
+		}
+
+		return CustomXmlPartScopedCollection;
+	})(OfficeExtension.ClientObject);
+	Word.CustomXmlPartScopedCollection = CustomXmlPartScopedCollection;
+})(Word || (Word = {__proto__: null}));
+
+var Word;
+(function (Word) {
 	var Document = (function(_super) {
 		__extends(Document, _super);
 		function Document() {
@@ -13369,9 +14505,12 @@ var Word;
 			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
 			/// <field name="body" type="Word.Body">Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc.. Read-only. [Api set: WordApi 1.1]</field>
 			/// <field name="contentControls" type="Word.ContentControlCollection">Gets the collection of content control objects in the current document. This includes content controls in the body of the document, headers, footers, textboxes, etc.. Read-only. [Api set: WordApi 1.1]</field>
+			/// <field name="customXmlParts" type="Word.CustomXmlPartCollection">Gets the custom XML parts in the current document. Read-only. [Api set: WordApi 1.4 (PREVIEW)]</field>
 			/// <field name="properties" type="Word.DocumentProperties">Gets the properties of the current document. Read-only. [Api set: WordApi 1.3]</field>
 			/// <field name="saved" type="Boolean">Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn&apos;t changed since it was saved. Read-only. [Api set: WordApi 1.1]</field>
 			/// <field name="sections" type="Word.SectionCollection">Gets the collection of section objects in the document. Read-only. [Api set: WordApi 1.1]</field>
+			/// <field name="settings" type="Word.SettingCollection">Gets the add-in&apos;s settings in the current document. Read-only. [Api set: WordApi 1.4 (PREVIEW)]</field>
+			/// <field name="onContentControlAdded" type="OfficeExtension.EventHandlers">Occurs when a content control is added. Run context.sync() in the handler to get the new content control&apos;s properties. [Api set: WordApi 1.4 (PREVIEW)]</field>
 		}
 
 		Document.prototype.load = function(option) {
@@ -13396,11 +14535,38 @@ var Word;
 			/// <param name="properties" type="Document">An existing Document object, with properties that have already been loaded and synced.</param>
 			/// </signature>
 		}
+		Document.prototype.deleteBookmark = function(name) {
+			/// <summary>
+			/// Deletes a bookmark, if exists, from the document. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="name" type="String">Required. The bookmark name, which is case-insensitive.</param>
+			/// <returns ></returns>
+		}
+		Document.prototype.getBookmarkRange = function(name) {
+			/// <summary>
+			/// Gets a bookmark&apos;s range. Throws if the bookmark does not exist. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="name" type="String">Required. The bookmark name, which is case-insensitive.</param>
+			/// <returns type="Word.Range"></returns>
+		}
+		Document.prototype.getBookmarkRangeOrNullObject = function(name) {
+			/// <summary>
+			/// Gets a bookmark&apos;s range. Returns a null object if the bookmark does not exist. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="name" type="String">Required. The bookmark name, which is case-insensitive.</param>
+			/// <returns type="Word.Range"></returns>
+		}
 		Document.prototype.getSelection = function() {
 			/// <summary>
 			/// Gets the current selection of the document. Multiple selections are not supported. [Api set: WordApi 1.1]
 			/// </summary>
 			/// <returns type="Word.Range"></returns>
+		}
+		Document.prototype.open = function() {
+			/// <summary>
+			/// Open the document. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns ></returns>
 		}
 		Document.prototype.save = function() {
 			/// <summary>
@@ -13408,6 +14574,20 @@ var Word;
 			/// </summary>
 			/// <returns ></returns>
 		}
+		Document.prototype.onContentControlAdded = {
+			__proto__: null,
+			add: function (handler) {
+				/// <param name="handler" type="function(eventArgs: Word.Interfaces.ObjectEventArgs)">Handler for the event. EventArgs: Provides information about the content control that raised an event. </param>
+				/// <returns type="OfficeExtension.EventHandlerResult"></returns>
+				var eventInfo = new Word.Interfaces.ObjectEventArgs();
+				eventInfo.__proto__ = null;
+				handler(eventInfo);
+			},
+			remove: function (handler) {
+				/// <param name="handler" type="function(eventArgs: Word.Interfaces.ObjectEventArgs)">Handler for the event.</param>
+				return;
+			}
+		};
 
 		Document.prototype.track = function() {
 			/// <summary>
@@ -13621,6 +14801,7 @@ var Word;
 			/// <field name="altTextTitle" type="String">Gets or sets a string that contains the title for the inline image. [Api set: WordApi 1.1]</field>
 			/// <field name="height" type="Number">Gets or sets a number that describes the height of the inline image. [Api set: WordApi 1.1]</field>
 			/// <field name="hyperlink" type="String">Gets or sets a hyperlink on the image. Use a &apos;#&apos; to separate the address part from the optional location part. [Api set: WordApi 1.1]</field>
+			/// <field name="imageFormat" type="String">Gets the format of the inline image. Read-only. [Api set: WordApi 1.4 (PREVIEW)]</field>
 			/// <field name="lockAspectRatio" type="Boolean">Gets or sets a value that indicates whether the inline image retains its original proportions when you resize it. [Api set: WordApi 1.1]</field>
 			/// <field name="paragraph" type="Word.Paragraph">Gets the parent paragraph that contains the inline image. Read-only. [Api set: WordApi 1.2]</field>
 			/// <field name="parentContentControl" type="Word.ContentControl">Gets the content control that contains the inline image. Throws if there isn&apos;t a parent content control. Read-only. [Api set: WordApi 1.1]</field>
@@ -13863,12 +15044,30 @@ var Word;
 			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
 			/// <returns type="Word.List"/>
 		}
+		List.prototype.getLevelFont = function(level) {
+			/// <summary>
+			/// Gets the font of the bullet, number or picture at the specified level in the list. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="level" type="Number">Required. The level in the list.</param>
+			/// <returns type="Word.Font"></returns>
+		}
 		List.prototype.getLevelParagraphs = function(level) {
 			/// <summary>
 			/// Gets the paragraphs that occur at the specified level in the list. [Api set: WordApi 1.3]
 			/// </summary>
 			/// <param name="level" type="Number">Required. The level in the list.</param>
 			/// <returns type="Word.ParagraphCollection"></returns>
+		}
+		List.prototype.getLevelPicture = function(level) {
+			/// <summary>
+			/// Gets the base64 encoded string representation of the picture at the specified level in the list. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="level" type="Number">Required. The level in the list.</param>
+			/// <returns type="OfficeExtension.ClientResult&lt;string&gt;"></returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = '';
+			return result;
 		}
 		List.prototype.getLevelString = function(level) {
 			/// <summary>
@@ -13888,6 +15087,14 @@ var Word;
 			/// <param name="paragraphText" type="String">Required. The paragraph text to be inserted.</param>
 			/// <param name="insertLocation" type="String">Required. The value can be &apos;Start&apos;, &apos;End&apos;, &apos;Before&apos; or &apos;After&apos;.</param>
 			/// <returns type="Word.Paragraph"></returns>
+		}
+		List.prototype.resetLevelFont = function(level, resetFontName) {
+			/// <summary>
+			/// Resets the font of the bullet, number or picture at the specified level in the list. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="level" type="Number">Required. The level in the list.</param>
+			/// <param name="resetFontName" type="Boolean" optional="true">Optional. Indicates whether to reset the font name. Default is false that indicates the font name is kept unchanged.</param>
+			/// <returns ></returns>
 		}
 		List.prototype.setLevelAlignment = function(level, alignment) {
 			/// <summary>
@@ -13923,6 +15130,14 @@ var Word;
 			/// <param name="level" type="Number">Required. The level in the list.</param>
 			/// <param name="listNumbering" type="String">Required. The ordinal format.</param>
 			/// <param name="formatString" type="Array"  optional="true">Optional. The numbering string format defined as an array of strings and/or integers. Each integer is a level of number type that is higher than or equal to this level. For example, an array of [&quot;(&quot;, level - 1, &quot;.&quot;, level, &quot;)&quot;] can define the format of &quot;(2.c)&quot;, where 2 is the parent&apos;s item number and c is this level&apos;s item number.</param>
+			/// <returns ></returns>
+		}
+		List.prototype.setLevelPicture = function(level, base64EncodedImage) {
+			/// <summary>
+			/// Sets the picture at the specified level in the list. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="level" type="Number">Required. The level in the list.</param>
+			/// <param name="base64EncodedImage" type="String" optional="true">Optional. The base64 encoded image to be set. If not given, the default picture is set.</param>
 			/// <returns ></returns>
 		}
 		List.prototype.setLevelStartingNumber = function(level, startingNumber) {
@@ -14164,6 +15379,23 @@ var Word;
 		"after": "after",
 	}
 	Word.LocationRelation = LocationRelation;
+})(Word || (Word = {__proto__: null}));
+
+var Word;
+(function (Word) {
+	var Interfaces;
+	(function (Interfaces) {
+		var ObjectEventArgs = (function() {
+			function ObjectEventArgs() {
+				/// <summary> Provides information about the content control that raised an event. [Api set: WordApi 1.4 (PREVIEW)] </summary>
+				/// <field name="object" >The object that raised the event. Load this object to get its properties. [Api set: WordApi 1.4 (PREVIEW)]</field>
+				/// <field name="type" type="Number">The event type. [Api set: WordApi 1.4 (PREVIEW)]</field>
+			}
+			return ObjectEventArgs;
+		})();
+		Interfaces.ObjectEventArgs.__proto__ = null;
+		Interfaces.ObjectEventArgs = ObjectEventArgs;
+	})(Interfaces = Word.Interfaces || (Word.Interfaces = { __proto__: null}));
 })(Word || (Word = {__proto__: null}));
 
 var Word;
@@ -14584,6 +15816,18 @@ var Word;
 			/// <param name="range" type="Word.Range">Required. Another range.</param>
 			/// <returns type="Word.Range"></returns>
 		}
+		Range.prototype.getBookmarks = function(includeHidden, includeAdjacent) {
+			/// <summary>
+			/// Gets the names all bookmarks in or overlapping the range. A bookmark is hidden if its name starts with the underscore character. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="includeHidden" type="Boolean" optional="true">Optional. Indicates whether to include hidden bookmarks. Default is false which indicates that the hidden bookmarks are excluded.</param>
+			/// <param name="includeAdjacent" type="Boolean" optional="true">Optional. Indicates whether to include bookmarks that are adjacent to the range. Default is false which indicates that the adjacent bookmarks are excluded.</param>
+			/// <returns type="OfficeExtension.ClientResult&lt;Array<string>&gt;"></returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = [];
+			return result;
+		}
 		Range.prototype.getHtml = function() {
 			/// <summary>
 			/// Gets the HTML representation of the range object. [Api set: WordApi 1.1]
@@ -14640,6 +15884,13 @@ var Word;
 			/// <param name="endingMarks" type="Array" elementType="String">Required. The punctuation marks and/or other ending marks as an array of strings.</param>
 			/// <param name="trimSpacing" type="Boolean" optional="true">Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.</param>
 			/// <returns type="Word.RangeCollection"></returns>
+		}
+		Range.prototype.insertBookmark = function(name) {
+			/// <summary>
+			/// Inserts a bookmark on the range. If a bookmark of the same name exists somewhere, it is deleted first. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="name" type="String">Required. The bookmark name, which is case-insensitive. If the name starts with an underscore character, the bookmark is an hidden one.</param>
+			/// <returns ></returns>
 		}
 		Range.prototype.insertBreak = function(breakType, insertLocation) {
 			/// <summary>
@@ -15025,6 +16276,142 @@ var Word;
 
 var Word;
 (function (Word) {
+	var Setting = (function(_super) {
+		__extends(Setting, _super);
+		function Setting() {
+			/// <summary> Represents a setting of the add-in. [Api set: WordApi 1.4 (PREVIEW)] </summary>
+			/// <field name="context" type="Word.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="key" type="String">Gets the key of the setting. Read only. [Api set: WordApi 1.4 (PREVIEW)]</field>
+			/// <field name="value" >Gets or sets the value of the setting. [Api set: WordApi 1.4 (PREVIEW)]</field>
+		}
+
+		Setting.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Word.Setting"/>
+		}
+
+		Setting.prototype.set = function() {
+			/// <signature>
+			/// <summary>Sets multiple properties on the object at the same time, based on JSON input.</summary>
+			/// <param name="properties" type="Word.Interfaces.SettingUpdateData">Properties described by the Word.Interfaces.SettingUpdateData interface.</param>
+			/// <param name="options" type="string">Options of the form { throwOnReadOnly?: boolean }
+			/// <br />
+			/// * throwOnReadOnly: Throw an error if the passed-in property list includes read-only properties (default = true).
+			/// </param>
+			/// </signature>
+			/// <signature>
+			/// <summary>Sets multiple properties on the object at the same time, based on an existing loaded object.</summary>
+			/// <param name="properties" type="Setting">An existing Setting object, with properties that have already been loaded and synced.</param>
+			/// </signature>
+		}
+		Setting.prototype.delete = function() {
+			/// <summary>
+			/// Deletes the setting. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns ></returns>
+		}
+
+		Setting.prototype.track = function() {
+			/// <summary>
+			/// Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+			/// </summary>
+			/// <returns type="Word.Setting"/>
+		}
+
+		Setting.prototype.untrack = function() {
+			/// <summary>
+			/// Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+			/// </summary>
+			/// <returns type="Word.Setting"/>
+		}
+
+		return Setting;
+	})(OfficeExtension.ClientObject);
+	Word.Setting = Setting;
+})(Word || (Word = {__proto__: null}));
+
+var Word;
+(function (Word) {
+	var SettingCollection = (function(_super) {
+		__extends(SettingCollection, _super);
+		function SettingCollection() {
+			/// <summary> Contains the collection of [setting](setting.md) objects. [Api set: WordApi 1.4 (PREVIEW)] </summary>
+			/// <field name="context" type="Word.RequestContext">The request context associated with this object.</field>
+			/// <field name="isNull" type="Boolean">Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property.</field>
+			/// <field name="items" type="Array" elementType="Word.Setting">Gets the loaded child items in this collection.</field>
+		}
+
+		SettingCollection.prototype.load = function(option) {
+			/// <summary>
+			/// Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+			/// </summary>
+			/// <param name="option" type="string | string[] | OfficeExtension.LoadOption"/>
+			/// <returns type="Word.SettingCollection"/>
+		}
+		SettingCollection.prototype.add = function(key, value) {
+			/// <summary>
+			/// Creates a new setting or sets an existing setting. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="key" type="String">Required. The setting&apos;s key, which is case-sensitive.</param>
+			/// <param name="value" >Required. The setting&apos;s value.</param>
+			/// <returns type="Word.Setting"></returns>
+		}
+		SettingCollection.prototype.deleteAll = function() {
+			/// <summary>
+			/// Deletes all settings in this add-in. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns ></returns>
+		}
+		SettingCollection.prototype.getCount = function() {
+			/// <summary>
+			/// Gets the count of settings. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns type="OfficeExtension.ClientResult&lt;number&gt;"></returns>
+			var result = new OfficeExtension.ClientResult();
+			result.__proto__ = null;
+			result.value = 0;
+			return result;
+		}
+		SettingCollection.prototype.getItem = function(key) {
+			/// <summary>
+			/// Gets a setting object by its key, which is case-sensitive. Throws if the setting does not exist. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="key" type="String">The key that identifies the setting object.</param>
+			/// <returns type="Word.Setting"></returns>
+		}
+		SettingCollection.prototype.getItemOrNullObject = function(key) {
+			/// <summary>
+			/// Gets a setting object by its key, which is case-sensitive. Returns a null object if the setting does not exist. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="key" type="String">Required. The key that identifies the setting object.</param>
+			/// <returns type="Word.Setting"></returns>
+		}
+
+		SettingCollection.prototype.track = function() {
+			/// <summary>
+			/// Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+			/// </summary>
+			/// <returns type="Word.SettingCollection"/>
+		}
+
+		SettingCollection.prototype.untrack = function() {
+			/// <summary>
+			/// Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+			/// </summary>
+			/// <returns type="Word.SettingCollection"/>
+		}
+
+		return SettingCollection;
+	})(OfficeExtension.ClientObject);
+	Word.SettingCollection = SettingCollection;
+})(Word || (Word = {__proto__: null}));
+
+var Word;
+(function (Word) {
 	/// <summary> [Api set: WordApi] </summary>
 	var Style = {
 		__proto__: null,
@@ -15398,6 +16785,16 @@ var Word;
 			/// <param name="values" type="Array" elementType="Array" optional="true">Optional 2D array. Cells are filled if the corresponding strings are specified in the array.</param>
 			/// <returns type="Word.Table"></returns>
 		}
+		Table.prototype.mergeCells = function(topRow, firstCell, bottomRow, lastCell) {
+			/// <summary>
+			/// Merges the cells bounded inclusively by a first and last cell. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="topRow" type="Number">Required. The row of the first cell</param>
+			/// <param name="firstCell" type="Number">Required. The index of the first cell in its row</param>
+			/// <param name="bottomRow" type="Number">Required. The row of the last cell</param>
+			/// <param name="lastCell" type="Number">Required. The index of the last cell in its row</param>
+			/// <returns type="Word.TableCell"></returns>
+		}
 		Table.prototype.search = function(searchText, searchOptions) {
 			/// <summary>
 			/// Performs a search with the specified searchOptions on the scope of the table object. The search results are a collection of range objects. [Api set: WordApi 1.3]
@@ -15607,6 +17004,14 @@ var Word;
 			/// <param name="cellPadding" type="Number">Required. The cell padding.</param>
 			/// <returns ></returns>
 		}
+		TableCell.prototype.split = function(rowCount, columnCount) {
+			/// <summary>
+			/// Splits the cell into the specified number of rows and columns. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <param name="rowCount" type="Number">Required. The number of rows to split into. Must be a divisor of the number of underlying rows.</param>
+			/// <param name="columnCount" type="Number">Required. The number of columns to split into.</param>
+			/// <returns ></returns>
+		}
 
 		TableCell.prototype.track = function() {
 			/// <summary>
@@ -15812,6 +17217,12 @@ var Word;
 			/// </summary>
 			/// <returns type="Word.TableRow"></returns>
 		}
+		TableRow.prototype.insertContentControl = function() {
+			/// <summary>
+			/// Inserts a content control on the row. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns type="Word.ContentControl"></returns>
+		}
 		TableRow.prototype.insertRows = function(insertLocation, rowCount, values) {
 			/// <summary>
 			/// Inserts rows using this row as a template. If values are specified, inserts the values into the new rows. [Api set: WordApi 1.3]
@@ -15820,6 +17231,12 @@ var Word;
 			/// <param name="rowCount" type="Number">Required. Number of rows to add</param>
 			/// <param name="values" type="Array" elementType="Array" optional="true">Optional. Strings to insert in the new rows, specified as a 2D array. The number of cells in each row must not exceed the number of cells in the existing row.</param>
 			/// <returns type="Word.TableRowCollection"></returns>
+		}
+		TableRow.prototype.merge = function() {
+			/// <summary>
+			/// Merges the row into one cell. [Api set: WordApi 1.4 (PREVIEW)]
+			/// </summary>
+			/// <returns type="Word.TableCell"></returns>
 		}
 		TableRow.prototype.search = function(searchText, searchOptions) {
 			/// <summary>
@@ -16006,7 +17423,7 @@ var Word;
 		var CustomPropertyUpdateData = (function() {
 			function CustomPropertyUpdateData() {
 				/// <summary>An interface for updating data on the CustomProperty object, for use in "customProperty.set({ ... })".</summary>
-				/// <field name="value" >Gets or sets the value of the custom property. [Api set: WordApi 1.3]</field>;
+				/// <field name="value" >Gets or sets the value of the custom property. Note that even though Word Online and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair). [Api set: WordApi 1.3]</field>;
 			}
 			return CustomPropertyUpdateData;
 		})();
@@ -16203,6 +17620,22 @@ var Word;
 		})();
 		Interfaces.SectionUpdateData.__proto__ = null;
 		Interfaces.SectionUpdateData = SectionUpdateData;
+	})(Interfaces = Word.Interfaces || (Word.Interfaces = { __proto__: null}));
+})(Word || (Word = {__proto__: null}));
+
+var Word;
+(function (Word) {
+	var Interfaces;
+	(function (Interfaces) {
+		var SettingUpdateData = (function() {
+			function SettingUpdateData() {
+				/// <summary>An interface for updating data on the Setting object, for use in "setting.set({ ... })".</summary>
+				/// <field name="value" >Gets or sets the value of the setting. [Api set: WordApi 1.4 (PREVIEW)]</field>;
+			}
+			return SettingUpdateData;
+		})();
+		Interfaces.SettingUpdateData.__proto__ = null;
+		Interfaces.SettingUpdateData = SettingUpdateData;
 	})(Interfaces = Word.Interfaces || (Word.Interfaces = { __proto__: null}));
 })(Word || (Word = {__proto__: null}));
 
