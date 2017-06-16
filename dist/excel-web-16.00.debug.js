@@ -1,5 +1,5 @@
 /* Excel-Online-specific API library */
-/* Version: 16.0.8306.3000 */
+/* Version: 16.0.8312.3000 */
 
 /* Office.js Version: 16.0.8302.1000 */ 
 /*

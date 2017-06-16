@@ -1,5 +1,5 @@
 /* Word Desktop-specific API library */
-/* Version: 16.0.8306.3000 */
+/* Version: 16.0.8301.3000 */
 
 /* Office.js Version: 16.0.8302.1000 */ 
 /*
