@@ -1,5 +1,7 @@
-/* OneNote specific JavaScript API library */
-/* Version: 16.0.8301.3000 */
+/* OneNote WinRT-specific API library */
+/* Version: 16.0.8312.3000 */
+
+/* Office.js Version: 16.0.8305.1000 */ 
 /*
 	Copyright (c) Microsoft Corporation.  All rights reserved.
 */
@@ -4795,33 +4797,15 @@ OSF.InitializationHelper.prototype.setAgaveHostCommunication=function OSF_Initia
 		};
 	};
 	windowOpen(window);
-	var setDefaultFocus=function OSF_InitializationHelper$setDefaultFocus() {
-		try {
-			if (document.activeElement==null || document.activeElement==document.body) {
-				var allTabbableElements=getAllTabElements();
-				if (allTabbableElements && allTabbableElements.length > 0) {
-					OSF.OUtil.focusToFirstTabbable(allTabbableElements, false);
-				}
-			}
+	if (document.activeElement==null || document.activeElement==document.body) {
+		var allTabbableElements=getAllTabElements();
+		if (allTabbableElements.length) {
+			OSF.OUtil.focusToFirstTabbable(allTabbableElements, false);
 		}
-		catch (err) {
-			OsfMsAjaxFactory.msAjaxDebug.trace("Setting Agave default focus failed. Exception:"+err);
-		}
-	};
-	if (document.body) {
-		setDefaultFocus();
-	}
-	else {
-		document.addEventListener('DOMContentLoaded', setDefaultFocus);
 	}
 	window.addEventListener("blur", function () {
-		try {
-			if (document.activeElement) {
-				document.activeElement.blur();
-			}
-		}
-		catch (err) {
-			OsfMsAjaxFactory.msAjaxDebug.trace("Clearing Agave focus failed. Exception:"+err);
+		if (document.activeElement) {
+			document.activeElement.blur();
 		}
 	});
 };
@@ -5495,7 +5479,7 @@ var OSFAppTelemetry;
 		}
 		appInfo.message=context.get_hostCustomMessage();
 		appInfo.officeJSVersion=OSF.ConstantNames.FileVersion;
-		appInfo.hostJSVersion="16.0.8301.3000";
+		appInfo.hostJSVersion="16.0.8305.1000";
 		if (context._wacHostEnvironment) {
 			appInfo.wacHostEnvironment=context._wacHostEnvironment;
 		}
@@ -11771,6 +11755,146 @@ var __extends=(this && this.__extends) || function (d, b) {
 	function __() { this.constructor=d; }
 	d.prototype=b===null ? Object.create(b) : (__.prototype=b.prototype, new __());
 };
+var OfficeCore;
+(function (OfficeCore) {
+	var _createPropertyObjectPath=OfficeExtension.ObjectPathFactory.createPropertyObjectPath;
+	var _createMethodObjectPath=OfficeExtension.ObjectPathFactory.createMethodObjectPath;
+	var _createIndexerObjectPath=OfficeExtension.ObjectPathFactory.createIndexerObjectPath;
+	var _createNewObjectObjectPath=OfficeExtension.ObjectPathFactory.createNewObjectObjectPath;
+	var _createChildItemObjectPathUsingIndexer=OfficeExtension.ObjectPathFactory.createChildItemObjectPathUsingIndexer;
+	var _createChildItemObjectPathUsingGetItemAt=OfficeExtension.ObjectPathFactory.createChildItemObjectPathUsingGetItemAt;
+	var _createChildItemObjectPathUsingIndexerOrGetItemAt=OfficeExtension.ObjectPathFactory.createChildItemObjectPathUsingIndexerOrGetItemAt;
+	var _createMethodAction=OfficeExtension.ActionFactory.createMethodAction;
+	var _createSetPropertyAction=OfficeExtension.ActionFactory.createSetPropertyAction;
+	var _isNullOrUndefined=OfficeExtension.Utility.isNullOrUndefined;
+	var _isUndefined=OfficeExtension.Utility.isUndefined;
+	var _throwIfNotLoaded=OfficeExtension.Utility.throwIfNotLoaded;
+	var _load=OfficeExtension.Utility.load;
+	var _fixObjectPathIfNecessary=OfficeExtension.Utility.fixObjectPathIfNecessary;
+	var _addActionResultHandler=OfficeExtension.Utility._addActionResultHandler;
+	var _handleNavigationPropertyResults=OfficeExtension.Utility._handleNavigationPropertyResults;
+	var _adjustToDateTime=OfficeExtension.Utility.adjustToDateTime;
+	var FlightingService=(function (_super) {
+		__extends(FlightingService, _super);
+		function FlightingService() {
+			_super.apply(this, arguments);
+		}
+		Object.defineProperty(FlightingService.prototype, "_className", {
+			get: function () {
+				return "FlightingService";
+			},
+			enumerable: true,
+			configurable: true
+		});
+		FlightingService.prototype.getFeature=function (featureName, type, defaultValue, possibleValues) {
+			return new OfficeCore.ABType(this.context, _createMethodObjectPath(this.context, this, "GetFeature", 0, [featureName, type, defaultValue, possibleValues], false, false, null));
+		};
+		FlightingService.prototype.getFeatureGate=function (featureName, scope) {
+			return new OfficeCore.ABType(this.context, _createMethodObjectPath(this.context, this, "GetFeatureGate", 0, [featureName, scope], false, false, null));
+		};
+		FlightingService.prototype.resetOverride=function (featureName) {
+			_createMethodAction(this.context, this, "ResetOverride", 0, [featureName]);
+		};
+		FlightingService.prototype.setOverride=function (featureName, type, value) {
+			_createMethodAction(this.context, this, "SetOverride", 0, [featureName, type, value]);
+		};
+		FlightingService.prototype._handleResult=function (value) {
+			_super.prototype._handleResult.call(this, value);
+			if (_isNullOrUndefined(value))
+				return;
+			var obj=value;
+			_fixObjectPathIfNecessary(this, obj);
+		};
+		FlightingService.newObject=function (context) {
+			var ret=new OfficeCore.FlightingService(context, _createNewObjectObjectPath(context, "Microsoft.Experiment.FlightingService", false));
+			return ret;
+		};
+		FlightingService.prototype.toJSON=function () {
+			return {};
+		};
+		return FlightingService;
+	}(OfficeExtension.ClientObject));
+	OfficeCore.FlightingService=FlightingService;
+	var ABType=(function (_super) {
+		__extends(ABType, _super);
+		function ABType() {
+			_super.apply(this, arguments);
+		}
+		Object.defineProperty(ABType.prototype, "_className", {
+			get: function () {
+				return "ABType";
+			},
+			enumerable: true,
+			configurable: true
+		});
+		Object.defineProperty(ABType.prototype, "value", {
+			get: function () {
+				_throwIfNotLoaded("value", this.m_value, "ABType", this._isNull);
+				return this.m_value;
+			},
+			enumerable: true,
+			configurable: true
+		});
+		ABType.prototype._handleResult=function (value) {
+			_super.prototype._handleResult.call(this, value);
+			if (_isNullOrUndefined(value))
+				return;
+			var obj=value;
+			_fixObjectPathIfNecessary(this, obj);
+			if (!_isUndefined(obj["Value"])) {
+				this.m_value=obj["Value"];
+			}
+		};
+		ABType.prototype.load=function (option) {
+			_load(this, option);
+			return this;
+		};
+		ABType.prototype.toJSON=function () {
+			return {
+				"value": this.m_value
+			};
+		};
+		return ABType;
+	}(OfficeExtension.ClientObject));
+	OfficeCore.ABType=ABType;
+	var FeatureType;
+	(function (FeatureType) {
+		FeatureType.boolean="Boolean";
+		FeatureType.integer="Integer";
+		FeatureType.string="String";
+	})(FeatureType=OfficeCore.FeatureType || (OfficeCore.FeatureType={}));
+	var ExperimentErrorCodes;
+	(function (ExperimentErrorCodes) {
+		ExperimentErrorCodes.generalException="GeneralException";
+	})(ExperimentErrorCodes=OfficeCore.ExperimentErrorCodes || (OfficeCore.ExperimentErrorCodes={}));
+})(OfficeCore || (OfficeCore={}));
+var OfficeCore;
+(function (OfficeCore) {
+	var RequestContext=(function (_super) {
+		__extends(RequestContext, _super);
+		function RequestContext(url) {
+			_super.call(this, url);
+		}
+		Object.defineProperty(RequestContext.prototype, "flightingService", {
+			get: function () {
+				if (!this.m_flightingService) {
+					this.m_flightingService=OfficeCore.FlightingService.newObject(this);
+				}
+				return this.m_flightingService;
+			},
+			enumerable: true,
+			configurable: true
+		});
+		return RequestContext;
+	}(OfficeExtension.ClientRequestContext));
+	OfficeCore.RequestContext=RequestContext;
+})(OfficeCore || (OfficeCore={}));
+
+var __extends=(this && this.__extends) || function (d, b) {
+	for (var p in b) if (b.hasOwnProperty(p)) d[p]=b[p];
+	function __() { this.constructor=d; }
+	d.prototype=b===null ? Object.create(b) : (__.prototype=b.prototype, new __());
+};
 var OneNote;
 (function (OneNote) {
 	var _createPropertyObjectPath=OfficeExtension.ObjectPathFactory.createPropertyObjectPath;
@@ -11862,11 +11986,17 @@ var OneNote;
 		Application.prototype._ClientLog=function (level, eventName, flag, data) {
 			_createMethodAction(this.context, this, "_ClientLog", 1, [level, eventName, flag, data]);
 		};
+		Application.prototype._EnableControl=function (controlId, enable) {
+			_createMethodAction(this.context, this, "_EnableControl", 0, [controlId, enable]);
+		};
 		Application.prototype._EnterFullScreen=function () {
 			_createMethodAction(this.context, this, "_EnterFullScreen", 0, []);
 		};
 		Application.prototype._ExitFullScreen=function () {
 			_createMethodAction(this.context, this, "_ExitFullScreen", 0, []);
+		};
+		Application.prototype._FocusCanvas=function () {
+			_createMethodAction(this.context, this, "_FocusCanvas", 0, []);
 		};
 		Application.prototype._GetAccountInfo=function () {
 			var action=_createMethodAction(this.context, this, "_GetAccountInfo", 1, []);
@@ -11880,8 +12010,8 @@ var OneNote;
 			_addActionResultHandler(this, action, ret);
 			return ret;
 		};
-		Application.prototype._GetControlVisibility=function (visibilityType) {
-			var action=_createMethodAction(this.context, this, "_GetControlVisibility", 1, [visibilityType]);
+		Application.prototype._GetControlVisibility=function (controlId) {
+			var action=_createMethodAction(this.context, this, "_GetControlVisibility", 1, [controlId]);
 			var ret=new OfficeExtension.ClientResult();
 			_addActionResultHandler(this, action, ret);
 			return ret;
@@ -11928,6 +12058,12 @@ var OneNote;
 			_addActionResultHandler(this, action, ret);
 			return ret;
 		};
+		Application.prototype._IsControlEnabled=function (controlId) {
+			var action=_createMethodAction(this.context, this, "_IsControlEnabled", 1, [controlId]);
+			var ret=new OfficeExtension.ClientResult();
+			_addActionResultHandler(this, action, ret);
+			return ret;
+		};
 		Application.prototype._RemoveAllReferences=function () {
 			_createMethodAction(this.context, this, "_RemoveAllReferences", 1, []);
 		};
@@ -11940,8 +12076,8 @@ var OneNote;
 			_addActionResultHandler(this, action, ret);
 			return ret;
 		};
-		Application.prototype._SetControlVisibility=function (visibilityType, visible) {
-			_createMethodAction(this.context, this, "_SetControlVisibility", 0, [visibilityType, visible]);
+		Application.prototype._SetControlVisibility=function (controlId, visible) {
+			_createMethodAction(this.context, this, "_SetControlVisibility", 0, [controlId, visible]);
 		};
 		Application.prototype._handleResult=function (value) {
 			_super.prototype._handleResult.call(this, value);
@@ -16036,24 +16172,24 @@ var OneNote;
 		NumberType.lim="Lim";
 		NumberType.custom="Custom";
 	})(NumberType=OneNote.NumberType || (OneNote.NumberType={}));
-	var VisibilityType;
-	(function (VisibilityType) {
-		VisibilityType.preinstallClassNotebook="PreinstallClassNotebook";
-		VisibilityType.distributePageId="DistributePageId";
-		VisibilityType.distributeSection="DistributeSection";
-		VisibilityType.reviewStudentWork="ReviewStudentWork";
-		VisibilityType.openTabForCreateClassNotebook="OpenTabForCreateClassNotebook";
-		VisibilityType.openTabForManageStudent="OpenTabForManageStudent";
-		VisibilityType.openTabForManageTeacher="OpenTabForManageTeacher";
-		VisibilityType.openTabForGetNotebookLink="OpenTabForGetNotebookLink";
-		VisibilityType.openTabForTeacherTraining="OpenTabForTeacherTraining";
-		VisibilityType.openTabForAddinGuide="OpenTabForAddinGuide";
-		VisibilityType.openTabForEducationBlog="OpenTabForEducationBlog";
-		VisibilityType.openTabForEducatorCommunity="OpenTabForEducatorCommunity";
-		VisibilityType.openTabToSendFeedback="OpenTabToSendFeedback";
-		VisibilityType.openTabForViewKnowledgeBase="OpenTabForViewKnowledgeBase";
-		VisibilityType.openTabForSuggestingFeature="OpenTabForSuggestingFeature";
-	})(VisibilityType=OneNote.VisibilityType || (OneNote.VisibilityType={}));
+	var ControlId;
+	(function (ControlId) {
+		ControlId.preinstallClassNotebook="PreinstallClassNotebook";
+		ControlId.distributePageId="DistributePageId";
+		ControlId.distributeSection="DistributeSection";
+		ControlId.reviewStudentWork="ReviewStudentWork";
+		ControlId.openTabForCreateClassNotebook="OpenTabForCreateClassNotebook";
+		ControlId.openTabForManageStudent="OpenTabForManageStudent";
+		ControlId.openTabForManageTeacher="OpenTabForManageTeacher";
+		ControlId.openTabForGetNotebookLink="OpenTabForGetNotebookLink";
+		ControlId.openTabForTeacherTraining="OpenTabForTeacherTraining";
+		ControlId.openTabForAddinGuide="OpenTabForAddinGuide";
+		ControlId.openTabForEducationBlog="OpenTabForEducationBlog";
+		ControlId.openTabForEducatorCommunity="OpenTabForEducatorCommunity";
+		ControlId.openTabToSendFeedback="OpenTabToSendFeedback";
+		ControlId.openTabForViewKnowledgeBase="OpenTabForViewKnowledgeBase";
+		ControlId.openTabForSuggestingFeature="OpenTabForSuggestingFeature";
+	})(ControlId=OneNote.ControlId || (OneNote.ControlId={}));
 	var ErrorCodes;
 	(function (ErrorCodes) {
 		ErrorCodes.generalException="GeneralException";
