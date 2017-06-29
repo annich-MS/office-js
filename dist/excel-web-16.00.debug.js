@@ -1,5 +1,5 @@
 /* Excel-Online-specific API library */
-/* Version: 16.0.8312.3000 */
+/* Version: 16.0.8326.3000 */
 
 /* Office.js Version: 16.0.8302.1000 */ 
 /*
@@ -11060,6 +11060,8 @@ var OfficeExtension;
 		ClientRequestContext.prototype.trace=function (message) {
 			OfficeExtension.ActionFactory.createTraceAction(this, message, true);
 		};
+		ClientRequestContext.prototype._processOfficeJsErrorResponse=function (officeJsErrorCode, response) {
+		};
 		ClientRequestContext.prototype.syncPrivateMain=function () {
 			var _this=this;
 			return OfficeExtension.Utility._createPromiseFromResult(null)
@@ -11102,7 +11104,7 @@ var OfficeExtension;
 			var requestFlags=req.flags;
 			if (!this._requestExecutor) {
 				if (OfficeExtension.Utility._isLocalDocumentUrl(this.m_requestUrlAndHeaderInfo.url)) {
-					this._requestExecutor=new OfficeExtension.OfficeJsRequestExecutor();
+					this._requestExecutor=new OfficeExtension.OfficeJsRequestExecutor(this);
 				}
 				else {
 					this._requestExecutor=new OfficeExtension.HttpRequestExecutor();
@@ -12165,6 +12167,9 @@ var OfficeExtension;
 				for (var entryIndex=0; entryIndex < msg.entries.length; entryIndex++) {
 					var entry=msg.entries[entryIndex];
 					if (entry.messageCategory==OfficeExtension.Constants.eventMessageCategory) {
+						if (OfficeExtension.Utility._logEnabled) {
+							OfficeExtension.Utility.log(JSON.stringify(entry));
+						}
 						var funcs=this.m_eventRegistration.getHandlers(entry.messageType, entry.targetId);
 						if (funcs.length > 0) {
 							var arg=JSON.parse(entry.message);
@@ -12583,14 +12588,14 @@ var OfficeExtension;
 				if (!OfficeExtension.Utility.isNullOrUndefined(id)) {
 					this.m_isInvalidAfterRequest=false;
 					this.m_isValid=true;
-					if (parentIsCollection) {
-						this.m_objectPathInfo.ObjectPathType=5;
-						this.m_objectPathInfo.Name="";
-					}
-					else {
+					if (!OfficeExtension.Utility.isNullOrEmptyString(getByIdMethodName)) {
 						this.m_objectPathInfo.ObjectPathType=3;
 						this.m_objectPathInfo.Name=getByIdMethodName;
 						this.m_getByIdMethodName=null;
+					}
+					else {
+						this.m_objectPathInfo.ObjectPathType=5;
+						this.m_objectPathInfo.Name="";
 					}
 					this.isWriteOperation=false;
 					this.m_objectPathInfo.ArgumentInfo={};
@@ -12735,9 +12740,11 @@ var OfficeExtension;
 var OfficeExtension;
 (function (OfficeExtension) {
 	var OfficeJsRequestExecutor=(function () {
-		function OfficeJsRequestExecutor() {
+		function OfficeJsRequestExecutor(context) {
+			this.m_context=context;
 		}
 		OfficeJsRequestExecutor.prototype.executeAsync=function (customData, requestFlags, requestMessage) {
+			var _this=this;
 			var messageSafearray=OfficeExtension.RichApiMessageUtility.buildMessageArrayForIRequestExecutor(customData, requestFlags, requestMessage, OfficeJsRequestExecutor.SourceLibHeaderValue);
 			return new OfficeExtension._Internal.OfficePromise(function (resolve, reject) {
 				OSF.DDA.RichApi.executeRichApiRequestAsync(messageSafearray, function (result) {
@@ -12749,6 +12756,7 @@ var OfficeExtension;
 					}
 					else {
 						response=OfficeExtension.RichApiMessageUtility.buildResponseOnError(result.error.code, result.error.message);
+						_this.m_context._processOfficeJsErrorResponse(result.error.code, response);
 					}
 					resolve(response);
 				});
@@ -13425,6 +13433,7 @@ var OfficeExtension;
 		ResourceStrings.cannotApplyPropertyThroughSetMethod="CannotApplyPropertyThroughSetMethod";
 		ResourceStrings.valueNotLoaded="ValueNotLoaded";
 		ResourceStrings.invalidOrTimedOutSessionMessage="InvalidOrTimedOutSessionMessage";
+		ResourceStrings.invalidOperationInCellEditMode="InvalidOperationInCellEditMode";
 		return ResourceStrings;
 	}());
 	OfficeExtension.ResourceStrings=ResourceStrings;
@@ -13444,7 +13453,8 @@ var OfficeExtension;
 		ResourceStringValues.RunMustReturnPromise="The batch function passed to the \".run\" method didn't return a promise. The function must return a promise, so that any automatically-tracked objects can be released at the completion of the batch operation. Typically, you return a promise by returning the response from \"context.sync()\".";
 		ResourceStringValues.Timeout="The operation has timed out.";
 		ResourceStringValues.ValueNotLoaded="The value of the result object has not been loaded yet. Before reading the value property, call \"context.sync()\" on the associated request context.";
-		ResourceStringValues.invalidOrTimedOutSessionMessage="Your Office Online session has expired or is invalid. To continue, refresh the page.";
+		ResourceStringValues.InvalidOrTimedOutSessionMessage="Your Office Online session has expired or is invalid. To continue, refresh the page.";
+		ResourceStringValues.InvalidOperationInCellEditMode="Excel is in cell-editing mode. Please exit the edit mode by pressing ENTER or TAB or selecting another cell, and then try again.";
 		return ResourceStringValues;
 	}());
 	OfficeExtension.ResourceStringValues=ResourceStringValues;
@@ -14142,6 +14152,13 @@ var OfficeCore;
 					this.m_flightingService=OfficeCore.FlightingService.newObject(this);
 				}
 				return this.m_flightingService;
+			},
+			enumerable: true,
+			configurable: true
+		});
+		Object.defineProperty(RequestContext.prototype, "flighting", {
+			get: function () {
+				return this.flightingService;
 			},
 			enumerable: true,
 			configurable: true
@@ -20408,6 +20425,9 @@ var Excel;
 			_addActionResultHandler(this, action, ret);
 			return ret;
 		};
+		ConditionalFormatCollection.prototype.getItem=function (id) {
+			return new Excel.ConditionalFormat(this.context, _createIndexerObjectPath(this.context, this, [id]));
+		};
 		ConditionalFormatCollection.prototype.getItemAt=function (index) {
 			return new Excel.ConditionalFormat(this.context, _createMethodObjectPath(this.context, this, "GetItemAt", 1, [index], false, false, null));
 		};
@@ -20421,7 +20441,7 @@ var Excel;
 				this.m__items=[];
 				var _data=obj[OfficeExtension.Constants.items];
 				for (var i=0; i < _data.length; i++) {
-					var _item=new Excel.ConditionalFormat(this.context, _createChildItemObjectPathUsingIndexerOrGetItemAt(false, this.context, this, _data[i], i));
+					var _item=new Excel.ConditionalFormat(this.context, _createChildItemObjectPathUsingIndexerOrGetItemAt(true, this.context, this, _data[i], i));
 					_item._handleResult(_data[i]);
 					this.m__items.push(_item);
 				}
@@ -20609,6 +20629,14 @@ var Excel;
 			enumerable: true,
 			configurable: true
 		});
+		Object.defineProperty(ConditionalFormat.prototype, "id", {
+			get: function () {
+				_throwIfNotLoaded("id", this.m_id, "ConditionalFormat", this._isNull);
+				return this.m_id;
+			},
+			enumerable: true,
+			configurable: true
+		});
 		Object.defineProperty(ConditionalFormat.prototype, "priority", {
 			get: function () {
 				_throwIfNotLoaded("priority", this.m_priority, "ConditionalFormat", this._isNull);
@@ -20659,6 +20687,9 @@ var Excel;
 				return;
 			var obj=value;
 			_fixObjectPathIfNecessary(this, obj);
+			if (!_isUndefined(obj["Id"])) {
+				this.m_id=obj["Id"];
+			}
 			if (!_isUndefined(obj["Priority"])) {
 				this.m_priority=obj["Priority"];
 			}
@@ -20674,6 +20705,15 @@ var Excel;
 			_load(this, option);
 			return this;
 		};
+		ConditionalFormat.prototype._handleIdResult=function (value) {
+			_super.prototype._handleIdResult.call(this, value);
+			if (_isNullOrUndefined(value)) {
+				return;
+			}
+			if (!_isUndefined(value["Id"])) {
+				this.m_id=value["Id"];
+			}
+		};
 		ConditionalFormat.prototype.toJSON=function () {
 			return {
 				"cellValue": this.m_cellValue,
@@ -20686,6 +20726,7 @@ var Excel;
 				"dataBarOrNullObject": this.m_dataBarOrNullObject,
 				"iconSet": this.m_iconSet,
 				"iconSetOrNullObject": this.m_iconSetOrNullObject,
+				"id": this.m_id,
 				"preset": this.m_preset,
 				"presetOrNullObject": this.m_presetOrNullObject,
 				"priority": this.m_priority,
@@ -22024,12 +22065,6 @@ var Excel;
 			var ret=new OfficeExtension.ClientResult();
 			_addActionResultHandler(this, action, ret);
 			return ret;
-		};
-		InternalTest.prototype._RegisterTestEvent=function () {
-			_createMethodAction(this.context, this, "_RegisterTestEvent", 0, []);
-		};
-		InternalTest.prototype._UnregisterTestEvent=function () {
-			_createMethodAction(this.context, this, "_UnregisterTestEvent", 0, []);
 		};
 		InternalTest.prototype._handleResult=function (value) {
 			_super.prototype._handleResult.call(this, value);

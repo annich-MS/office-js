@@ -2527,7 +2527,7 @@ declare namespace OfficeCore {
 declare namespace OfficeCore {
     class RequestContext extends OfficeExtension.ClientRequestContext {
         constructor(url?: string | OfficeExtension.RequestUrlAndHeaderInfo | any);
-        readonly flightingService: FlightingService;
+        readonly flighting: FlightingService;
     }
 }
 
@@ -2764,73 +2764,6 @@ declare namespace Excel {
      * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo | Session, objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
-    var _RedirectV1APIs: boolean;
-    var _V1APIMap: {
-        "GetDataAsync": {
-            call: (ctx: any, callArgs: any) => any;
-            postprocess: (response: any, callArgs: any) => any;
-        };
-        "GetSelectedDataAsync": {
-            call: (ctx: any, callArgs: any) => any;
-            postprocess: (response: any, callArgs: any) => any;
-        };
-        "GoToByIdAsync": {
-            call: (ctx: any, callArgs: any) => any;
-        };
-        "AddColumnsAsync": {
-            call: (ctx: any, callArgs: any) => any;
-        };
-        "AddFromSelectionAsync": {
-            call: (ctx: any, callArgs: any) => any;
-            postprocess: (response: any) => any;
-        };
-        "AddFromNamedItemAsync": {
-            call: (ctx: any, callArgs: any) => any;
-            postprocess: (response: any) => any;
-        };
-        "AddFromPromptAsync": {
-            call: (ctx: any, callArgs: any) => any;
-            postprocess: (response: any) => any;
-        };
-        "AddRowsAsync": {
-            call: (ctx: any, callArgs: any) => any;
-        };
-        "GetByIdAsync": {
-            call: (ctx: any, callArgs: any) => any;
-            postprocess: (response: any) => any;
-        };
-        "ReleaseByIdAsync": {
-            call: (ctx: any, callArgs: any) => any;
-        };
-        "GetAllAsync": {
-            call: (ctx: any) => any;
-            postprocess: (response: any) => any;
-        };
-        "DeleteAllDataValuesAsync": {
-            call: (ctx: any, callArgs: any) => any;
-        };
-        "SetSelectedDataAsync": {
-            preprocess: (callArgs: any) => any;
-            call: (ctx: any, callArgs: any) => any;
-        };
-        "SetDataAsync": {
-            preprocess: (callArgs: any) => any;
-            call: (ctx: any, callArgs: any) => any;
-        };
-        "SetFormatsAsync": {
-            preprocess: (callArgs: any) => any;
-            call: (ctx: any, callArgs: any) => any;
-        };
-        "SetTableOptionsAsync": {
-            call: (ctx: any, callArgs: any) => any;
-        };
-        "ClearFormatsAsync": {
-            call: (ctx: any, callArgs: any) => any;
-        };
-        "GetFilePropertiesAsync": {
-            call: (ctx: any, callArgs: any) => any;
-        };
-    };
     /**
      *
      * Provides information about the binding that raised the SelectionChanged event.
@@ -2992,13 +2925,6 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.2]
          */
         readonly functions: Excel.Functions;
-        /**
-         *
-         * For internal use only.
-         *
-         * [Api set: ExcelApi 1.6 (PREVIEW)]
-         */
-        readonly internalTest: Excel.InternalTest;
         /**
          *
          * Represents a collection of workbook scoped named items (named ranges and constants). Read-only.
@@ -5656,7 +5582,7 @@ declare namespace Excel {
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Retrieves a series based on its position in the collection
+         * Retrieves a series based on its position in the collection.
          *
          * [Api set: ExcelApi 1.1]
          *
@@ -7310,6 +7236,16 @@ declare namespace Excel {
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
+         * Returns a conditional format for the given ID.
+         *
+         * [Api set: ExcelApi 1.6 (PREVIEW)]
+         *
+         * @param id The id of the conditional format.
+         * @returns Conditional Format object.
+         */
+        getItem(id: string): Excel.ConditionalFormat;
+        /**
+         *
          * Returns a conditional format at the given index.
          *
          * [Api set: ExcelApi 1.6 (PREVIEW)]
@@ -7450,6 +7386,13 @@ declare namespace Excel {
         readonly topBottomOrNullObject: Excel.TopBottomConditionalFormat;
         /**
          *
+         * The Priority of the Conditional Format within the current ConditionalFormatCollection.
+         *
+         * [Api set: ExcelApi 1.6 (PREVIEW)]
+         */
+        readonly id: string;
+        /**
+         *
          * The priority (or index) within the conditional format collection that this conditional format currently exists in. Changing this also
             changes other conditional formats' priorities, to allow for a contiguous priority order.
             Use a negative priority to begin from the back.
@@ -7519,6 +7462,7 @@ declare namespace Excel {
             "dataBarOrNullObject": DataBarConditionalFormat;
             "iconSet": IconSetConditionalFormat;
             "iconSetOrNullObject": IconSetConditionalFormat;
+            "id": string;
             "preset": PresetCriteriaConditionalFormat;
             "presetOrNullObject": PresetCriteriaConditionalFormat;
             "priority": number;
@@ -8538,22 +8482,6 @@ declare namespace Excel {
         toJSON(): {
             "count": number;
         };
-    }
-    /**
-     *
-     * For internal use only.
-     *
-     * [Api set: ExcelApi 1.6 (PREVIEW)]
-     */
-    class InternalTest extends OfficeExtension.ClientObject {
-        /**
-         *
-         * For internal use only.
-         *
-         * [Api set: ExcelApi 1.6 (PREVIEW)]
-         */
-        delay(seconds: number): OfficeExtension.ClientResult<string>;
-        toJSON(): {};
     }
     /**
      * [Api set: ExcelApi 1.1]

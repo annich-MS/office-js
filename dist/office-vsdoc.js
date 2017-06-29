@@ -1,4 +1,4 @@
-/* Version: 16.0.8312.1000 */
+/* Version: 16.0.8326.1000 */
 /*
 	Copyright (c) Microsoft Corporation.  All rights reserved.
 */
@@ -4667,7 +4667,7 @@ var Excel;
 		}
 		ChartSeriesCollection.prototype.getItemAt = function(index) {
 			/// <summary>
-			/// Retrieves a series based on its position in the collection [Api set: ExcelApi 1.1]
+			/// Retrieves a series based on its position in the collection. [Api set: ExcelApi 1.1]
 			/// </summary>
 			/// <param name="index" type="Number">Index value of the object to be retrieved. Zero-indexed.</param>
 			/// <returns type="Excel.ChartSeries"></returns>
@@ -5161,6 +5161,7 @@ var Excel;
 			/// <field name="dataBarOrNullObject" type="Excel.DataBarConditionalFormat">Returns the data bar properties if the current conditional format is a data bar. [Api set: ExcelApi 1.6 (PREVIEW)]</field>
 			/// <field name="iconSet" type="Excel.IconSetConditionalFormat">Returns the IconSet conditional format properties if the current conditional format is an IconSet type. [Api set: ExcelApi 1.6 (PREVIEW)]</field>
 			/// <field name="iconSetOrNullObject" type="Excel.IconSetConditionalFormat">Returns the IconSet conditional format properties if the current conditional format is an IconSet type. [Api set: ExcelApi 1.6 (PREVIEW)]</field>
+			/// <field name="id" type="String">The Priority of the Conditional Format within the current ConditionalFormatCollection. [Api set: ExcelApi 1.6 (PREVIEW)]</field>
 			/// <field name="preset" type="Excel.PresetCriteriaConditionalFormat">Returns the preset criteria conditional format such as above average/below average/unique values/contains blank/nonblank/error/noerror properties. [Api set: ExcelApi 1.6 (PREVIEW)]</field>
 			/// <field name="presetOrNullObject" type="Excel.PresetCriteriaConditionalFormat">Returns the preset criteria conditional format such as above average/below average/unique values/contains blank/nonblank/error/noerror properties. [Api set: ExcelApi 1.6 (PREVIEW)]</field>
 			/// <field name="priority" type="Number">The priority (or index) within the conditional format collection that this conditional format currently exists in. Changing this also               changes other conditional formats&apos; priorities, to allow for a contiguous priority order.              Use a negative priority to begin from the back.              Priorities greater than than bounds will get and set to the maximum (or minimum if negative) priority.              Also note that if you change the priority, you have to re-fetch a new copy of the object at that new priority location if you want to make further changes to it. [Api set: ExcelApi 1.6 (PREVIEW)]</field>
@@ -5258,6 +5259,13 @@ var Excel;
 			result.__proto__ = null;
 			result.value = 0;
 			return result;
+		}
+		ConditionalFormatCollection.prototype.getItem = function(id) {
+			/// <summary>
+			/// Returns a conditional format for the given ID. [Api set: ExcelApi 1.6 (PREVIEW)]
+			/// </summary>
+			/// <param name="id" type="String">The id of the conditional format.</param>
+			/// <returns type="Excel.ConditionalFormat">Conditional Format object.</returns>
 		}
 		ConditionalFormatCollection.prototype.getItemAt = function(index) {
 			/// <summary>

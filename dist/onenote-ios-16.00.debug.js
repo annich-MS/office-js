@@ -1,5 +1,5 @@
 /* OneNote iOS-specific API library */
-/* Version: 16.0.8312.3000 */
+/* Version: 16.0.8323.1000 */
 
 /* Office.js Version: 16.0.8305.1000 */ 
 /*
@@ -8750,6 +8750,8 @@ var OfficeExtension;
 		ClientRequestContext.prototype.trace=function (message) {
 			OfficeExtension.ActionFactory.createTraceAction(this, message, true);
 		};
+		ClientRequestContext.prototype._processOfficeJsErrorResponse=function (officeJsErrorCode, response) {
+		};
 		ClientRequestContext.prototype.syncPrivateMain=function () {
 			var _this=this;
 			return OfficeExtension.Utility._createPromiseFromResult(null)
@@ -8792,7 +8794,7 @@ var OfficeExtension;
 			var requestFlags=req.flags;
 			if (!this._requestExecutor) {
 				if (OfficeExtension.Utility._isLocalDocumentUrl(this.m_requestUrlAndHeaderInfo.url)) {
-					this._requestExecutor=new OfficeExtension.OfficeJsRequestExecutor();
+					this._requestExecutor=new OfficeExtension.OfficeJsRequestExecutor(this);
 				}
 				else {
 					this._requestExecutor=new OfficeExtension.HttpRequestExecutor();
@@ -9855,6 +9857,9 @@ var OfficeExtension;
 				for (var entryIndex=0; entryIndex < msg.entries.length; entryIndex++) {
 					var entry=msg.entries[entryIndex];
 					if (entry.messageCategory==OfficeExtension.Constants.eventMessageCategory) {
+						if (OfficeExtension.Utility._logEnabled) {
+							OfficeExtension.Utility.log(JSON.stringify(entry));
+						}
 						var funcs=this.m_eventRegistration.getHandlers(entry.messageType, entry.targetId);
 						if (funcs.length > 0) {
 							var arg=JSON.parse(entry.message);
@@ -10273,14 +10278,14 @@ var OfficeExtension;
 				if (!OfficeExtension.Utility.isNullOrUndefined(id)) {
 					this.m_isInvalidAfterRequest=false;
 					this.m_isValid=true;
-					if (parentIsCollection) {
-						this.m_objectPathInfo.ObjectPathType=5;
-						this.m_objectPathInfo.Name="";
-					}
-					else {
+					if (!OfficeExtension.Utility.isNullOrEmptyString(getByIdMethodName)) {
 						this.m_objectPathInfo.ObjectPathType=3;
 						this.m_objectPathInfo.Name=getByIdMethodName;
 						this.m_getByIdMethodName=null;
+					}
+					else {
+						this.m_objectPathInfo.ObjectPathType=5;
+						this.m_objectPathInfo.Name="";
 					}
 					this.isWriteOperation=false;
 					this.m_objectPathInfo.ArgumentInfo={};
@@ -10425,9 +10430,11 @@ var OfficeExtension;
 var OfficeExtension;
 (function (OfficeExtension) {
 	var OfficeJsRequestExecutor=(function () {
-		function OfficeJsRequestExecutor() {
+		function OfficeJsRequestExecutor(context) {
+			this.m_context=context;
 		}
 		OfficeJsRequestExecutor.prototype.executeAsync=function (customData, requestFlags, requestMessage) {
+			var _this=this;
 			var messageSafearray=OfficeExtension.RichApiMessageUtility.buildMessageArrayForIRequestExecutor(customData, requestFlags, requestMessage, OfficeJsRequestExecutor.SourceLibHeaderValue);
 			return new OfficeExtension._Internal.OfficePromise(function (resolve, reject) {
 				OSF.DDA.RichApi.executeRichApiRequestAsync(messageSafearray, function (result) {
@@ -10439,6 +10446,7 @@ var OfficeExtension;
 					}
 					else {
 						response=OfficeExtension.RichApiMessageUtility.buildResponseOnError(result.error.code, result.error.message);
+						_this.m_context._processOfficeJsErrorResponse(result.error.code, response);
 					}
 					resolve(response);
 				});
@@ -11115,6 +11123,7 @@ var OfficeExtension;
 		ResourceStrings.cannotApplyPropertyThroughSetMethod="CannotApplyPropertyThroughSetMethod";
 		ResourceStrings.valueNotLoaded="ValueNotLoaded";
 		ResourceStrings.invalidOrTimedOutSessionMessage="InvalidOrTimedOutSessionMessage";
+		ResourceStrings.invalidOperationInCellEditMode="InvalidOperationInCellEditMode";
 		return ResourceStrings;
 	}());
 	OfficeExtension.ResourceStrings=ResourceStrings;
@@ -11134,7 +11143,8 @@ var OfficeExtension;
 		ResourceStringValues.RunMustReturnPromise="The batch function passed to the \".run\" method didn't return a promise. The function must return a promise, so that any automatically-tracked objects can be released at the completion of the batch operation. Typically, you return a promise by returning the response from \"context.sync()\".";
 		ResourceStringValues.Timeout="The operation has timed out.";
 		ResourceStringValues.ValueNotLoaded="The value of the result object has not been loaded yet. Before reading the value property, call \"context.sync()\" on the associated request context.";
-		ResourceStringValues.invalidOrTimedOutSessionMessage="Your Office Online session has expired or is invalid. To continue, refresh the page.";
+		ResourceStringValues.InvalidOrTimedOutSessionMessage="Your Office Online session has expired or is invalid. To continue, refresh the page.";
+		ResourceStringValues.InvalidOperationInCellEditMode="Excel is in cell-editing mode. Please exit the edit mode by pressing ENTER or TAB or selecting another cell, and then try again.";
 		return ResourceStringValues;
 	}());
 	OfficeExtension.ResourceStringValues=ResourceStringValues;
@@ -11700,146 +11710,6 @@ var OfficeExtension;
 	}());
 	OfficeExtension.Utility=Utility;
 })(OfficeExtension || (OfficeExtension={}));
-
-var __extends=(this && this.__extends) || function (d, b) {
-	for (var p in b) if (b.hasOwnProperty(p)) d[p]=b[p];
-	function __() { this.constructor=d; }
-	d.prototype=b===null ? Object.create(b) : (__.prototype=b.prototype, new __());
-};
-var OfficeCore;
-(function (OfficeCore) {
-	var _createPropertyObjectPath=OfficeExtension.ObjectPathFactory.createPropertyObjectPath;
-	var _createMethodObjectPath=OfficeExtension.ObjectPathFactory.createMethodObjectPath;
-	var _createIndexerObjectPath=OfficeExtension.ObjectPathFactory.createIndexerObjectPath;
-	var _createNewObjectObjectPath=OfficeExtension.ObjectPathFactory.createNewObjectObjectPath;
-	var _createChildItemObjectPathUsingIndexer=OfficeExtension.ObjectPathFactory.createChildItemObjectPathUsingIndexer;
-	var _createChildItemObjectPathUsingGetItemAt=OfficeExtension.ObjectPathFactory.createChildItemObjectPathUsingGetItemAt;
-	var _createChildItemObjectPathUsingIndexerOrGetItemAt=OfficeExtension.ObjectPathFactory.createChildItemObjectPathUsingIndexerOrGetItemAt;
-	var _createMethodAction=OfficeExtension.ActionFactory.createMethodAction;
-	var _createSetPropertyAction=OfficeExtension.ActionFactory.createSetPropertyAction;
-	var _isNullOrUndefined=OfficeExtension.Utility.isNullOrUndefined;
-	var _isUndefined=OfficeExtension.Utility.isUndefined;
-	var _throwIfNotLoaded=OfficeExtension.Utility.throwIfNotLoaded;
-	var _load=OfficeExtension.Utility.load;
-	var _fixObjectPathIfNecessary=OfficeExtension.Utility.fixObjectPathIfNecessary;
-	var _addActionResultHandler=OfficeExtension.Utility._addActionResultHandler;
-	var _handleNavigationPropertyResults=OfficeExtension.Utility._handleNavigationPropertyResults;
-	var _adjustToDateTime=OfficeExtension.Utility.adjustToDateTime;
-	var FlightingService=(function (_super) {
-		__extends(FlightingService, _super);
-		function FlightingService() {
-			_super.apply(this, arguments);
-		}
-		Object.defineProperty(FlightingService.prototype, "_className", {
-			get: function () {
-				return "FlightingService";
-			},
-			enumerable: true,
-			configurable: true
-		});
-		FlightingService.prototype.getFeature=function (featureName, type, defaultValue, possibleValues) {
-			return new OfficeCore.ABType(this.context, _createMethodObjectPath(this.context, this, "GetFeature", 0, [featureName, type, defaultValue, possibleValues], false, false, null));
-		};
-		FlightingService.prototype.getFeatureGate=function (featureName, scope) {
-			return new OfficeCore.ABType(this.context, _createMethodObjectPath(this.context, this, "GetFeatureGate", 0, [featureName, scope], false, false, null));
-		};
-		FlightingService.prototype.resetOverride=function (featureName) {
-			_createMethodAction(this.context, this, "ResetOverride", 0, [featureName]);
-		};
-		FlightingService.prototype.setOverride=function (featureName, type, value) {
-			_createMethodAction(this.context, this, "SetOverride", 0, [featureName, type, value]);
-		};
-		FlightingService.prototype._handleResult=function (value) {
-			_super.prototype._handleResult.call(this, value);
-			if (_isNullOrUndefined(value))
-				return;
-			var obj=value;
-			_fixObjectPathIfNecessary(this, obj);
-		};
-		FlightingService.newObject=function (context) {
-			var ret=new OfficeCore.FlightingService(context, _createNewObjectObjectPath(context, "Microsoft.Experiment.FlightingService", false));
-			return ret;
-		};
-		FlightingService.prototype.toJSON=function () {
-			return {};
-		};
-		return FlightingService;
-	}(OfficeExtension.ClientObject));
-	OfficeCore.FlightingService=FlightingService;
-	var ABType=(function (_super) {
-		__extends(ABType, _super);
-		function ABType() {
-			_super.apply(this, arguments);
-		}
-		Object.defineProperty(ABType.prototype, "_className", {
-			get: function () {
-				return "ABType";
-			},
-			enumerable: true,
-			configurable: true
-		});
-		Object.defineProperty(ABType.prototype, "value", {
-			get: function () {
-				_throwIfNotLoaded("value", this.m_value, "ABType", this._isNull);
-				return this.m_value;
-			},
-			enumerable: true,
-			configurable: true
-		});
-		ABType.prototype._handleResult=function (value) {
-			_super.prototype._handleResult.call(this, value);
-			if (_isNullOrUndefined(value))
-				return;
-			var obj=value;
-			_fixObjectPathIfNecessary(this, obj);
-			if (!_isUndefined(obj["Value"])) {
-				this.m_value=obj["Value"];
-			}
-		};
-		ABType.prototype.load=function (option) {
-			_load(this, option);
-			return this;
-		};
-		ABType.prototype.toJSON=function () {
-			return {
-				"value": this.m_value
-			};
-		};
-		return ABType;
-	}(OfficeExtension.ClientObject));
-	OfficeCore.ABType=ABType;
-	var FeatureType;
-	(function (FeatureType) {
-		FeatureType.boolean="Boolean";
-		FeatureType.integer="Integer";
-		FeatureType.string="String";
-	})(FeatureType=OfficeCore.FeatureType || (OfficeCore.FeatureType={}));
-	var ExperimentErrorCodes;
-	(function (ExperimentErrorCodes) {
-		ExperimentErrorCodes.generalException="GeneralException";
-	})(ExperimentErrorCodes=OfficeCore.ExperimentErrorCodes || (OfficeCore.ExperimentErrorCodes={}));
-})(OfficeCore || (OfficeCore={}));
-var OfficeCore;
-(function (OfficeCore) {
-	var RequestContext=(function (_super) {
-		__extends(RequestContext, _super);
-		function RequestContext(url) {
-			_super.call(this, url);
-		}
-		Object.defineProperty(RequestContext.prototype, "flightingService", {
-			get: function () {
-				if (!this.m_flightingService) {
-					this.m_flightingService=OfficeCore.FlightingService.newObject(this);
-				}
-				return this.m_flightingService;
-			},
-			enumerable: true,
-			configurable: true
-		});
-		return RequestContext;
-	}(OfficeExtension.ClientRequestContext));
-	OfficeCore.RequestContext=RequestContext;
-})(OfficeCore || (OfficeCore={}));
 
 var __extends=(this && this.__extends) || function (d, b) {
 	for (var p in b) if (b.hasOwnProperty(p)) d[p]=b[p];
@@ -13859,6 +13729,12 @@ var OneNote;
 		Section.prototype.insertSectionAsSibling=function (location, title) {
 			return new OneNote.Section(this.context, _createMethodObjectPath(this.context, this, "InsertSectionAsSibling", 0, [location, title], false, true, null));
 		};
+		Section.prototype._GetGeoInfo=function () {
+			var action=_createMethodAction(this.context, this, "_GetGeoInfo", 1, []);
+			var ret=new OfficeExtension.ClientResult();
+			_addActionResultHandler(this, action, ret);
+			return ret;
+		};
 		Section.prototype._KeepReference=function () {
 			_createMethodAction(this.context, this, "_KeepReference", 1, []);
 		};
@@ -14853,6 +14729,9 @@ var OneNote;
 			enumerable: true,
 			configurable: true
 		});
+		Paragraph.prototype.addNoteTag=function (type, status) {
+			return new OneNote.NoteTag(this.context, _createMethodObjectPath(this.context, this, "AddNoteTag", 0, [type, status], false, true, null));
+		};
 		Paragraph.prototype.delete=function () {
 			_createMethodAction(this.context, this, "Delete", 0, []);
 		};
@@ -15023,6 +14902,92 @@ var OneNote;
 		return ParagraphCollection;
 	}(OfficeExtension.ClientObject));
 	OneNote.ParagraphCollection=ParagraphCollection;
+	var NoteTag=(function (_super) {
+		__extends(NoteTag, _super);
+		function NoteTag() {
+			_super.apply(this, arguments);
+		}
+		Object.defineProperty(NoteTag.prototype, "_className", {
+			get: function () {
+				return "NoteTag";
+			},
+			enumerable: true,
+			configurable: true
+		});
+		Object.defineProperty(NoteTag.prototype, "id", {
+			get: function () {
+				_throwIfNotLoaded("id", this.m_id, "NoteTag", this._isNull);
+				return this.m_id;
+			},
+			enumerable: true,
+			configurable: true
+		});
+		Object.defineProperty(NoteTag.prototype, "status", {
+			get: function () {
+				_throwIfNotLoaded("status", this.m_status, "NoteTag", this._isNull);
+				return this.m_status;
+			},
+			enumerable: true,
+			configurable: true
+		});
+		Object.defineProperty(NoteTag.prototype, "type", {
+			get: function () {
+				_throwIfNotLoaded("type", this.m_type, "NoteTag", this._isNull);
+				return this.m_type;
+			},
+			enumerable: true,
+			configurable: true
+		});
+		NoteTag.prototype._KeepReference=function () {
+			_createMethodAction(this.context, this, "_KeepReference", 1, []);
+		};
+		NoteTag.prototype._handleResult=function (value) {
+			_super.prototype._handleResult.call(this, value);
+			if (_isNullOrUndefined(value))
+				return;
+			var obj=value;
+			_fixObjectPathIfNecessary(this, obj);
+			if (!_isUndefined(obj["Id"])) {
+				this.m_id=obj["Id"];
+			}
+			if (!_isUndefined(obj["Status"])) {
+				this.m_status=obj["Status"];
+			}
+			if (!_isUndefined(obj["Type"])) {
+				this.m_type=obj["Type"];
+			}
+		};
+		NoteTag.prototype.load=function (option) {
+			_load(this, option);
+			return this;
+		};
+		NoteTag.prototype._handleIdResult=function (value) {
+			_super.prototype._handleIdResult.call(this, value);
+			if (_isNullOrUndefined(value)) {
+				return;
+			}
+			if (!_isUndefined(value["Id"])) {
+				this.m_id=value["Id"];
+			}
+		};
+		NoteTag.prototype.track=function () {
+			this.context.trackedObjects.add(this);
+			return this;
+		};
+		NoteTag.prototype.untrack=function () {
+			this.context.trackedObjects.remove(this);
+			return this;
+		};
+		NoteTag.prototype.toJSON=function () {
+			return {
+				"id": this.m_id,
+				"status": this.m_status,
+				"type": this.m_type
+			};
+		};
+		return NoteTag;
+	}(OfficeExtension.ClientObject));
+	OneNote.NoteTag=NoteTag;
 	var RichText=(function (_super) {
 		__extends(RichText, _super);
 		function RichText() {
@@ -16017,6 +15982,31 @@ var OneNote;
 		ParagraphType.ink="Ink";
 		ParagraphType.other="Other";
 	})(ParagraphType=OneNote.ParagraphType || (OneNote.ParagraphType={}));
+	var NoteTagType;
+	(function (NoteTagType) {
+		NoteTagType.unknown="Unknown";
+		NoteTagType.toDo="ToDo";
+		NoteTagType.important="Important";
+		NoteTagType.question="Question";
+		NoteTagType.contact="Contact";
+		NoteTagType.address="Address";
+		NoteTagType.phoneNumber="PhoneNumber";
+		NoteTagType.website="Website";
+		NoteTagType.idea="Idea";
+		NoteTagType.critical="Critical";
+		NoteTagType.toDoPriority1="ToDoPriority1";
+		NoteTagType.toDoPriority2="ToDoPriority2";
+	})(NoteTagType=OneNote.NoteTagType || (OneNote.NoteTagType={}));
+	var NoteTagStatus;
+	(function (NoteTagStatus) {
+		NoteTagStatus.unknown="Unknown";
+		NoteTagStatus.normal="Normal";
+		NoteTagStatus.completed="Completed";
+		NoteTagStatus.disabled="Disabled";
+		NoteTagStatus.outlookTask="OutlookTask";
+		NoteTagStatus.taskNotSyncedYet="TaskNotSyncedYet";
+		NoteTagStatus.taskRemoved="TaskRemoved";
+	})(NoteTagStatus=OneNote.NoteTagStatus || (OneNote.NoteTagStatus={}));
 	var ServiceId;
 	(function (ServiceId) {
 		ServiceId.form="Form";
